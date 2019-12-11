@@ -11,7 +11,7 @@ import {
   MDBTableBody
 } from "mdbreact";
 
-const ListGroupPage = ({data}) => {
+const ServiceList = ({data}) => {
   const columns = [
     {
       label:"MAC Address",
@@ -29,13 +29,13 @@ const ListGroupPage = ({data}) => {
   return (
     <MDBTable>
       <MDBTableHead>
-        <td>Address</td>
+        <td>Name</td>
         <td align="right">Actions</td>
       </MDBTableHead>
       <MDBTableBody>
         {data.map((e) => (
-          <tr key={e.address}>
-            <td>{e.address}</td>
+          <tr key={e.name}>
+            <td>{e.name}</td>
             <td align="right">{e.actions}</td>
           </tr>
         ))}
@@ -69,4 +69,4 @@ const ListGroupPage = ({data}) => {
   // );
 };
 
-export default ListGroupPage;
+export default ServiceList;

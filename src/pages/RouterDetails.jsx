@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 import io from 'socket.io-client';
-import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBBtn, MDBSpinner } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBBtn, MDBSpinner, MDBIcon } from 'mdbreact';
 import ListGroupPage from '../components/ConnexionList';
+import ServiceList from '../components/ServiceList';
 
 const RouterDetails = (props) => {
 	const [connections, setConnections] = useState([])
@@ -21,9 +22,23 @@ const RouterDetails = (props) => {
 			</div>}
 			setConnections(prevConnections => [...prevConnections, connection])
 		})
+		socket.on("service request", ({name}) => {
+			let service = {name, actions: <div>
+				<MDBBtn color="success" onClick={() => approvePacket(name, false)}>
+					Approve
+				</MDBBtn>
+				<MDBBtn color="danger" onClick={() => approvePacket(name, true)}>
+					Refuse
+				</MDBBtn>
+			</div>}
+			setServices(prevServ => [...prevServ, service])
+		})
 	}, [id])
+	const approvePacket = (name, banned) => {
+		setServices(oldServices => oldServices.filter(e => e.name != name))
+		socket.emit("packet allow", {name, banned});
+	}
 	const approveConnection = (address, banned) => {
-		console.log("removing address " + address + " from " + connections)
 		socket.emit("client allow", {address, banned})
 		setConnections(oldConnections => oldConnections.filter(e => e.address !== address))
 	}
@@ -60,9 +75,16 @@ const RouterDetails = (props) => {
 								<MDBRow center>
 									<MDBSpinner big green />
 								</MDBRow>
-							</div> : <div></div>}
+							</div> : <ServiceList data={services} />}
 						</MDBCardBody>
 					</MDBCard>
+				</MDBCol>
+			</MDBRow>
+			<MDBRow bottom className="mt-5 pt-5">
+				<MDBCol size="12">
+					<MDBBtn size="lg" floating gradient="peach" className="float-right">
+								<MDBIcon icon="cog" />
+					</MDBBtn>
 				</MDBCol>
 			</MDBRow>
 		</MDBContainer>

@@ -3,6 +3,7 @@ import {Switch, Route, Redirect} from 'react-router-dom'
 import Login from './pages/Login'
 import Home from './pages/Home'
 import RouterDetails from './pages/RouterDetails'
+import Register from './pages/Register'
 
 
 const AuthedRoute = ({exact, path, component}) => {
@@ -17,6 +18,7 @@ const Router = (props) => {
 			<AuthedRoute exact path="/" component={Home} />
 			<AuthedRoute exact path="/router/:id" component={RouterDetails} />
 			<Route exact path="/login" component={Login} />
+			<Route exact path="/register" component={Register} />
 		</Switch>
 	)
 }
