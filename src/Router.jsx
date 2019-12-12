@@ -4,6 +4,7 @@ import Login from './pages/Login'
 import Home from './pages/Home'
 import RouterDetails from './pages/RouterDetails'
 import Register from './pages/Register'
+import RouterHistory from './pages/RouterHIstory'
 
 
 const AuthedRoute = ({exact, path, component}) => {
@@ -16,6 +17,7 @@ const Router = (props) => {
 	return (
 		<Switch>
 			<AuthedRoute exact path="/" component={Home} />
+			<AuthedRoute exact path="/router/:id/history" component={RouterHistory} />
 			<AuthedRoute exact path="/router/:id" component={RouterDetails} />
 			<Route exact path="/login" component={Login} />
 			<Route exact path="/register" component={Register} />

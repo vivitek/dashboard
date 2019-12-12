@@ -1,14 +1,17 @@
 import React, {useState, useEffect} from 'react'
-import {useParams} from 'react-router-dom'
+import {useParams, useHistory} from 'react-router-dom'
 import io from 'socket.io-client';
-import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBBtn, MDBSpinner, MDBIcon } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBBtn, MDBSpinner, MDBIcon, MDBSwitch } from 'mdbreact';
 import ListGroupPage from '../components/ConnexionList';
 import ServiceList from '../components/ServiceList';
+
 
 const RouterDetails = (props) => {
 	const [connections, setConnections] = useState([])
 	const [services, setServices] = useState([])
+	const [autoConnect, setAutoConnect] = useState(false)
 	const {id} = useParams()
+	const history = useHistory()
 	let socket = io("https://vivi.matteogassend.com/");
 	useEffect(() => {
 		socket.emit("id", {id:id, type:"mobile"})
@@ -21,6 +24,11 @@ const RouterDetails = (props) => {
 				<MDBBtn color="danger" onClick={() => approveConnection(address, true)}>Refuse</MDBBtn>
 			</div>}
 			setConnections(prevConnections => [...prevConnections, connection])
+			if (autoConnect) {
+				connections.forEach((e) => {
+					approveConnection(e, false)
+				})
+			}
 		})
 		socket.on("service request", ({name}) => {
 			let service = {name, actions: <div>
@@ -49,7 +57,15 @@ const RouterDetails = (props) => {
 					<MDBCard>
 						<MDBCardBody>
 							<MDBCardHeader className="form-header deep-blue-gradient rounded">
-								Incoming Connections
+								<MDBRow>
+									<MDBCol md="7">
+										Incoming Connections
+									</MDBCol>
+									<MDBCol md="5" >
+										<MDBIcon className="pt-2" style={{float:"left"}} icon="history" onClick={() => history.push("/router/" + id + "/history")} />
+										<MDBSwitch style={{float:"right"}} labelRight="Allow All" labelLeft="Manual check" checked={autoConnect} getValue={(e) => setAutoConnect(e)} />
+									</MDBCol>
+								</MDBRow>
 							</MDBCardHeader>
 							{connections.length > 0 ? <ListGroupPage data={connections} /> : <div>
 								<MDBRow center>
