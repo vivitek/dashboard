@@ -42,6 +42,7 @@ const Register = () => {
 								}}>
 									Submit
 								</MDBBtn>
+                                <p className="signup"><a href="/login">Already have an account? Sign in</a></p>
 							</div>
 						</MDBCardBody>
 					</MDBCard>

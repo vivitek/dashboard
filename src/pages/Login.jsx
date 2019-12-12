@@ -18,12 +18,12 @@ const Login = () => {
 							<div className="grey-text">
 								<MDBInput label="Type your email"
 								icon="envelope"
-								getValue={(value) => setEmail(value)} 
+								getValue={(value) => setEmail(value)}
 								type="email"/>
 								<MDBInput label="Type your password"
 								icon="lock"
 								getValue={(value) => setPassword(value)}
-	
+
 								type="password" />
 							</div>
 							<div className="text-center mt-4">
@@ -43,6 +43,7 @@ const Login = () => {
 								}}>
 									Sign In
 								</MDBBtn>
+                                <p className="signup"><a href="/register">Not registerd? Sign up</a></p>
 							</div>
 						</MDBCardBody>
 					</MDBCard>
