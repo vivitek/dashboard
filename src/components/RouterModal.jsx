@@ -13,7 +13,7 @@ const RouterModal = ({open, setOpen, routers, setRouters}) => {
 			</MDBModalBody>
 			<MDBModalFooter>
 				<MDBBtn color="primary" onClick={() => {
-					axios.post("http://localhost:5000/router", {name:name, url:" "}, {
+					axios.post("https://vivi.matteogassend.com/router", {name:name, url:" "}, {
 						headers:{
 							"Authorization":`Bearer ${localStorage.getItem("jwt")}`
 						}

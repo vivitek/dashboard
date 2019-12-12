@@ -12,7 +12,7 @@ const Home = () => {
 
 	useEffect(() => {
 		setLoading(true)
-		axios.get("http://localhost:5000/router", {
+		axios.get("https://vivi.matteogassend.com/router", {
 			headers: {
 				"Authorization": `Bearer ${localStorage.getItem("jwt")}`
 			}
@@ -52,7 +52,7 @@ const Home = () => {
 									</MDBTableHead>
 									<MDBTableBody>
 										{routers.map((r) => (<tr key={r._id}
-											onClick={() => history.push(`/router/${r._id}`)}
+											onClick={() => history.push(`/router/1`)}
 										>
 											<td>{r._id}</td>
 											<td>{r.name}</td>

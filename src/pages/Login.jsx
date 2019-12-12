@@ -32,7 +32,7 @@ const Login = () => {
 								className="mt-3"
 								onClick={() => {
 									if (email && password) {
-										axios.post("http://localhost:5000/auth/login", {
+										axios.post("https://vivi.matteogassend.com/auth/login", {
 											email,
 											password
 										}).then(res => {

@@ -9,7 +9,7 @@ const RouterDetails = (props) => {
 	const [connections, setConnections] = useState([])
 	const [services, setServices] = useState([])
 	const {id} = useParams()
-	let socket = io("http://localhost:5000");
+	let socket = io("https://vivi.matteogassend.com/");
 	useEffect(() => {
 		socket.emit("id", {id:id, type:"mobile"})
 		socket.on("assigned", ({room}) => {

@@ -32,7 +32,7 @@ const Register = () => {
 							<div className="text-center mt-4">
 								<MDBBtn color="light-blue" onClick={() => {
 									if (email && password && firstName && lastName && telephoneNumber) {
-										axios.post("http://localhost:5000/auth/register", {
+										axios.post("https://vivi.matteogassend.com/auth/register", {
 											email, password, firstName, lastName, telephoneNumber
 										}).then(res => {
 											localStorage.setItem("jwt", res.data.token)
