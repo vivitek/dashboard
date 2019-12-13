@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import io from 'socket.io-client'
 import {useParams} from 'react-router-dom'
-import { MDBContainer, MDBRow, MDBCol, MDBTable, MDBTableHead, MDBTableBody, MDBInput, MDBCard, MDBCardBody, MDBCardHeader, MDBSpinner } from 'mdbreact'
+import { MDBContainer, MDBRow, MDBCol, MDBTable, MDBTableHead, MDBTableBody, MDBInput, MDBCard, MDBCardBody, MDBCardHeader, MDBSpinner, MDBBtn, MDBIcon } from 'mdbreact'
 import axios from "axios"
 
 const RouterHistory = () => {
@@ -16,6 +16,19 @@ const RouterHistory = () => {
 				Authorization:`Bearer ${localStorage.getItem("jwt")}`
 			}
 		}).then(res => setConnections(res.data))
+	}
+	const handleRemove = (id) => {
+		axios.delete(`https://vivi.matteogassend.com/ban/${id}`, {
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem("jwt")}`
+			}
+		}).then(() => {
+			axios.get("https://vivi.matteogassend.com/ban/1", {
+				headers:{
+					Authorization:`Bearer ${localStorage.getItem("jwt")}`
+				}
+			}).then(res => setConnections(res.data))
+		})
 	}
 	let socket = io("https://vivi.matteogassend.com").emit("id", {type:"mobile", id:"1"})
 	useEffect(() => {
@@ -56,9 +69,20 @@ const RouterHistory = () => {
 											<tr key={e._id}>
 												<td>{e.address}</td>
 												<td align="right">
-													<MDBInput label={e.banned ? "Banned" : "Allowed"} id={`Allow ${e._id}`} checked={e.banned} type="checkbox" onChange={() => {
-														handleStatusChange(e.address, !e.banned) 
-													}}/>
+													<MDBRow>
+														<MDBCol md="8">
+															<MDBInput  label={e.banned ? "Banned" : "Allowed"} id={`Allow ${e._id}`} checked={e.banned} type="checkbox" onChange={() => {
+																handleStatusChange(e.address, !e.banned) 
+															}} />
+														</MDBCol>
+														<MDBCol md="4">
+															<MDBBtn  size="lg" color="danger" floating onClick={() => {
+																handleRemove(e._id)
+															}}>
+																<MDBIcon icon="trash" />
+															</MDBBtn>
+														</MDBCol>
+													</MDBRow>
 												</td>
 											</tr>
 										))
