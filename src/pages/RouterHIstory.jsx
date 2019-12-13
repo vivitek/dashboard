@@ -9,12 +9,13 @@ const RouterHistory = () => {
 	const [connections, setConnections] = useState([])
 
 	const handleStatusChange = (address, banned) => {
-		// socket.emit("client allow", {address, banned})
-		// axios.get("https://vivi.matteogassend.com/ban/1", {
-		// 	headers:{
-		// 		Authorization:`Bearer ${localStorage.getItem("jwt")}`
-		// 	}
-		// }).then(res => setConnections(res.data))
+		console.log("received history update")
+		socket.emit("client allow", {address, banned})
+		axios.get("https://vivi.matteogassend.com/ban/1", {
+			headers:{
+				Authorization:`Bearer ${localStorage.getItem("jwt")}`
+			}
+		}).then(res => setConnections(res.data))
 	}
 	let socket = io("https://vivi.matteogassend.com").emit("id", {type:"mobile", id:"1"})
 	useEffect(() => {
@@ -23,7 +24,7 @@ const RouterHistory = () => {
 				Authorization:`Bearer ${localStorage.getItem("jwt")}`
 			}
 		}).then(res => setConnections(res.data))
-		socket.on("connection request", (data) => {
+		socket.on("connection added", (data) => {
 			setConnections(oldConnections => [...oldConnections, {address:data.address, banned:data.banned}])
 		})
 	}, [id])
@@ -55,8 +56,8 @@ const RouterHistory = () => {
 											<tr key={e._id}>
 												<td>{e.address}</td>
 												<td align="right">
-													<MDBInput label={e.banned ? "Banned" : "Allowed"} checked={e.banned} type="checkbox" getValue={() => {
-														handleStatusChange(e.address, !e.banned)
+													<MDBInput label={e.banned ? "Banned" : "Allowed"} id={`Allow ${e._id}`} checked={e.banned} type="checkbox" onChange={() => {
+														handleStatusChange(e.address, !e.banned) 
 													}}/>
 												</td>
 											</tr>
