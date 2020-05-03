@@ -1,14 +1,43 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import 'bootstrap-css-only/css/bootstrap.min.css';
-import 'mdbreact/dist/css/mdb.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+/*!
 
-ReactDOM.render(<App />, document.getElementById('root'));
+=========================================================
+* Black Dashboard PRO React - v1.1.0
+=========================================================
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+* Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
+* Copyright 2020 Creative Tim (https://www.creative-tim.com)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
+import React from "react";
+import ReactDOM from "react-dom";
+import { createBrowserHistory } from "history";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
+
+import AuthLayout from "layouts/Auth/Auth.js";
+import AdminLayout from "layouts/Admin/Admin.js";
+import RTLLayout from "layouts/RTL/RTL.js";
+
+import "assets/css/nucleo-icons.css";
+import "react-notification-alert/dist/animate.css";
+import "assets/scss/black-dashboard-pro-react.scss?v=1.1.0";
+import "assets/demo/demo.css";
+
+const hist = createBrowserHistory();
+
+ReactDOM.render(
+  <Router history={hist}>
+    <Switch>
+      <Route path="/auth" render={props => <AuthLayout {...props} />} />
+      <Route path="/admin" render={props => <AdminLayout {...props} />} />
+      <Route path="/rtl" render={props => <RTLLayout {...props} />} />
+      <Redirect from="/" to="/admin/dashboard" />
+    </Switch>
+  </Router>,
+  document.getElementById("root")
+);
