@@ -10,7 +10,9 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import UncontrolledAlert from 'reactstrap/lib/UncontrolledAlert'
 import FormGroupInput from '../components/FormGroupInput'
-
+import { register } from '../utils/api'
+import Swal from "sweetalert2"
+import {STATUS_MESSAGES} from '../utils/constants'
 const signUpSchema = Yup.object().shape({
 	email: Yup.string().email("Invalid email address").required("Required"),
 	username: Yup.string().required("Required").min(2, "Too short").max(50, "Too long"),
@@ -50,8 +52,16 @@ const Register = () => {
 						confirmPassword:""
 					}}
 					validationSchema={signUpSchema}
-					onSubmit={values => {
-						console.log(values)
+					onSubmit={async values => {
+						const {confirmPassword, ...data} = values
+						const result = await register(data)
+						if (result.status === STATUS_MESSAGES.SUCCESS) {
+								localStorage.setItem("vivi-jwt", result.data.access_token)
+								localStorage.setItem("vivi-user", JSON.stringify(result.data.user))
+								Swal.fire("Alright!", `Welcome ${result.data.user.username}!`, "success")
+							} else {
+								Swal.fire("Oops!", "Something went wrong", "error")
+							}
 					}}
 				>
 					{({errors, touched, values, handleChange, handleSubmit}) => (

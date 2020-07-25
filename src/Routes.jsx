@@ -5,7 +5,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 
 const AuthedRoute = ({path, exact, component}) => {
-	return (localStorage.getItem("jwt-vivi") ? <Route path={path} exact={exact} component={component}/> : <Redirect to="/login?error=authentication" />)
+	return (localStorage.getItem("vivi-jwt") ? <Route path={path} exact={exact} component={component}/> : <Redirect to="/login?error=authentication" />)
 }
 
 const Routes = () => (

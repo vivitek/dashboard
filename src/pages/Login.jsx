@@ -10,6 +10,10 @@ import UncontrolledAlert from 'reactstrap/lib/UncontrolledAlert'
 import {Formik} from "formik"
 import FormGroupInput from '../components/FormGroupInput'
 import * as Yup from 'yup';
+import SweetAlert from 'react-bootstrap-sweetalert';
+import { login } from '../utils/api'
+import { STATUS_MESSAGES } from '../utils/constants'
+import Swal from 'sweetalert2'
 
 const LoginSchema = Yup.object().shape({
 	email: Yup.string().required("Required").email("Must be a valid email address"),
@@ -37,8 +41,15 @@ const Login = () => {
 							password:""
 						}}
 						validationSchema={LoginSchema}
-						onSubmit={(values) => {
-							console.log(values)
+						onSubmit={async(values) => {
+							const result = await login(values)
+							if (result.status === STATUS_MESSAGES.SUCCESS) {
+								localStorage.setItem("vivi-jwt", result.data.access_token)
+								localStorage.setItem("vivi-user", JSON.stringify(result.data.user))
+								Swal.fire("Alright!", `Welcome back ${result.data.user.username}!`, "success")
+							} else {
+								Swal.fire("Oops!", "Something went wrong", "error")
+							}
 						}}
 					>
 					{({errors, touched, values, handleChange, handleSubmit}) => (
