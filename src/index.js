@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import "./assets/css/black-dashboard-pro-react.css"
+import "./assets/css/nucleo-icons.css"
+
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
