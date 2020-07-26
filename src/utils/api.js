@@ -33,4 +33,16 @@ const login = async(data) => {
 	return generateResult(STATUS_MESSAGES.ERROR, "something went wrong", {})
 }
 
-export {register, login}
+const updateUser = async(data, id) => {
+	const res = await api.patch(`/users/${id}`, data, {
+		headers: {
+			authorization: `Bearer ${localStorage.getItem("vivi-jwt")}`
+		}
+	})
+	if (res.status < 400) {
+		return generateResult(STATUS_MESSAGES.SUCCESS, "user updated", {...res.data})
+	}
+	return generateResult(STATUS_MESSAGES.ERROR, "something went wrong", {})
+}
+
+export {register, login, updateUser}
