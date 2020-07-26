@@ -10,6 +10,8 @@ import { Link, useLocation } from 'react-router-dom'
 import Breadcrumb from 'reactstrap/lib/Breadcrumb'
 import BreadcrumbItem from 'reactstrap/lib/BreadcrumbItem'
 import Container from 'reactstrap/lib/Container'
+import Gravatar from 'react-gravatar'
+import { UserContext } from '../contexts/UserContext'
 
 
 const Header = () => {
@@ -27,6 +29,15 @@ const Header = () => {
 							<NavLink tag={Link} to="/connections">Connections</NavLink>
 						</NavItem>
 					</Nav>
+					{localStorage.getItem("vivi-jwt") &&
+					<UserContext.Consumer>
+						{(context) => (
+						<Nav navbar>
+							<NavItem>
+								<NavLink tag={Link} to="/profile"><Gravatar style={{borderRadius:"100%"}} email={context.user.email} /></NavLink>
+							</NavItem>
+						</Nav>)}
+					</UserContext.Consumer>}
 				</Collapse>
 			</Navbar>
 			<Container fluid>
