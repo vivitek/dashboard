@@ -64,10 +64,10 @@ const Profile = () => {
 								<Col align="center" xs="12">
 									<Gravatar email={context.user.email} style={{borderRadius:"100%"}} size={100} />
 								</Col>
-								<Col align="center" xs="12">
+								<Col align="center" xs="12" className="mt-4">
 									{context.user.username}
 								</Col>
-								<Col align="center" xs="12">
+								<Col align="center" xs="12" className="mt-3">
 									{context.user.email}
 								</Col>
 							</Row>
