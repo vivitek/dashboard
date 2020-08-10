@@ -2,8 +2,8 @@ import React, { createContext, useState, useEffect } from 'react'
 
 
 const RouterContext = createContext({
-	user: {},
-	updateUser: () => {}
+	router: {},
+	changeRouter: () => {}
 })
 
 const RouterProvider = ({children}) => {
