@@ -1,36 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Card from 'reactstrap/lib/Card'
 import CardBody from 'reactstrap/lib/CardBody'
-import { useLocation, Link, useHistory } from 'react-router-dom'
-import errors from '../errors'
-import * as qs from "query-string"
+import { Link, useHistory } from 'react-router-dom'
 import Form from 'reactstrap/lib/Form'
 import Button from 'reactstrap/lib/Button'
 import { Formik } from 'formik';
-import UncontrolledAlert from 'reactstrap/lib/UncontrolledAlert'
 import FormGroupInput from '../components/FormGroupInput'
 import { register } from '../utils/api'
 import Swal from "sweetalert2"
 import {STATUS_MESSAGES, UserSchema} from '../utils/constants'
 import { UserContext } from '../contexts/UserContext'
-
+import useError from '../hooks/useErrors'
 
 const Register = () => {
-	const location = useLocation()
 	const history = useHistory()
-	const [shownAlerts, setShownAlerts] = useState([])
-	useEffect(() => {
-		const query = qs.parse(location.search)
-		if (query["error"]) {
-			setShownAlerts([
-				<UncontrolledAlert key={query.error} color="danger">{errors[query["error"]]}</UncontrolledAlert>
-			])
-		}
-	}, [location])
+	const alerts = useError()
 
 	return (
 		<div>
-			{shownAlerts}
+			{alerts}
 			<Card>
 				<CardBody>
 				<UserContext.Consumer>

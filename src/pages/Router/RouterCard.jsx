@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Card, CardBody, Button, Col } from 'reactstrap'
 import {RouterContext} from "../../contexts/RouterContext"
 import Swal from 'sweetalert2'
 
 const RouterCard = ({router}) => {
+    const routerContext = useContext(RouterContext)
     return (
         <Card>
             <CardBody>
                 <Col md="12" align="center">
-                    <img src="https://img.icons8.com/wired/64/000000/router.png"/>
+                    <img alt="Router Icon" src="https://img.icons8.com/wired/64/000000/router.png"/>
                 </Col>
                 <Col md="12" align="center" className="mt-3">
                     <span className="text-white h3">
@@ -21,14 +22,11 @@ const RouterCard = ({router}) => {
                     }}>Learn More</Button>
                 </Col>
                 <Col md="12" align="center" className="mt-3">
-                    <RouterContext.Consumer>
-                    {(context) => (
-                        <Button color="success" onClick={() => {
-                            context.changeRouter(router)
-                            Swal.fire("Done!", "Router changed successfully", "success")
-                        }}>Set as Active</Button>
-                    )}
-                    </RouterContext.Consumer>
+                    <Button color="success" onClick={() => {
+                        routerContext.changeRouter(router)
+                        Swal.fire("Done!", "Router changed successfully", "success")
+                    }}>Set as Active</Button>
+       
                 </Col>
             </CardBody>
         </Card>
