@@ -11,7 +11,7 @@ const UserProvider = ({children}) => {
 
 	useEffect(() => {
 		const u = localStorage.getItem("vivi-user")
-		if (u) {
+		if (u && u !== undefined) {
 			setUser(JSON.parse(u))
 		}
 	}, [])

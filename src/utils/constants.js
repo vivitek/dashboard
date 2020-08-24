@@ -5,6 +5,8 @@ const STATUS_MESSAGES = {
 	ERROR:"error"
 }
 
+const BASE_URL = "http://localhost:5000"
+
 const LoginSchema = Yup.object().shape({
 	email: Yup.string().required("Required").email("Must be a valid email address"),
 	password: Yup.string().required("Required")
@@ -24,4 +26,4 @@ const UserSchema = Yup.object().shape({
 
 })
 
-export {STATUS_MESSAGES, LoginSchema, UserSchema}
+export {STATUS_MESSAGES, LoginSchema, UserSchema, BASE_URL}

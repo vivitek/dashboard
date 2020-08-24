@@ -6,7 +6,7 @@ import NavbarToggler from 'reactstrap/lib/NavbarToggler'
 import Collapse from 'reactstrap/lib/Collapse'
 import NavItem from 'reactstrap/lib/NavItem'
 import NavLink from 'reactstrap/lib/NavLink'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useHistory } from 'react-router-dom'
 import Breadcrumb from 'reactstrap/lib/Breadcrumb'
 import BreadcrumbItem from 'reactstrap/lib/BreadcrumbItem'
 import Container from 'reactstrap/lib/Container'
@@ -17,6 +17,7 @@ import { UserContext } from '../contexts/UserContext'
 const Header = () => {
 	const [isOpen, setIsOpen] = useState(false)
 	const location = useLocation()
+	const history = useHistory()
 	const toggle = () => setIsOpen(!isOpen)
 	return (
 		<div>
@@ -25,6 +26,9 @@ const Header = () => {
 				<NavbarToggler onClick={toggle} />
 				<Collapse isOpen={isOpen} navbar>
 					<Nav className="mr-auto" navbar>
+						<NavItem>
+							<NavLink tag={Link} to="/routers">Routers</NavLink>
+						</NavItem>
 						<NavItem>
 							<NavLink tag={Link} to="/connections">Connections</NavLink>
 						</NavItem>
@@ -35,6 +39,14 @@ const Header = () => {
 						<Nav navbar>
 							<NavItem>
 								<NavLink tag={Link} to="/profile"><Gravatar style={{borderRadius:"100%"}} email={context.user.email} /></NavLink>
+							</NavItem>
+							<NavItem onClick={() => {
+								localStorage.removeItem("vivi-user")
+								localStorage.removeItem("vivi-jwt")
+								context.changeUser(null)
+								history.push("/login")
+							}}>
+								<NavLink>Logout</NavLink>
 							</NavItem>
 						</Nav>)}
 					</UserContext.Consumer>}

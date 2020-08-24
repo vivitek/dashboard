@@ -1,6 +1,5 @@
 import axios from 'axios'
-
-import {STATUS_MESSAGES} from './constants'
+import {STATUS_MESSAGES, BASE_URL} from './constants'
 
 const generateResult = (status, message, data) => {
 	return {
@@ -11,7 +10,7 @@ const generateResult = (status, message, data) => {
 }
 
 const api = axios.create({
-	baseURL: "http://localhost:5000"
+	baseURL: BASE_URL
 })
 
 
@@ -45,4 +44,21 @@ const updateUser = async(data, id) => {
 	return generateResult(STATUS_MESSAGES.ERROR, "something went wrong", {})
 }
 
-export {register, login, updateUser}
+const getOldConnections = async(routerId) => {
+	const res = await api.get(`/connections/${routerId}`, {
+		headers: {
+			authorization: `Bearer ${localStorage.getItem("vivi-jwt")}`
+		}
+	})
+	if (res.status < 400) {
+		return generateResult(STATUS_MESSAGES.SUCCESS, "received old routers", res.data)
+	}
+	return generateResult(STATUS_MESSAGES.ERROR, "something went wrong", {})
+
+}
+
+const listenToConnections = (routerId) => {
+	return `${BASE_URL}/connections/listen/${routerId}`
+}
+
+export {register, login, updateUser, getOldConnections, listenToConnections}
