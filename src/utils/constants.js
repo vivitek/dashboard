@@ -26,4 +26,15 @@ const UserSchema = Yup.object().shape({
 
 })
 
-export {STATUS_MESSAGES, LoginSchema, UserSchema, BASE_URL}
+const ANIMATION_VARIANTS = {
+    "hidden": {
+        opacity: 0,
+        scale: 0
+    },
+    "visible": {
+        opacity: 1,
+        scale: 1
+    }
+}
+
+export {STATUS_MESSAGES, LoginSchema, UserSchema, BASE_URL, ANIMATION_VARIANTS}
