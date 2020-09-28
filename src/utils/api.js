@@ -61,4 +61,16 @@ const listenToConnections = (routerId) => {
 	return `${BASE_URL}/connections/listen/${routerId}`
 }
 
+const getRouters = async() => {
+	const res = await api.get(`/routers`, {
+		headers: {
+			authorization: `Bearer ${localStorage.getItem("vivi-jwt")}`
+		}
+	})
+	if (res.status < 400) {
+		return generateResult(STATUS_MESSAGES.SUCCESS, "received routers", res.data)
+	}
+	return generateResult(STATUS_MESSAGES.ERROR, "could not retrieve routers", {})
+}
+
 export {register, login, updateUser, getOldConnections, listenToConnections}
