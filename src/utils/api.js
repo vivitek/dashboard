@@ -10,7 +10,7 @@ const generateResult = (status, message, data) => {
 }
 
 const api = axios.create({
-	baseURL: BASE_URL
+	baseURL: process.env.API_URL || BASE_URL
 })
 
 
