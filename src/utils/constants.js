@@ -5,7 +5,7 @@ const STATUS_MESSAGES = {
 	ERROR:"error"
 }
 
-const BASE_URL = "http://localhost:5000"
+const BASE_URL = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ? "http://localhost:5000" : "https://api.server.vincipit.com"
 
 const LoginSchema = Yup.object().shape({
 	email: Yup.string().required("Required").email("Must be a valid email address"),
