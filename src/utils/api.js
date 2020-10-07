@@ -73,4 +73,4 @@ const getRouters = async() => {
 	return generateResult(STATUS_MESSAGES.ERROR, "could not retrieve routers", {})
 }
 
-export {register, login, updateUser, getOldConnections, listenToConnections}
+export {register, login, updateUser, getOldConnections, listenToConnections, getRouters}

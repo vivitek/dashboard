@@ -55,7 +55,7 @@ const Connections = () => {
 				ev.close()
 			}
 		}
-	}, [])
+	})
 	return (
 			<div>
 				<Row>

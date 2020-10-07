@@ -55,7 +55,7 @@ const Header = () => {
 			<Container fluid>
 			<Breadcrumb>
 				{location.pathname.split("/").map((e, index) => (
-					<BreadcrumbItem key={e} active={index === location.pathname.split("/").length - 1}>{e}</BreadcrumbItem>
+					<BreadcrumbItem key={index} active={index === location.pathname.split("/").length - 1}>{e}</BreadcrumbItem>
 				))}
 			</Breadcrumb>
 			</Container>

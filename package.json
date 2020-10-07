@@ -9,6 +9,7 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
     "chart.js": "^2.9.3",
+    "firebase": "^7.22.0",
     "formik": "^2.1.5",
     "framer-motion": "^2.7.5",
     "query-string": "^6.13.1",
