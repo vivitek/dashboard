@@ -6,10 +6,22 @@ import Header from './components/Header';
 import Routes from './Routes';
 import UserContext from './contexts/UserContext';
 import RouterProvider from './contexts/RouterContext';
+import {Client} from "@pusher/push-notifications-web"
 function App() {
   const [user, setUser] = useState({})
 
   useEffect(() => {
+    const notificationClient = new Client({
+      instanceId: '6427b78a-033d-4139-aa97-2b91448d0cad'
+    })
+
+    notificationClient.start()
+    .then(() => {
+      console.log("🤘 notifications are now enabled")
+    })
+    .catch((err) => {
+      alert(err)
+    })
     if (localStorage.getItem("vivi-user")) {
       setUser(JSON.parse(localStorage.getItem("vivi-user")))
     }
