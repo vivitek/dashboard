@@ -6,8 +6,12 @@ import Login from './pages/Login'
 import Profile from './pages/Profile'
 import Connections from './pages/Connections'
 import Router from './pages/Router/Router'
+import Landing from './pages/Landing'
 
 const AuthedRoute = ({path, exact, component}) => {
+	if (path === "/" && !localStorage.getItem("vivi-jwt")) {
+		return <Route path={path} exact component={Landing} />
+	}
 	return (localStorage.getItem("vivi-jwt") ? <Route path={path} exact={exact} component={component}/> : <Redirect to="/login?error=authentication" />)
 }
 
@@ -17,6 +21,7 @@ const Routes = () => (
 		<AuthedRoute path="/profile" exact component={Profile} />
 		<AuthedRoute path="/connections" exact component={Connections} />
 		<AuthedRoute path="/routers" exact component={Router} />
+		<Route path="/welcome" exact component={Landing} />
 		<Route path="/register" exact component={Register} />
 		<Route path="/login" exact component={Login} />
 	</Switch>

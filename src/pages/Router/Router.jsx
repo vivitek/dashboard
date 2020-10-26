@@ -76,7 +76,7 @@ const Router = () => {
             </Row>
             <Row>
                 {routers.map((r) => (
-                    <Col xs="12" md="3" sm="12" key={r._id}>
+                    <Col xs="12" md="3" sm="12" key={r._id || r.id}>
                         <motion.div initial="hidden" animate="visible" variants={ANIMATION_VARIANTS} whileHover={{ scale: 1.1 }} >
                             <RouterCard router={r} />
                         </motion.div>
