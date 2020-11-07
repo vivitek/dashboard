@@ -40,7 +40,7 @@ const Header = () => {
 						url: `${BASE_URL}/beams/token`,
 						queryParams: {userId: `${_id}`}
 					})
-					const res = await beamsContext.client.setUserId(_id, tokenProvider)
+					await beamsContext.client.setUserId(_id, tokenProvider)
 				}
 			} catch (error) {
 				Swal.fire("Oops!", "Seems like this browser does not support push notifications. Please change or update your browser to enable all the platform's features", "error")
