@@ -41,10 +41,10 @@ const Header = () => {
 						queryParams: {userId: `${_id}`}
 					})
 					const res = await beamsContext.client.setUserId(_id, tokenProvider)
-					console.log(res)
 				}
 			} catch (error) {
 				Swal.fire("Oops!", "Seems like this browser does not support push notifications. Please change or update your browser to enable all the platform's features", "error")
+				console.log(`Error with Push Notifications: ${error}`)
 			}
 		}
 		if (userContext.user?._id) {
