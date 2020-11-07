@@ -16,6 +16,7 @@ import { useContext } from 'react'
 import { BeamsContext } from '../contexts/BeamsContext'
 import { TokenProvider } from '@pusher/push-notifications-web'
 import { BASE_URL } from '../utils/constants'
+import Swal from 'sweetalert2'
 
 
 const Header = () => {
@@ -28,21 +29,25 @@ const Header = () => {
 
 	useEffect(() => {
 		const setupNotifications = async() => {
-			await beamsContext.client.start()
-			const userId = await beamsContext.client.getUserId()
-
-			console.log("Notifications are enabled")
-			if (!userId) {
-				const {_id} = userContext.user
-				const tokenProvider = new TokenProvider({
-					url: `${BASE_URL}/beams/token`,
-					queryParams: {userId: `${_id}`}
-				})
-				const res = await beamsContext.client.setUserId(_id, tokenProvider)
-				console.log(res)
+			try {
+				await beamsContext.client.start()
+				const userId = await beamsContext.client.getUserId()
+	
+				console.log("Notifications are enabled")
+				if (!userId) {
+					const {_id} = userContext.user
+					const tokenProvider = new TokenProvider({
+						url: `${BASE_URL}/beams/token`,
+						queryParams: {userId: `${_id}`}
+					})
+					const res = await beamsContext.client.setUserId(_id, tokenProvider)
+					console.log(res)
+				}
+			} catch (error) {
+				Swal.fire("Oops!", "Seems like this browser does not support push notifications. Please change or update your browser to enable all the platform's features", "error")
 			}
 		}
-		if (userContext.user._id) {
+		if (userContext?.user?._id) {
 			setupNotifications()
 		}
 	}, [userContext.user, beamsContext.client])
