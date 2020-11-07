@@ -47,7 +47,7 @@ const Header = () => {
 				Swal.fire("Oops!", "Seems like this browser does not support push notifications. Please change or update your browser to enable all the platform's features", "error")
 			}
 		}
-		if (userContext?.user?._id) {
+		if (userContext.user?._id) {
 			setupNotifications()
 		}
 	}, [userContext.user, beamsContext.client])
