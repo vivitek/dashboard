@@ -1,3 +1,35 @@
 .form-error-message {
   color: var(--red);
 }
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+#root {
+  height: 100%;
+}
+
+main {
+  height: 100%;
+  overflow: auto !important;
+}
+
+.modal-dialog {
+  color:white;
+}
+
+.modal-header {
+  border: none;
+}
+
+.modal-header .close span {
+  color: white !important;
+}
+
+.modal-title {
+  color:white !important;
+  margin-bottom: none;
+}
