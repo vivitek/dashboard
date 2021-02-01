@@ -23,12 +23,12 @@ const AuthedRoute = ({ path, exact, component }) => {
 
 const Routes = () => (
     <Switch>
-        <AuthedRoute path="/" exact component={Home} />
-        <AuthedRoute path="/profile" exact component={Profile} />
-        <AuthedRoute path="/connections" exact component={Connections} />
-        <AuthedRoute path="/routers" exact component={Router} />
-        <AuthedRoute path="/routers/:id" exact component={RouterDetails} />
-        <AuthedRoute path="/pdf/table" exact component={PdfTableExport} />
+        <Route path="/profile" exact component={Profile} />
+        <Route path="/connections" exact component={Connections} />
+        <Route path="/routers" exact component={Router} />
+        <Route path="/pdf/table" exact component={PdfTableExport} />
+        <Route path="/routers/:id" exact component={RouterDetails} />
+        <Route path="/" exact component={Home} />
         <Route path="/welcome" exact component={Landing} />
         <Route path="/register" exact component={Register} />
         <Route path="/login" exact component={Login} />

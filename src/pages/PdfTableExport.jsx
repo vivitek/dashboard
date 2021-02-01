@@ -48,16 +48,16 @@ const PdfTableExport = () => {
                         />
                         <Text>{new Date().toLocaleDateString()}</Text>
                     </View>
-                    <View style={{ textAlign: "center" }}>
+                    <View style={{ textAlign: "left", marginLeft: "20px" }}>
                         <Text>{title}</Text>
                     </View>
                     <View style={{ margin: "20px" }}>
                         <Table data={rows}>
-                            <TableHeader>
+                            <TableHeader textAlign={"center"} Color={"blue"}>
                                 {headers
                                     .filter((e) => e.export)
                                     .map((e) => (
-                                        <TableCell>
+                                        <TableCell weighting={0.3}>
                                             <Text style={{ marginLeft: "5px" }}>
                                                 {e.name}
                                             </Text>
@@ -69,11 +69,12 @@ const PdfTableExport = () => {
                                     .filter((e) => e.export)
                                     .map((p, i) => (
                                         <DataTableCell
+                                            weighting={0.3}
                                             key={`${p}-${i}`}
                                             getContent={(r) => (
                                                 <Text
                                                     style={{
-                                                        marginLeft: "5px",
+                                                        marginLeft: "3px",
                                                     }}
                                                 >
                                                     {r[p.key]}
