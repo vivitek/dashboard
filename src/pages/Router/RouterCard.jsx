@@ -10,7 +10,8 @@ const RouterCard = ({ router }) => {
                 <Col md="12" align="center">
                     <img
                         alt="Router Icon"
-                        src="https://img.icons8.com/wired/64/000000/router.png"
+                        src="/wireless-router.svg"
+                        className="router-image"
                     />
                 </Col>
                 <Col md="12" align="center" className="mt-3">
@@ -18,6 +19,8 @@ const RouterCard = ({ router }) => {
                 </Col>
                 <Col md="12" align="center" className="mt-3">
                     <Button
+                        color="info"
+                        className="animation-on-hover"
                         onClick={() => {
                             history.push(`/routers/${router._id}`);
                         }}

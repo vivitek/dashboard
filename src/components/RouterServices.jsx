@@ -42,7 +42,7 @@ const RouterServices = ({ routerId }) => {
                 value: "working tool",
             },
             usage: {
-                value: "It doesn't matter",
+                value: "20GB",
             },
         },
     ]);
