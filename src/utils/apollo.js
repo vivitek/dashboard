@@ -35,6 +35,16 @@ const splitLink = split(
 const client = new ApolloClient({
     link: splitLink,
     cache: new InMemoryCache(),
+    defaultOptions: {
+        watchQuery: {
+            fetchPolicy: "cache-and-network",
+            errorPolicy: "ignore",
+        },
+        query: {
+            fetchPolicy: "network-only",
+            errorPolicy: "all",
+        },
+    },
 });
 
 const GET_ROUTERS = gql`
@@ -96,6 +106,19 @@ const ON_BAN_CREATED = gql`
     }
 `;
 
+const LOGIN = gql`
+    mutation($loginData: LoginInput!) {
+        login(loginData: $loginData) {
+            access_token
+            user {
+                _id
+                email
+                username
+            }
+        }
+    }
+`;
+
 export {
     client,
     GET_ROUTERS,
@@ -104,4 +127,5 @@ export {
     GET_BANS_FOR_ROUTER,
     UPDATE_BAN,
     ON_BAN_CREATED,
+    LOGIN,
 };
