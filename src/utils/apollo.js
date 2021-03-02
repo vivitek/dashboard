@@ -5,12 +5,26 @@ import {
     InMemoryCache,
     split,
 } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+
 import { BASE_URL, BASE_WS } from "./constants";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from "@apollo/client/utilities";
 
 const httpLink = new HttpLink({
     uri: `${BASE_URL}/graphql`,
+});
+
+const authLink = setContext((_, { headers }) => {
+    // get the authentication token from local storage if it exists
+    const token = localStorage.getItem("vivi-jwt");
+    // return the headers to the context so httpLink can read them
+    return {
+        headers: {
+            ...headers,
+            authorization: token ? `Bearer ${token}` : "",
+        },
+    };
 });
 
 const wsLink = new WebSocketLink({
@@ -28,8 +42,8 @@ const splitLink = split(
             definition.operation === "subscription"
         );
     },
-    wsLink,
-    httpLink
+    authLink.concat(wsLink),
+    authLink.concat(httpLink)
 );
 
 const client = new ApolloClient({
