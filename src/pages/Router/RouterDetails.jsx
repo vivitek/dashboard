@@ -7,6 +7,7 @@ import { GET_ROUTER } from "../../utils/apollo";
 import Col from "reactstrap/lib/Col";
 import Card from "reactstrap/lib/Card";
 import CardBody from "reactstrap/lib/CardBody";
+import Button from "reactstrap/lib/Button";
 import Axios from "axios";
 import RouterConnections from "../../components/RouterConnections";
 import RouterServices from "../../components/RouterServices";
@@ -45,7 +46,7 @@ const RouterDetails = () => {
                                     <h5>name: {routerData?.getRouter.name}</h5>
                                     <h5>url: {routerData?.getRouter.url}</h5>
                                 </Col>
-                                <Col md="6" sm="12">
+                                <Col md="6" sm="12" align="right">
                                     <h4>Status</h4>
                                     <h5>
                                         {isRouterOnline ? (
@@ -58,6 +59,24 @@ const RouterDetails = () => {
                                             </span>
                                         )}
                                     </h5>
+                                    <Row>
+                                        <Col md="6">
+                                            <Button
+                                                color="danger"
+                                                disabled={!isRouterOnline}
+                                            >
+                                                Power Off
+                                            </Button>
+                                        </Col>
+                                        <Col md="6">
+                                            <Button
+                                                color="secondary"
+                                                disabled={!isRouterOnline}
+                                            >
+                                                Reboot
+                                            </Button>
+                                        </Col>
+                                    </Row>
                                 </Col>
                             </Row>
                         </CardBody>

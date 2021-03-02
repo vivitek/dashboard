@@ -10,7 +10,7 @@ const RouterCard = ({ router }) => {
                 <Col md="12" align="center">
                     <img
                         alt="Router Icon"
-                        src="/wireless-router.svg"
+                        src="/antenna.png"
                         className="router-image"
                     />
                 </Col>
