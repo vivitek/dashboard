@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "reactstrap";
 import RouterCard from "./RouterCard";
-import useError from "../../hooks/useErrors";
 import { motion } from "framer-motion";
 import { ANIMATION_VARIANTS } from "../../utils/constants";
-import * as Yop from "yup";
 import { useQuery } from "@apollo/client";
 import { GET_ROUTERS } from "../../utils/apollo";
 import Container from "reactstrap/lib/Container";
+import Card from "reactstrap/lib/Card";
+import CardBody from "reactstrap/lib/CardBody";
+import GraphqlError from "../../components/GraphqlError";
 
 const Router = () => {
     const { loading, error, data } = useQuery(GET_ROUTERS);
@@ -19,16 +20,15 @@ const Router = () => {
             setRouters([...data.getRouters]);
         }
     }, [data]);
-    const errors = useError();
     if (loading) return <div>loading...</div>;
-    if (error) return <div>{error.message}</div>;
+    if (error) {
+        return <GraphqlError error={error}></GraphqlError>;
+    }
     return (
         <Container fluid>
-            {errors}
-
             <Row>
                 {routers.map((r) => (
-                    <Col xs="12" md="3" sm="12" key={r._id || r.id}>
+                    <Col xs="12" md="4" sm="12" key={r._id || r.id}>
                         <motion.div
                             initial="hidden"
                             animate="visible"
