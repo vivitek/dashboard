@@ -37,7 +37,6 @@ const RouterConnections = ({ routerId }) => {
     const [chronology, setChronology] = useState([]);
 
     useEffect(() => {
-        console.info(subData);
         if (subData?.banCreated) {
             const { address, _id } = subData.banCreated;
             const found = incoming.find(
@@ -47,7 +46,7 @@ const RouterConnections = ({ routerId }) => {
                 setIncoming((old) => [...old, { address, _id }]);
             }
         }
-    }, [subData]);
+    }, [subData, incoming]);
     useEffect(() => {
         if (historyConnections?.getBans) {
             setChronology([...historyConnections.getBans]);

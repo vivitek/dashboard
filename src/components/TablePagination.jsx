@@ -30,7 +30,7 @@ const TablePagination = ({ headers, data, itemsPerPage = 20, tableName }) => {
         });
         setLastpage(Math.max(Math.floor(data.length / itemsPerPage + 1), 1));
         setDisplayData(temp);
-    }, [data]);
+    }, [data, headers, itemsPerPage]);
 
     useEffect(() => {
         const temp = [];

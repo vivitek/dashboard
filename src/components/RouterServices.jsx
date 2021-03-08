@@ -1,59 +1,51 @@
-import React, { useState } from "react";
+import { useQuery } from "@apollo/client";
+import React, { useEffect, useState } from "react";
+import { Spinner } from "reactstrap";
+import Row from "reactstrap/lib/Row";
+import { GET_SERVICES_FOR_ROUTER } from "../utils/apollo";
+import GraphqlError from "./GraphqlError";
 import TablePagination from "./TablePagination";
 
 const RouterServices = ({ routerId }) => {
-    const [services, setServices] = useState([
-        {
-            id: 1,
-            logo: {
-                value: (
-                    <img
-                        style={{ height: "30px", width: "auto" }}
-                        src="https://favicon.splitbee.io/?url=https://twitter.com"
-                    />
-                ),
-                class: "text-center",
-            },
-            name: {
-                value: "twitter.com",
-            },
-            category: {
-                value: "social network",
-            },
-            usage: {
-                value: "1GB",
-            },
+    const [services, setServices] = useState([]);
+    const { error, loading, data } = useQuery(GET_SERVICES_FOR_ROUTER, {
+        variables: {
+            routerId,
         },
-        {
-            id: 2,
-            logo: {
-                value: (
-                    <img
-                        style={{ height: "30px", width: "auto" }}
-                        src="https://favicon.splitbee.io/?url=https://vincipit.com"
+    });
+    useEffect(() => {
+        if (data?.getServicesForRouter) {
+            setServices(data.getServicesForRouter);
+        }
+    }, [setServices, services, data]);
+    if (error) return <GraphqlError error={error} />;
+    if (loading)
+        return (
+            <Row
+                style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}
+            >
+                <div align="center">
+                    <Spinner
+                        size="lg"
+                        style={{
+                            width: "10rem",
+                            height: "10rem",
+                        }}
                     />
-                ),
-                class: "text-center",
-            },
-            name: {
-                value: "vincipit.com",
-            },
-            category: {
-                value: "working tool",
-            },
-            usage: {
-                value: "20GB",
-            },
-        },
-    ]);
-
+                </div>
+            </Row>
+        );
     return (
         <div>
             <TablePagination
                 headers={[
                     {
                         name: "#",
-                        key: "logo",
+                        key: "_id",
                         export: false,
                         class: "text-center",
                     },
@@ -64,19 +56,18 @@ const RouterServices = ({ routerId }) => {
                         class: "",
                     },
                     {
-                        name: "Category",
-                        key: "category",
-                        export: true,
-                        class: "",
-                    },
-                    {
                         name: "Usage",
                         key: "usage",
                         export: true,
                         class: "",
                     },
                 ]}
-                data={services}
+                data={services.map((e) => ({
+                    name: { value: e.name, class: "" },
+                    usage: { value: e.bandwidth, class: "" },
+                    id: e._id,
+                    _id: { value: e._id, class: "text-center" },
+                }))}
                 tableName={`vivi_${routerId}_services`}
             />
         </div>

@@ -66,6 +66,20 @@ const client = new ApolloClient({
     },
 });
 
+const GET_SERVICES_FOR_ROUTER = gql`
+    query($routerId: String!) {
+        getServicesForRouter(routerId: $routerId) {
+            _id
+            name
+            bandwidth
+            tags {
+                name
+                _id
+            }
+        }
+    }
+`;
+
 const GET_ROUTERS = gql`
     query {
         getRouters {
@@ -147,4 +161,5 @@ export {
     UPDATE_BAN,
     ON_BAN_CREATED,
     LOGIN,
+    GET_SERVICES_FOR_ROUTER,
 };
