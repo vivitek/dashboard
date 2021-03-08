@@ -6,8 +6,6 @@ import { ANIMATION_VARIANTS } from "../../utils/constants";
 import { useQuery } from "@apollo/client";
 import { GET_ROUTERS } from "../../utils/apollo";
 import Container from "reactstrap/lib/Container";
-import Card from "reactstrap/lib/Card";
-import CardBody from "reactstrap/lib/CardBody";
 import GraphqlError from "../../components/GraphqlError";
 
 const Router = () => {

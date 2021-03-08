@@ -23,7 +23,7 @@ const GraphqlError = ({ error }) => {
                             </h4>
                         )}
                         <ul>
-                            {error.graphQLErrors.forEach((e) => (
+                            {error.graphQLErrors?.forEach((e) => (
                                 <li key={e.name}>
                                     {e.name}: {e.message}
                                 </li>

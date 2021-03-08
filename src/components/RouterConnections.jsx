@@ -16,6 +16,7 @@ import Spinner from "reactstrap/lib/Spinner";
 import { motion } from "framer-motion";
 import { ANIMATION_VARIANTS } from "../utils/constants";
 import Swal from "sweetalert2";
+import GraphqlError from "./GraphqlError";
 
 const RouterConnections = ({ routerId }) => {
     const { loading, data: historyConnections } = useQuery(
@@ -23,6 +24,7 @@ const RouterConnections = ({ routerId }) => {
         { variables: { routerId } }
     );
     const [updateBan] = useMutation(UPDATE_BAN);
+
     const {
         error: subError,
         loading: subLoading,
@@ -30,9 +32,12 @@ const RouterConnections = ({ routerId }) => {
     } = useSubscription(ON_BAN_CREATED, {
         variables: { routerId },
     });
+
     const [incoming, setIncoming] = useState([]);
     const [chronology, setChronology] = useState([]);
+
     useEffect(() => {
+        console.info(subData);
         if (subData?.banCreated) {
             const { address, _id } = subData.banCreated;
             const found = incoming.find(
@@ -74,6 +79,7 @@ const RouterConnections = ({ routerId }) => {
     };
 
     if (loading) return <div>Loading...</div>;
+    if (subError) return <GraphqlError error={subError} />;
     return (
         <Row>
             <Col md="6" sm="12">

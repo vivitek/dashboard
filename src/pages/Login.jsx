@@ -7,7 +7,7 @@ import Button from "reactstrap/lib/Button";
 import { Formik } from "formik";
 import FormGroupInput from "../components/FormGroupInput";
 import { LOGIN } from "../utils/apollo";
-import { STATUS_MESSAGES, LoginSchema } from "../utils/constants";
+import { LoginSchema } from "../utils/constants";
 import Swal from "sweetalert2";
 import { UserContext } from "../contexts/UserContext";
 import useError from "../hooks/useErrors";
