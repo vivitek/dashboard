@@ -31,6 +31,11 @@ const wsLink = new WebSocketLink({
     uri: `${BASE_WS}/graphql`,
     options: {
         reconnect: true,
+        connectionParams: {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("vivi-jwt")}`,
+            },
+        },
     },
 });
 
