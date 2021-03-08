@@ -1,9 +1,9 @@
-import React from 'react'
-import { useHistory } from 'react-router-dom'
-import { Button, Col, Row } from 'reactstrap'
+import React from "react";
+import { useHistory } from "react-router-dom";
+import { Button, Col, Row } from "reactstrap";
 
 const Landing = () => {
-    const history = useHistory()
+    const history = useHistory();
 
     return (
         <React.Fragment>
@@ -14,14 +14,18 @@ const Landing = () => {
             </Row>
             <Row>
                 <Col md="6" sm="12">
-                    <Button color="primary" onClick={() => {history.push("/register")}}>Register</Button>
-                </Col>
-                <Col md="6" sm="12">
-                    <Button color="primary" onClick={() => {history.push("/login")}}>Login</Button>
+                    <Button
+                        color="primary"
+                        onClick={() => {
+                            history.push("/login");
+                        }}
+                    >
+                        Login
+                    </Button>
                 </Col>
             </Row>
         </React.Fragment>
-    )
-}
+    );
+};
 
-export default Landing
+export default Landing;
