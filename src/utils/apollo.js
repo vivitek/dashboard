@@ -5,6 +5,8 @@ import {
     InMemoryCache,
     split,
 } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+
 import { BASE_URL, BASE_WS } from "./constants";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from "@apollo/client/utilities";
@@ -13,10 +15,27 @@ const httpLink = new HttpLink({
     uri: `${BASE_URL}/graphql`,
 });
 
+const authLink = setContext((_, { headers }) => {
+    // get the authentication token from local storage if it exists
+    const token = localStorage.getItem("vivi-jwt");
+    // return the headers to the context so httpLink can read them
+    return {
+        headers: {
+            ...headers,
+            authorization: token ? `Bearer ${token}` : "",
+        },
+    };
+});
+
 const wsLink = new WebSocketLink({
     uri: `${BASE_WS}/graphql`,
     options: {
         reconnect: true,
+        connectionParams: {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("vivi-jwt")}`,
+            },
+        },
     },
 });
 
@@ -28,14 +47,38 @@ const splitLink = split(
             definition.operation === "subscription"
         );
     },
-    wsLink,
-    httpLink
+    authLink.concat(wsLink),
+    authLink.concat(httpLink)
 );
 
 const client = new ApolloClient({
     link: splitLink,
     cache: new InMemoryCache(),
+    defaultOptions: {
+        watchQuery: {
+            fetchPolicy: "cache-and-network",
+            errorPolicy: "all",
+        },
+        query: {
+            fetchPolicy: "network-only",
+            errorPolicy: "all",
+        },
+    },
 });
+
+const GET_SERVICES_FOR_ROUTER = gql`
+    query($routerId: String!) {
+        getServicesForRouter(routerId: $routerId) {
+            _id
+            name
+            bandwidth
+            tags {
+                name
+                _id
+            }
+        }
+    }
+`;
 
 const GET_ROUTERS = gql`
     query {
@@ -96,6 +139,19 @@ const ON_BAN_CREATED = gql`
     }
 `;
 
+const LOGIN = gql`
+    mutation($loginData: LoginInput!) {
+        login(loginData: $loginData) {
+            access_token
+            user {
+                _id
+                email
+                username
+            }
+        }
+    }
+`;
+
 export {
     client,
     GET_ROUTERS,
@@ -104,4 +160,6 @@ export {
     GET_BANS_FOR_ROUTER,
     UPDATE_BAN,
     ON_BAN_CREATED,
+    LOGIN,
+    GET_SERVICES_FOR_ROUTER,
 };
