@@ -14,6 +14,7 @@ import {
     TableCell,
     TableHeader,
 } from "@david.kucsai/react-pdf-table";
+
 import React from "react";
 import { useLocation } from "react-router-dom";
 
@@ -22,7 +23,7 @@ const PdfTableExport = () => {
     const headers = JSON.parse(location.state.headers);
     const rows = JSON.parse(location.state.rows);
     const title = location.state.title;
-    console.log(rows);
+
     return (
         <PDFViewer style={{ height: "100%", width: "100%" }}>
             <Document
@@ -48,32 +49,48 @@ const PdfTableExport = () => {
                         />
                         <Text>{new Date().toLocaleDateString()}</Text>
                     </View>
-                    <View style={{ textAlign: "center" }}>
+                    <View style={{ textAlign: "left", marginLeft: "20px" }}>
                         <Text>{title}</Text>
                     </View>
                     <View style={{ margin: "20px" }}>
                         <Table data={rows}>
-                            <TableHeader>
+                            <TableHeader 
+                                textAlign={"center"} 
+                                Color={"blue"} 
+                                isHeader={true}
+                                includeLeftBorder={false} 
+                                includeRightBorder={false} 
+                                includeTopBorder={false}
+                            >
                                 {headers
                                     .filter((e) => e.export)
                                     .map((e) => (
-                                        <TableCell>
+                                        <TableCell 
+                                            weighting={0.3}
+                                            fontSize={"20"}
+                                        >
                                             <Text style={{ marginLeft: "5px" }}>
                                                 {e.name}
                                             </Text>
                                         </TableCell>
                                     ))}
                             </TableHeader>
-                            <TableBody>
+                            <TableBody 
+                                includeLeftBorder={false} 
+                                includeRightBorder={false}
+                                includeBottomBorder={false} 
+                                includeTopBorder={false}
+                            >
                                 {headers
                                     .filter((e) => e.export)
                                     .map((p, i) => (
                                         <DataTableCell
+                                            weighting={0.3}
                                             key={`${p}-${i}`}
                                             getContent={(r) => (
                                                 <Text
                                                     style={{
-                                                        marginLeft: "5px",
+                                                        marginLeft: "3px",
                                                     }}
                                                 >
                                                     {r[p.key]}
