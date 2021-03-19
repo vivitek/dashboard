@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "reactstrap/lib/Card";
 import CardBody from "reactstrap/lib/CardBody";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Form from "reactstrap/lib/Form";
 import Button from "reactstrap/lib/Button";
 import { Formik } from "formik";
