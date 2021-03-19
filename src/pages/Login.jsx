@@ -80,10 +80,7 @@ const Login = () => {
                                             error={errors.password}
                                             handleChange={handleChange}
                                         />
-                                        <Button type="submit">Send</Button> or{" "}
-                                        <Link to="/register">
-                                            Create an account
-                                        </Link>
+                                        <Button type="submit">Send</Button>
                                     </Form>
                                 )}
                             </Formik>
