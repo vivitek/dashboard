@@ -7,8 +7,6 @@ import CardTitle from "reactstrap/lib/CardTitle";
 import Gravatar from "react-gravatar";
 import { Formik } from "formik";
 import FormGroupInput from "../components/FormGroupInput";
-import { STATUS_MESSAGES } from "../utils/constants";
-import { updateUser } from "../utils/api";
 import Swal from "sweetalert2";
 import * as Yup from "yup";
 import { UserContext } from "../contexts/UserContext";
