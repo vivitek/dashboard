@@ -31,27 +31,39 @@ const Login = () => {
                                 }}
                                 validationSchema={LoginSchema}
                                 onSubmit={async (values) => {
-                                    const result = await login({
-                                        variables: {
-                                            loginData: values,
-                                        },
-                                    });
-                                    console.log(result);
-                                    localStorage.setItem(
-                                        "vivi-jwt",
-                                        result.data.login.access_token
-                                    );
-                                    localStorage.setItem(
-                                        "vivi-user",
-                                        JSON.stringify(result.data.login.user)
-                                    );
-                                    Swal.fire(
-                                        "Alright!",
-                                        `Welcome back ${result.data.login.user.username}!`,
-                                        "success"
-                                    );
-                                    context.changeUser(result.data.login.user);
-                                    history.push("/");
+                                    try {
+                                        const result = await login({
+                                            variables: {
+                                                loginData: values,
+                                            },
+                                        });
+                                        console.log(result);
+                                        localStorage.setItem(
+                                            "vivi-jwt",
+                                            result.data.login.access_token
+                                        );
+                                        localStorage.setItem(
+                                            "vivi-user",
+                                            JSON.stringify(
+                                                result.data.login.user
+                                            )
+                                        );
+                                        Swal.fire(
+                                            "Alright!",
+                                            `Welcome back ${result.data.login.user.username}!`,
+                                            "success"
+                                        );
+                                        context.changeUser(
+                                            result.data.login.user
+                                        );
+                                        history.push("/");
+                                    } catch (error) {
+                                        Swal.fire(
+                                            "Something went wrong",
+                                            "Could not authenticate with provided details",
+                                            "error"
+                                        );
+                                    }
                                 }}
                             >
                                 {({
