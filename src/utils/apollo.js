@@ -150,6 +150,15 @@ const LOGIN = gql`
     }
 `;
 
+const UPDATE_USER = gql`
+    mutation($userUpdateInput: UserUpdateInput!) {
+        updateUser(userUpdateData: $userUpdateInput) {
+            email
+            username
+        }
+    }
+`;
+
 export {
     client,
     GET_ROUTERS,
@@ -160,4 +169,5 @@ export {
     ON_BAN_CREATED,
     LOGIN,
     GET_SERVICES_FOR_ROUTER,
+    UPDATE_USER,
 };
