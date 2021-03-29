@@ -51,5 +51,25 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "husky": "^3.0.9",
+    "lint-staged": "^10.5.4",
+    "validate-branch-name": "^1.0.6"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "validate-branch-name && lint-staged",
+      "pre-push": "npm run build"
+    }
+  },
+  "lint-staged": {
+    "**/*.ts": [
+      "eslint --fix"
+    ]
+  },
+  "validate-branch-name": {
+    "pattern": "^(master|^(feature|fix|experiment|improvement)/([\\w-]+?)(/\\d+)?)$",
+    "errorMsg": "Branch name format : //"
   }
 }
