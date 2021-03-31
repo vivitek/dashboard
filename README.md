@@ -4,6 +4,7 @@
 [![Build Status](https://travis-ci.com/vivitek/monitoring-app.svg?branch=master)](https://travis-ci.com/vivitek/monitoring-app)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
 this application is the client dashboard used to interact with the [Server](https://github.com/vivitek/backend) and [Devices](https://github.com/vivitek/deep-thought)
 
