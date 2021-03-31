@@ -159,6 +159,35 @@ const UPDATE_USER = gql`
     }
 `;
 
+const TOGGLE_2FA = gql`
+    mutation {
+        toggleOTP
+    }
+`;
+
+const CHECK_2FA = gql`
+    mutation($code: String!) {
+        checkOtpCode(code: $code)
+    }
+`;
+
+const ME = gql`
+    query {
+        me {
+            email
+            username
+            otp_secret
+            otp_enabled
+        }
+    }
+`;
+
+const GET_OTP_URL = gql`
+    query {
+        getOtpUrl
+    }
+`;
+
 export {
     client,
     GET_ROUTERS,
@@ -170,4 +199,8 @@ export {
     LOGIN,
     GET_SERVICES_FOR_ROUTER,
     UPDATE_USER,
+    TOGGLE_2FA,
+    CHECK_2FA,
+    ME,
+    GET_OTP_URL,
 };

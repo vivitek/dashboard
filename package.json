@@ -17,6 +17,7 @@
     "framer-motion": "^2.7.5",
     "graphql": "^15.4.0",
     "prop-types": "^15.7.2",
+    "qrcode.react": "^1.0.1",
     "query-string": "^6.13.1",
     "react": "^16.13.1",
     "react-chartjs-2": "^2.9.0",

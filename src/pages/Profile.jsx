@@ -1,17 +1,27 @@
 import React from "react";
-import { Row, Form, Button } from "reactstrap";
-import Col from "reactstrap/lib/Col";
-import Card from "reactstrap/lib/Card";
-import CardBody from "reactstrap/lib/CardBody";
-import CardTitle from "reactstrap/lib/CardTitle";
+import {
+    Row,
+    Col,
+    Form,
+    Card,
+    CardBody,
+    CardTitle,
+    Button,
+    FormGroup,
+    Input,
+    Label,
+} from "reactstrap";
 import Gravatar from "react-gravatar";
 import { Formik } from "formik";
-import FormGroupInput from "../components/FormGroupInput";
 import Swal from "sweetalert2";
+import { useState, useEffect } from "react";
+import { useMutation, useQuery } from "@apollo/client";
 import * as Yup from "yup";
+import FormGroupInput from "../components/FormGroupInput";
 import { UserContext } from "../contexts/UserContext";
-import { useMutation } from "@apollo/client";
-import { UPDATE_USER } from "../utils/apollo";
+import GraphqlError from "../components/GraphqlError";
+import { ME, UPDATE_USER, GET_OTP_URL, CHECK_2FA } from "../utils/apollo";
+import QrCode from "qrcode.react";
 
 const UpdateSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email address").required("Required"),
@@ -22,7 +32,37 @@ const UpdateSchema = Yup.object().shape({
 });
 
 const Profile = () => {
+    const { loading, data, error } = useQuery(ME);
+    const { data: url_data } = useQuery(GET_OTP_URL);
     const [updateUser] = useMutation(UPDATE_USER);
+    const [checkToken] = useMutation(CHECK_2FA);
+    const [me, setMe] = useState({});
+    const [otpUrl, setOtpUrl] = useState("");
+
+    useEffect(() => {
+        if (data?.me) {
+            console.log(data.me);
+            setMe(data.me);
+        }
+    }, [data]);
+
+    useEffect(() => {
+        if (url_data) {
+            console.log(url_data);
+            setOtpUrl(url_data.getOtpUrl);
+        }
+    }, [url_data]);
+
+    if (loading) {
+        return <Row style={{ height: "100%" }}>loading...</Row>;
+    }
+    if (error) {
+        return (
+            <Row>
+                <GraphqlError error={error} />
+            </Row>
+        );
+    }
     return (
         <UserContext.Consumer>
             {(context) => (
@@ -30,16 +70,14 @@ const Profile = () => {
                     <Col lg="8" md="6" sm="12">
                         <Card>
                             <CardBody>
-                                <CardTitle>
-                                    Edit {context.user.username}{" "}
-                                </CardTitle>
+                                <CardTitle>Edit {me.username} </CardTitle>
                                 <Row>
                                     <Col sm="12" md="6">
                                         <h5>Edit Profile</h5>
                                         <Formik
                                             initialValues={{
-                                                email: context.user.email,
-                                                username: context.user.username,
+                                                email: me.email,
+                                                username: me.username,
                                             }}
                                             validationSchema={UpdateSchema}
                                             onSubmit={async (values) => {
@@ -102,6 +140,125 @@ const Profile = () => {
                                     </Col>
                                     <Col sm="12" md="6">
                                         <h5>Session Preferences</h5>
+                                        <FormGroup check>
+                                            <Label check>
+                                                {me.otp_enabled ? (
+                                                    <Input
+                                                        type="checkbox"
+                                                        defaultChecked
+                                                        onChange={(e) => {
+                                                            console.log(
+                                                                e.target.value
+                                                            );
+                                                        }}
+                                                    />
+                                                ) : (
+                                                    <Input
+                                                        type="checkbox"
+                                                        onChange={(e) => {
+                                                            console.log(
+                                                                e.target.value
+                                                            );
+                                                        }}
+                                                    />
+                                                )}
+                                                Turn on 2-factor authentication
+                                                <span className="form-check-sign">
+                                                    <span className="check"></span>
+                                                </span>
+                                            </Label>
+                                        </FormGroup>
+                                        {me.otp_secret && (
+                                            <Row className="mt-5">
+                                                <Col align="center">
+                                                    <h5>Scan this qrcode</h5>
+                                                    <QrCode value={otpUrl} />
+                                                    <h5>
+                                                        Or enter this code
+                                                        manually:{" "}
+                                                        {me.otp_secret}
+                                                    </h5>
+                                                    <p>
+                                                        Once you added our
+                                                        service to an
+                                                        Authenticator, test it
+                                                        below
+                                                    </p>
+                                                    <Formik
+                                                        initialValues={{
+                                                            code: "",
+                                                        }}
+                                                        onSubmit={async (
+                                                            values
+                                                        ) => {
+                                                            console.log(values);
+
+                                                            const res = await checkToken(
+                                                                {
+                                                                    variables: {
+                                                                        code:
+                                                                            values.code,
+                                                                    },
+                                                                }
+                                                            );
+                                                            console.log(
+                                                                res.data
+                                                            );
+                                                            if (
+                                                                res.data
+                                                                    .checkOtpCode
+                                                            ) {
+                                                                Swal.fire(
+                                                                    "Alright!",
+                                                                    "The code you entered is correct",
+                                                                    "success"
+                                                                );
+                                                            } else {
+                                                                Swal.fire(
+                                                                    "Oops!",
+                                                                    "The code you entered appears to be incorrect",
+                                                                    "error"
+                                                                );
+                                                            }
+                                                        }}
+                                                    >
+                                                        {({
+                                                            errors,
+                                                            values,
+                                                            touched,
+                                                            handleSubmit,
+                                                            handleChange,
+                                                        }) => (
+                                                            <Form
+                                                                onSubmit={
+                                                                    handleSubmit
+                                                                }
+                                                            >
+                                                                <FormGroupInput
+                                                                    value={
+                                                                        values.code
+                                                                    }
+                                                                    error={
+                                                                        errors.code
+                                                                    }
+                                                                    touched={
+                                                                        touched.code
+                                                                    }
+                                                                    handleChange={
+                                                                        handleChange
+                                                                    }
+                                                                    name="code"
+                                                                    label="Code"
+                                                                />
+                                                                <Button type="submit">
+                                                                    Check
+                                                                </Button>
+                                                            </Form>
+                                                        )}
+                                                    </Formik>
+                                                </Col>
+                                            </Row>
+                                        )}
                                     </Col>
                                 </Row>
                             </CardBody>
@@ -113,7 +270,7 @@ const Profile = () => {
                                 <Row>
                                     <Col align="center" xs="12">
                                         <Gravatar
-                                            email={context.user.email}
+                                            email={me.email}
                                             style={{ borderRadius: "100%" }}
                                             size={100}
                                         />
