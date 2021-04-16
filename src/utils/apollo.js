@@ -178,6 +178,7 @@ const ME = gql`
             username
             otp_secret
             otp_enabled
+            _id
         }
     }
 `;

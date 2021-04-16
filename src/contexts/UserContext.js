@@ -1,26 +1,25 @@
-import React, { createContext, useState, useEffect } from 'react'
-
+import React, { createContext, useState, useEffect } from "react";
 
 const UserContext = createContext({
-	user: {},
-	updateUser: () => {}
-})
+    user: {},
+    updateUser: () => {},
+});
 
-const UserProvider = ({children}) => {
-	const [user, setUser] = useState({})
+const UserProvider = ({ children }) => {
+    const [user, setUser] = useState({});
 
-	useEffect(() => {
-		const u = localStorage.getItem("vivi-user")
-		if (u && u !== undefined) {
-			setUser(JSON.parse(u))
-		}
-	}, [])
-	return (
-		<UserContext.Provider value={{user, changeUser: (u) => setUser(u)}}>
-			{children}
-		</UserContext.Provider>
-	)
-}
+    useEffect(() => {
+        const u = localStorage.getItem("vivi-user");
+        if (u && u !== undefined) {
+            setUser(JSON.parse(u));
+        }
+    }, []);
+    return (
+        <UserContext.Provider value={{ user, changeUser: (u) => setUser(u) }}>
+            {children}
+        </UserContext.Provider>
+    );
+};
 
-export default UserProvider
-export {UserContext}
+export default UserProvider;
+export { UserContext };
