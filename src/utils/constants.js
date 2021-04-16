@@ -10,12 +10,7 @@ const BASE_URL =
         ? "http://localhost:3000"
         : "https://api.server.vincipit.com";
 
-const BASE_WS = BASE_URL.replace(
-    /^https?/,
-    process.env.NODE_ENV || process.env.NODE_ENV === "development"
-        ? "ws"
-        : "wss"
-);
+const BASE_WS = BASE_URL.replace(/^http/, "ws");
 
 const LoginSchema = Yup.object().shape({
     email: Yup.string()
