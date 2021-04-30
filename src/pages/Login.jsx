@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Card from "reactstrap/lib/Card";
 import CardBody from "reactstrap/lib/CardBody";
 import { useHistory } from "react-router-dom";
@@ -6,22 +6,17 @@ import Form from "reactstrap/lib/Form";
 import Button from "reactstrap/lib/Button";
 import { Formik } from "formik";
 import FormGroupInput from "../components/FormGroupInput";
-import { CHECK_2FA, LOGIN, ME } from "../utils/apollo";
+import { LOGIN } from "../utils/apollo";
 import { LoginSchema } from "../utils/constants";
 import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 import { UserContext } from "../contexts/UserContext";
 import useError from "../hooks/useErrors";
-import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
-
-const MySwal = withReactContent(Swal);
+import { useMutation } from "@apollo/client";
 
 const Login = () => {
     const history = useHistory();
     const alerts = useError();
     const [login] = useMutation(LOGIN);
-    const [getMe, { loading: meLoading, data: meData }] = useLazyQuery(ME);
-    const [checkCode] = useMutation(CHECK_2FA);
 
     return (
         <div>
@@ -45,7 +40,7 @@ const Login = () => {
                                         });
                                         console.log(result);
                                         localStorage.setItem(
-                                            "vivi-jwt",
+                                            "vivi-jwt-tmp",
                                             result.data.login.access_token
                                         );
                                         localStorage.setItem(
@@ -55,8 +50,11 @@ const Login = () => {
                                             )
                                         );
 
-                                        if (!result.data.login.otp_enabled) {
-                                            MySwal.fire(
+                                        if (
+                                            result.data.login.otp_enabled ===
+                                            false
+                                        ) {
+                                            Swal.fire(
                                                 "Alright!",
                                                 `Welcome back ${result.data.login.user.username}!`,
                                                 "success"
@@ -66,22 +64,15 @@ const Login = () => {
                                             );
                                             history.push("/");
                                         } else {
-                                            MySwal.fire(
-                                                "Enter 2FA Code",
-                                                <div>
-                                                    <FormGroupInput
-                                                        label="Code"
-                                                        name="code"
-                                                    />
-                                                </div>
-                                            );
+                                            history.push("/login/code");
                                         }
                                     } catch (error) {
-                                        MySwal.fire(
+                                        Swal.fire(
                                             "Something went wrong",
                                             "Could not authenticate with provided details",
                                             "error"
                                         );
+                                        console.error(error);
                                     }
                                 }}
                             >
