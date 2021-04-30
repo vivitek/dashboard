@@ -72,7 +72,8 @@ const Profile = () => {
         if (data?.me) {
             console.log(data.me);
             setMe(data.me);
-            userContext.changeUser(data.me);
+            userContext.updateUser(data.me);
+            profileForm.setErrors({ email: "", username: "" });
             profileForm.setFieldValue("email", data.me.email);
             profileForm.setFieldValue("username", data.me.username);
         }
