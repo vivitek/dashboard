@@ -145,6 +145,7 @@ const LOGIN = gql`
                 _id
                 email
                 username
+                otp_enabled
             }
         }
     }
