@@ -9,6 +9,7 @@ import Landing from "./pages/Landing";
 import RouterDetails from "./pages/Router/RouterDetails";
 import PdfTableExport from "./pages/PdfTableExport";
 import NotFound from "./pages/NotFound";
+import CodeVerification from "./pages/2FA";
 
 const AuthedRoute = ({ path, exact, component }) => {
     if (path === "/" && !localStorage.getItem("vivi-jwt")) {
@@ -30,6 +31,7 @@ const Routes = () => (
         <AuthedRoute path="/routers/:id" exact component={RouterDetails} />
         <AuthedRoute path="/pdf/table" exact component={PdfTableExport} />
         <Route path="/login" exact component={Login} />
+        <Route path="/login/code" exact component={CodeVerification} />
         <Route component={NotFound} />
     </Switch>
 );
