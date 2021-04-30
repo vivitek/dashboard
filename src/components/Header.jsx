@@ -10,7 +10,6 @@ import { Link, useLocation, useHistory } from "react-router-dom";
 import Breadcrumb from "reactstrap/lib/Breadcrumb";
 import BreadcrumbItem from "reactstrap/lib/BreadcrumbItem";
 import Container from "reactstrap/lib/Container";
-import Gravatar from "react-gravatar";
 import { UserContext } from "../contexts/UserContext";
 import { useContext } from "react";
 import { BeamsContext } from "../contexts/BeamsContext";
@@ -60,42 +59,40 @@ const Header = () => {
                 <NavbarBrand tag={Link} to="/">
                     Vivi
                 </NavbarBrand>
-                <NavbarToggler onClick={toggle} />
-                <Collapse isOpen={isOpen} navbar>
-                    {localStorage.getItem("vivi-jwt") && (
-                        <Nav className="mr-auto" navbar>
-                            <NavItem>
-                                <NavLink tag={Link} to="/routers">
-                                    Routers
-                                </NavLink>
-                            </NavItem>
-                        </Nav>
-                    )}
-                    {userContext?.user?._id && (
-                        <Nav navbar>
-                            <NavItem>
-                                <NavLink tag={Link} to="/profile">
-                                    <Gravatar
-                                        style={{ borderRadius: "100%" }}
-                                        default="monsterid"
-                                        email={userContext.user.email}
-                                    />
-                                </NavLink>
-                            </NavItem>
-                            <NavItem
-                                onClick={() => {
-                                    localStorage.removeItem("vivi-user");
-                                    localStorage.removeItem("vivi-jwt");
-                                    userContext.changeUser(null);
-                                    beamsContext.client.stop();
-                                    history.push("/login");
-                                }}
-                            >
-                                <NavLink>Logout</NavLink>
-                            </NavItem>
-                        </Nav>
-                    )}
-                </Collapse>
+                {userContext.authed && (
+                    <>
+                        <NavbarToggler onClick={toggle} />
+                        <Collapse isOpen={isOpen} navbar>
+                            <Nav className="mr-auto" navbar>
+                                <NavItem>
+                                    <NavLink tag={Link} to="/routers">
+                                        Routers
+                                    </NavLink>
+                                </NavItem>
+                            </Nav>
+
+                            <Nav navbar>
+                                <NavItem>
+                                    <NavLink tag={Link} to="/profile">
+                                        Settings
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem
+                                    onClick={() => {
+                                        localStorage.removeItem("vivi-user");
+                                        localStorage.removeItem("vivi-jwt");
+                                        userContext.updateUser(null);
+                                        beamsContext.client.stop();
+                                        userContext.updateAuthed(false);
+                                        history.push("/login");
+                                    }}
+                                >
+                                    <NavLink>Logout</NavLink>
+                                </NavItem>
+                            </Nav>
+                        </Collapse>
+                    </>
+                )}
             </Navbar>
             <Container fluid>
                 <Breadcrumb>
