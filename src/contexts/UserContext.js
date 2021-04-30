@@ -2,12 +2,14 @@ import React, { createContext, useState, useEffect } from "react";
 
 const UserContext = createContext({
     user: {},
+    authed: true,
     updateUser: () => {},
+    updateAuthed: () => {},
 });
 
 const UserProvider = ({ children }) => {
     const [user, setUser] = useState({});
-
+    const [authed, setAuthed] = useState(true);
     useEffect(() => {
         const u = localStorage.getItem("vivi-user");
         if (u && u !== undefined) {
@@ -15,7 +17,14 @@ const UserProvider = ({ children }) => {
         }
     }, []);
     return (
-        <UserContext.Provider value={{ user, changeUser: (u) => setUser(u) }}>
+        <UserContext.Provider
+            value={{
+                user,
+                authed,
+                updateUser: (u) => setUser(u),
+                updateAuthed: (u) => setAuthed(u),
+            }}
+        >
             {children}
         </UserContext.Provider>
     );
