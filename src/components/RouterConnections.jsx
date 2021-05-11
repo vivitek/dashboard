@@ -127,9 +127,11 @@ const RouterConnections = ({ routerId }) => {
                                                         color="success"
                                                         onClick={async () => {
                                                             const { _id } = e;
-                                                            await mutateBan({
-                                                                _id,
-                                                                banned: false,
+                                                            await updateBan({
+                                                                variables: {
+                                                                    _id,
+                                                                    banned: false,
+                                                                },
                                                             });
                                                             addIncomingToHistory(
                                                                 {
@@ -147,9 +149,11 @@ const RouterConnections = ({ routerId }) => {
                                                         color="danger"
                                                         onClick={async () => {
                                                             const { _id } = e;
-                                                            await mutateBan({
-                                                                _id,
-                                                                banned: true,
+                                                            await updateBan({
+                                                                variables: {
+                                                                    _id,
+                                                                    banned: true,
+                                                                },
                                                             });
                                                             addIncomingToHistory(
                                                                 {
