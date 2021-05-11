@@ -232,7 +232,13 @@ const RouterConnections = ({ routerId }) => {
                                             value: (
                                                 <>
                                                     <Button
-                                                        onClick={() => {}}
+                                                        onClick={async () => {
+                                                            const { _id } = e;
+                                                            await mutateBan({
+                                                                _id,
+                                                                banned: true,
+                                                            });
+                                                        }}
                                                         className="btn-icon"
                                                         size="sm"
                                                         color="success"
@@ -240,6 +246,13 @@ const RouterConnections = ({ routerId }) => {
                                                         <i className="fa fa-check"></i>
                                                     </Button>
                                                     <Button
+                                                        onClick={async () => {
+                                                            const { _id } = e;
+                                                            await mutateBan({
+                                                                _id,
+                                                                banned: true,
+                                                            });
+                                                        }}
                                                         className="btn-icon"
                                                         size="sm"
                                                         color="danger"
