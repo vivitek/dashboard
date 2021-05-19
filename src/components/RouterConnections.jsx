@@ -250,7 +250,7 @@ const RouterConnections = ({ routerId }) => {
                                                             const { _id } = e;
                                                             await mutateBan({
                                                                 _id,
-                                                                banned: true,
+                                                                banned: false,
                                                             });
                                                         }}
                                                         className="btn-icon"
