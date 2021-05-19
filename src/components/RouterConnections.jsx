@@ -129,7 +129,7 @@ const RouterConnections = ({ routerId }) => {
                                                             const { _id } = e;
                                                             await mutateBan({
                                                                 _id,
-                                                                banned: false,
+                                                                banned: true,
                                                             });
                                                             addIncomingToHistory(
                                                                 {
@@ -149,7 +149,7 @@ const RouterConnections = ({ routerId }) => {
                                                             const { _id } = e;
                                                             await mutateBan({
                                                                 _id,
-                                                                banned: true,
+                                                                banned: false,
                                                             });
                                                             addIncomingToHistory(
                                                                 {
@@ -236,7 +236,7 @@ const RouterConnections = ({ routerId }) => {
                                                             const { _id } = e;
                                                             await mutateBan({
                                                                 _id,
-                                                                banned: true,
+                                                                banned: false,
                                                             });
                                                         }}
                                                         className="btn-icon"
@@ -250,7 +250,7 @@ const RouterConnections = ({ routerId }) => {
                                                             const { _id } = e;
                                                             await mutateBan({
                                                                 _id,
-                                                                banned: false,
+                                                                banned: true,
                                                             });
                                                         }}
                                                         className="btn-icon"
