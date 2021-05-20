@@ -59,9 +59,13 @@ const RouterConnections = ({ routerId }) => {
             },
         });
         if (res?.errors?.length > 0) {
-            Swal.fire("Mutation Failed", res.errors.join("\n"), "error");
+            Swal.fire("Oops!", res.errors.join("\n"), "error");
         } else {
-            Swal.fire("Success", "Mutation successful", "success");
+            Swal.fire(
+                "Success!",
+                "Your modification has been processed",
+                "success"
+            );
         }
     };
     const addIncomingToHistory = (data) => {
@@ -129,7 +133,7 @@ const RouterConnections = ({ routerId }) => {
                                                             const { _id } = e;
                                                             await mutateBan({
                                                                 _id,
-                                                                banned: true,
+                                                                banned: false,
                                                             });
                                                             addIncomingToHistory(
                                                                 {
@@ -149,7 +153,7 @@ const RouterConnections = ({ routerId }) => {
                                                             const { _id } = e;
                                                             await mutateBan({
                                                                 _id,
-                                                                banned: false,
+                                                                banned: true,
                                                             });
                                                             addIncomingToHistory(
                                                                 {
