@@ -51,17 +51,25 @@ const Login = () => {
                                         );
 
                                         if (
-                                            result.data.login.otp_enabled ===
-                                            false
+                                            result.data.login.user
+                                                .otp_enabled === false
                                         ) {
                                             Swal.fire(
                                                 "Alright!",
                                                 `Welcome back ${result.data.login.user.username}!`,
                                                 "success"
                                             );
-                                            context.changeUser(
+                                            localStorage.setItem(
+                                                "vivi-jwt",
+                                                result.data.login.access_token
+                                            );
+                                            localStorage.removeItem(
+                                                "vivi-jwt-tmp"
+                                            );
+                                            context.updateUser(
                                                 result.data.login.user
                                             );
+                                            context.updateAuthed(true);
                                             history.push("/");
                                         } else {
                                             history.push("/login/code");
