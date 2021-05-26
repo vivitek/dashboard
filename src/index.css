@@ -21,3 +21,15 @@ body {
 main {
   flex:2;
 }
+
+.montserrat {
+  font-family: montserrat,sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.itc {
+  font-family: itc-avant-garde-gothic-pro,sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
