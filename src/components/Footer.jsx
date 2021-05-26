@@ -1,8 +1,15 @@
 import { useContext } from "react";
+import { useLocation } from "react-router";
 import ThemeContext from "../contexts/themeContext";
+import { noFooter } from "../utils/constants";
 
 const Footer = () => {
   const themeContext = useContext(ThemeContext);
+  const location = useLocation();
+  console.log(location);
+  if (noFooter.includes(location.pathname)) {
+    return <div></div>;
+  }
   return (
     <div className="w-full bg-gray-400 dark:bg-gray-700 h-12 flex items-center justify-around dark:text-white">
       <div className="">

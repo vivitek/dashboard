@@ -14,4 +14,6 @@ const LoginSchema = Yup.object().shape({
   password: Yup.string().required("Required"),
 });
 
-export { LoginSchema, BASE_URL, BASE_WS };
+const noFooter = ["/login"];
+
+export { LoginSchema, BASE_URL, BASE_WS, noFooter };
