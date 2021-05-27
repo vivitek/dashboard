@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { BrowserRouter } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -9,6 +9,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "./utils/apollo";
+import LoadingPage from "./pages/Loading";
 
 function App() {
   const [theme, setTheme] = useState("dark");
@@ -33,7 +34,9 @@ function App() {
           </header>
           <main>
             <Page>
-              <Routes />
+              <Suspense fallback={LoadingPage}>
+                <Routes />
+              </Suspense>
             </Page>
           </main>
           <ThemeContext.Provider
