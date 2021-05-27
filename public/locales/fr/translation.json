@@ -1,0 +1,10 @@
+{
+    "login": {
+        "prompt":"Se Connecter",
+        "details":"Entrez votre mèl et mot de passe",
+        "forgotten":"Mot de passe oublié ?"
+    },
+    "common": {
+        "submit":"Envoyer"
+    }
+}
