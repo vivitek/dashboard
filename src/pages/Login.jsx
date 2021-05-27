@@ -76,7 +76,7 @@ const Login = () => {
                     </p>
                   </div>
                   <div>
-                    <div className="w-full flex flex-col mb-10">
+                    <div className="w-full flex flex-col mb-10 mt-10">
                       <label className="montserrat mb-2">Email</label>
                       <input
                         onChange={formik.handleChange}
@@ -96,10 +96,10 @@ const Login = () => {
                         className="bg-gray-200 dark:bg-[#313E68] border-none rounded-xl"
                       />
                     </div>
-                    <div align="right">
+                    <div align="right" className="">
                       <a
                         href="mailto:contact@vincipit.com"
-                        className="montserrat"
+                        className="montserrat "
                         rel="noreferrer"
                         target="_blank"
                       >
@@ -107,7 +107,7 @@ const Login = () => {
                       </a>
                     </div>
                   </div>
-                  <div className="w-full flex justify-end">
+                  <div className="w-full flex justify-end mt-8">
                     <div className="flex flex-col justify-center w-full">
                       <button
                         type="submit"
