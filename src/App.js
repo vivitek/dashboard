@@ -29,8 +29,7 @@ function App() {
       <BrowserRouter>
         <ApolloProvider client={client}>
           <header>
-            {/*             <Header />
-             */}{" "}
+            <Header />
           </header>
           <main>
             <Page>

@@ -4,7 +4,10 @@ const Header = () => {
   const userContext = null;
   const history = useHistory();
   return (
-    <div className="w-full bg-gray-400 dark:bg-gray-700 md:h-20 h-12 flex items-center justify-between  dark:text-white">
+    <div
+      className="w-full bg-gray-400 dark:bg-gray-700 md:h-20 h-12 
+    flex items-center justify-between  dark:text-white"
+    >
       <div className="h-full flex flex-col justify-center ml-2">
         <img
           src="/vivi_no-text.png"
