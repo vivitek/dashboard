@@ -10,6 +10,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "formik": "^2.2.8",
+    "graphql": "^15.5.1",
     "i18next": "^20.3.0",
     "i18next-browser-languagedetector": "^6.1.1",
     "i18next-http-backend": "^1.2.6",
@@ -36,7 +37,7 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "craco start --verbose",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
