@@ -29,7 +29,7 @@ function App() {
       <BrowserRouter>
         <ApolloProvider client={client}>
           <header>
-            <Header />
+            
           </header>
           <main>
             <Page>
@@ -45,7 +45,6 @@ function App() {
             }}
           >
             <footer>
-              <Footer />
             </footer>
           </ThemeContext.Provider>
         </ApolloProvider>
