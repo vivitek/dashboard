@@ -23,7 +23,7 @@ const Login = () => {
         setLoading(true);
         const res = await login({
           variables: {
-            loginData: { ...values },
+            loginData: values,
           },
         });
         setLoading(false);
