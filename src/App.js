@@ -8,6 +8,7 @@ import UserContext from "./contexts/UserContext";
 import BeamsProvider from "./contexts/BeamsContext";
 import { client } from "./utils/apollo";
 import { ApolloProvider } from "@apollo/client";
+
 function App() {
     const [user, setUser] = useState({});
 
