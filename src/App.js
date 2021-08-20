@@ -1,7 +1,5 @@
 import React, { useState, Suspense } from "react";
 import { BrowserRouter } from "react-router-dom";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
 import Routes from "./Routes";
 import ThemeContext from "./contexts/themeContext";
 import Page from "./components/Page";
