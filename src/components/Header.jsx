@@ -1,7 +1,6 @@
 const { Link, useHistory } = require("react-router-dom");
 
 const Header = () => {
-  const userContext = null;
   const history = useHistory();
   return (
     <div
