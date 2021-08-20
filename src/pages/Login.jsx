@@ -6,6 +6,7 @@ import { LOGIN } from "../utils/apollo";
 import { LoginSchema } from "../utils/constants";
 import { useState } from "react";
 import { useHistory } from "react-router";
+import LoadingPage from "./Loading";
 
 const Login = () => {
   const [login] = useMutation(LOGIN);
@@ -19,6 +20,7 @@ const Login = () => {
     },
     validationSchema: LoginSchema,
     onSubmit: async (values) => {
+      setLoading(true)
       try {
         setLoading(true);
         const res = await login({
@@ -43,6 +45,10 @@ const Login = () => {
     },
   });
 
+  if (loading) {
+    return <LoadingPage />
+  }
+
   return (
     <div className="h-full w-full bg-cover bg-center" style={{
       backgroundImage: "url(https://source.unsplash.com/random/1920x1080)",
@@ -59,8 +65,8 @@ const Login = () => {
           </div>
         </div>
         <div className="w-full md:w-2/3 h-2/3 md:h-full md:flex flex-col justify-center items-center">
-          <div className="dark:bg-[#292E40] bg-white rounded-3xl py-2 px-4  w-full md:w-2/3 lg:w-1/3">
-            <form>
+          <div className="dark:bg-[#292E40] bg-white rounded-3xl py-2 px-4  w-full md:w-2/3 lg:w-1/3 relative">
+            <form onSubmit={formik.handleSubmit}>
               <div className="w-full flex flex-col">
                 <div className="">
                   <h1 className="font-bold text-3xl itc">
