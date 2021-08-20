@@ -20,7 +20,6 @@ const Login = () => {
     },
     validationSchema: LoginSchema,
     onSubmit: async (values) => {
-      setLoading(true)
       try {
         setLoading(true);
         const res = await login({
@@ -50,7 +49,7 @@ const Login = () => {
   }
 
   return (
-    <div className="h-full w-full bg-cover bg-center" style={{
+    <div className="h-full w-full bg-cover bg-center relative" style={{
       backgroundImage: "url(https://source.unsplash.com/random/1920x1080)",
     }}>
       <div className="w-full h-full flex flex-col md:flex-row" style={{ background: "rgba(0,0,0,0.85)" }}>
