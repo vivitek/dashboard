@@ -1,6 +1,6 @@
 const LoadingPage = () => {
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center">
+    <div className="w-full h-screen flex flex-col justify-center items-center">
       <h1>Loading stuff...</h1>
     </div>
   );
