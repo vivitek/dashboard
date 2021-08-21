@@ -60,7 +60,7 @@ const Login = () => {
             className="w-1/3 md:w-1/2 h-auto"
           />
           <div align="right" className="w-1/3 hidden md:block">
-            <p className="mt-2 text-xl montserrat text-white">Login</p>
+            <p className="mt-2 text-xl font-sans text-white">Login</p>
           </div>
         </div>
         <div className="w-full md:w-2/3 h-2/3 md:h-full md:flex flex-col justify-center items-center">
@@ -68,15 +68,15 @@ const Login = () => {
             <form onSubmit={formik.handleSubmit}>
               <div className="w-full flex flex-col">
                 <div className="">
-                  <h1 className="font-bold text-3xl itc">
+                  <h1 className="font-bold text-3xl font-itc">
                     {t("login.prompt")}
                   </h1>
-                  <p className="text-xl font-semibold montserrat">
+                  <p className="text-xl font-semibold font-sans">
                     {t("login.details")}
                   </p>
                 </div>
                 <div className="w-full flex flex-col mb-10 mt-10">
-                  <label className="montserrat mb-2">Email</label>
+                  <label className="font-sans mb-2">Email</label>
                   <input
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -86,7 +86,7 @@ const Login = () => {
                   />
                 </div>
                 <div className="w-full flex flex-col mb-2">
-                  <label className="montserrat mb-2">Password</label>
+                  <label className="font-sans mb-2">Password</label>
                   <input
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -98,7 +98,7 @@ const Login = () => {
                 <div align="right" className="">
                   <a
                     href="mailto:contact@vincipit.com"
-                    className="montserrat "
+                    className="font-sans "
                     rel="noreferrer"
                     target="_blank"
                   >
@@ -109,7 +109,7 @@ const Login = () => {
                   <div className="flex flex-col justify-center w-full">
                     <button
                       type="submit"
-                      className="dark:bg-[#313E68] bg-[#1473E6]  text-white px-6 py-2 rounded-lg font-medium  hover:bg-blue-600 transition duration-200 each-in-out montserrat"
+                      className="dark:bg-[#313E68] bg-[#1473E6]  text-white px-6 py-2 rounded-lg font-medium  hover:bg-blue-600 transition duration-200 each-in-out font-sans"
                     >
                       {t("common.submit")}
                     </button>
