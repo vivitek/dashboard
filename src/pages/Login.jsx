@@ -64,7 +64,7 @@ const Login = () => {
           </div>
         </div>
         <div className="w-full md:w-2/3 h-2/3 md:h-full md:flex flex-col justify-center items-center">
-          <div className="dark:bg-[#292E40] bg-white rounded-3xl py-2 px-4  w-full md:w-2/3 lg:w-1/3 relative">
+          <div className="dark:bg-[#292E40] bg-white rounded-3xl w-full md:w-2/3 lg:w-1/3 px-4 py-4">
             <form onSubmit={formik.handleSubmit}>
               <div className="w-full flex flex-col">
                 <div className="">
