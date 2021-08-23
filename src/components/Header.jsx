@@ -11,7 +11,7 @@ const Header = () => {
 
   const renderBurgerMenu = () => {
     return (
-      <div className="flex flex-col h-screen absolute bg-[#292E41] text-white z-10 top-0 left-0" style={{ width: "40vw" }}>
+      <div className="flex flex-col h-screen absolute bg-[#292E41] text-white z-10 top-0 left-0" style={{ minWidth: "40vw" }}>
         <div className="h-12 md:h-20 flex items-center">
           <img src="/vivi_white.svg" className="flex-shrink-0 m-3 h-12 w-auto" />
           <button onClick={toggleOpen}>
@@ -50,10 +50,13 @@ const Header = () => {
       <div
         className="w-full bg-gray-400 dark:bg-[#292E41] h-12 md:h-20 dark:text-white flex items-center"
       >
-        <img src="/vivi_white.svg" className="flex-shrink-0 m-3 md:m-6 h-12 w-auto" />
-        <button onClick={toggleOpen} className="block md:hidden">
-          menu
-        </button>
+        {!isOpen && <>
+          <img src="/vivi_white.svg" className="flex-shrink-0 m-3 md:m-6 h-12 w-auto" />
+          <button onClick={toggleOpen} className="block lg:hidden">
+            menu
+          </button>
+        </>}
+
         {!isOpen && renderMenu()}
       </div>
       {isOpen && renderBurgerMenu()}
