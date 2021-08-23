@@ -1,11 +1,13 @@
 import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { noFooterHeader } from "../utils/constants";
+import UserContext from "../contexts/userContext";
 import Menu from "../images/Hamburger";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const userContext = useContext(UserContext);
 
   const toggleOpen = () => {
     setIsOpen(!isOpen)
@@ -30,7 +32,7 @@ const Header = () => {
         <div className="h-12 md:h-20 flex items-center">
           {renderLogo()}
         </div>
-        <div className="flex flex-col mt-4">
+        <div className="flex flex-col mt-4 ml-4">
           <Link to="/" onClick={toggleOpen}>
             Home
           </Link>
@@ -38,6 +40,10 @@ const Header = () => {
             Box
           </Link>
         </div>
+        {userContext.authed && <div className="flex flex-col mt-4 ml-4">
+          <Link to="/logout">Sign Out</Link>
+          <Link to="/profile">Profile</Link>
+        </div>}
       </div>
     )
   }
