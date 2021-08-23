@@ -1,0 +1,10 @@
+{
+    "login": {
+        "prompt":"Sign In",
+        "details":"Enter your email and password",
+        "forgotten":"Forgotten your password?"
+    },
+    "common": {
+        "submit":"Submit"
+    }
+}
