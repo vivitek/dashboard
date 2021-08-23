@@ -1,7 +1,7 @@
-const { Switch, Route } = require("react-router");
-const { default: Boxes } = require("./pages/Boxes");
-const { default: BoxDetails } = require("./pages/Boxes_Details");
-const { default: Login } = require("./pages/Login");
+import { Switch, Route } from "react-router";
+import Boxes from "./pages/Boxes";
+import BoxDetails from "./pages/Boxes_Details";
+import Login from "./pages/Login";
 
 const Routes = () => {
   return (
