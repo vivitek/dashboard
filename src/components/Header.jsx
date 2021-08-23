@@ -1,9 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
+import { noFooterHeader } from "../utils/constants";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const Location = useLocation();
+  const location = useLocation();
   const toggleOpen = () => {
     setIsOpen(!isOpen)
   }
@@ -46,6 +47,10 @@ const Header = () => {
       </div>
     )
   }
+  if (location.pathname.includes(noFooterHeader)) {
+    return (<div></div>)
+  }
+
   return (
     <header className="z-0">
       <div
