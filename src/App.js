@@ -8,6 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "./utils/apollo";
 import LoadingPage from "./pages/Loading";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
   const [theme, setTheme] = useState("dark");
@@ -26,24 +28,21 @@ function App() {
       ></ToastContainer>
       <BrowserRouter>
         <ApolloProvider client={client}>
-          <header>
-            
-          </header>
-          <main>
-            <Page>
-              <Suspense fallback={LoadingPage}>
-                <Routes />
-              </Suspense>
-            </Page>
-          </main>
           <ThemeContext.Provider
             value={{
               theme,
               changeTheme: () => setTheme(theme === "dark" ? "light" : "dark"),
             }}
           >
-            <footer>
-            </footer>
+            <Header />
+            <main>
+              <Page>
+                <Suspense fallback={LoadingPage}>
+                  <Routes />
+                </Suspense>
+              </Page>
+            </main>
+            <Footer />
           </ThemeContext.Provider>
         </ApolloProvider>
       </BrowserRouter>
