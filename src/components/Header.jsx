@@ -15,7 +15,7 @@ const Header = () => {
     return (
       <>
         <Link to="/">
-          <img src="/vivi_white.svg" className=" m-3 h-8 md:h-12 w-auto" />
+          <img src="/vivi_white.svg" className=" m-3 h-8 md:h-12 w-auto" alt="Vivi Logo" />
         </Link>
         <button onClick={toggleOpen} className="block md:hidden">
           <Menu className="stroke-current fill-current w-auto h-8" isOpen={isOpen} />
