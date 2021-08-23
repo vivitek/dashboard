@@ -1,24 +1,34 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { noFooterHeader } from "../utils/constants";
+import Menu from "../images/Hamburger";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+
   const toggleOpen = () => {
     setIsOpen(!isOpen)
+  }
+
+  const renderLogo = () => {
+    return (
+      <>
+        <Link to="/">
+          <img src="/vivi_white.svg" className=" m-3 h-8 md:h-12 w-auto" />
+        </Link>
+        <button onClick={toggleOpen} className="block md:hidden">
+          <Menu className="stroke-current fill-current w-auto h-8" isOpen={isOpen} />
+        </button>
+      </>
+    )
   }
 
   const renderBurgerMenu = () => {
     return (
       <div className="flex flex-col h-screen absolute bg-[#292E41] text-white z-10 top-0 left-0" style={{ minWidth: "40vw" }}>
         <div className="h-12 md:h-20 flex items-center">
-          <Link to="/">
-            <img src="/vivi_white.svg" className="flex-shrink-0 m-6 h-12 w-auto" />
-          </Link>
-          <button onClick={toggleOpen}>
-            menu
-          </button>
+          {renderLogo()}
         </div>
         <div className="flex flex-col mt-4">
           <Link to="/" onClick={toggleOpen}>
@@ -56,15 +66,7 @@ const Header = () => {
       <div
         className="w-full bg-gray-400 dark:bg-[#292E41] h-12 md:h-20 dark:text-white flex items-center"
       >
-        {!isOpen && <>
-          <Link to="/">
-            <img src="/vivi_white.svg" className="flex-shrink-0 m-6 h-12 w-auto" />
-          </Link>
-          <button onClick={toggleOpen} className="block md:hidden">
-            menu
-          </button>
-        </>}
-
+        {!isOpen && renderLogo()}
         {!isOpen && renderMenu()}
       </div>
       {isOpen && renderBurgerMenu()}
