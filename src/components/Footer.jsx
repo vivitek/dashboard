@@ -34,7 +34,7 @@ const Footer = () => {
           className="cursor-pointer text-black dark:text-white"
           onClick={() => themeContext.changeTheme()}
         >
-          {themeContext.theme === "dark" ? <Sun className="stroke-current fill-current text-black dark:text-white" /> : <Moon className="stroke-current fill-current text-black dark:text-white" />}
+          {themeContext.theme === "dark" ? <Sun className="stroke-current fill-current" /> : <Moon className="stroke-current fill-current" />}
         </div>
       </div>
     </footer>
