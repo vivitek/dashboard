@@ -10,9 +10,12 @@ import { client } from "./utils/apollo";
 import LoadingPage from "./pages/Loading";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import UserContext from "./contexts/userContext";
 
 function App() {
   const [theme, setTheme] = useState("dark");
+  const [user, setUser] = useState(null);
+  const [authed, setAuthed] = useState(false);
 
   return (
     <div
@@ -27,24 +30,34 @@ function App() {
         hideProgressBar={true}
       ></ToastContainer>
       <BrowserRouter>
-        <ApolloProvider client={client}>
-          <ThemeContext.Provider
-            value={{
-              theme,
-              changeTheme: () => setTheme(theme === "dark" ? "light" : "dark"),
-            }}
-          >
-            <Header />
-            <main>
-              <Page>
-                <Suspense fallback={LoadingPage}>
-                  <Routes />
-                </Suspense>
-              </Page>
-            </main>
-            <Footer />
-          </ThemeContext.Provider>
-        </ApolloProvider>
+        <UserContext.Provider
+          value={{
+            user,
+            changeUser: (u) => setUser(u),
+            authed,
+            changeAuthed: (a) => setAuthed(a),
+          }}
+        >
+          <ApolloProvider client={client}>
+            <ThemeContext.Provider
+              value={{
+                theme,
+                changeTheme: () =>
+                  setTheme(theme === "dark" ? "light" : "dark"),
+              }}
+            >
+              <Header />
+              <main>
+                <Page>
+                  <Suspense fallback={LoadingPage}>
+                    <Routes />
+                  </Suspense>
+                </Page>
+              </main>
+              <Footer />
+            </ThemeContext.Provider>
+          </ApolloProvider>
+        </UserContext.Provider>
       </BrowserRouter>
     </div>
   );
