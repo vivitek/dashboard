@@ -13,11 +13,21 @@ body {
 
 #root {
   display: flex;
-  height:100vh;
+  height: 100vh;
   width: 100vw;
   flex-direction: column;
 }
 
 main {
-  flex:2;
+  flex: 2;
+}
+
+.cls-1 {
+  fill: #fff;
+}
+
+@layer components {
+  .menu_item {
+    @apply hover:bg-blue-200 transition-all w-full dark:hover:bg-[#4f587e];
+  }
 }
