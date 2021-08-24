@@ -13,10 +13,10 @@ const Footer = () => {
     return <div></div>;
   }
   return (
-    <footer>
+    <footer className="w-full">
 
-      <div className="w-full h-12 md:h-20 bg-gray-400 dark:bg-[#292E41] flex items-center justify-around dark:text-white">
-        <div className="h-full flex items-center w-1/2">
+      <div className="w-full h-12 md:h-20 bg-gray-400 dark:bg-[#292E41] flex items-center dark:text-white">
+        <div className="h-full flex items-center w-full ml-12">
           <img
             src="/vivi_no-text.png"
             alt="ViVi header logo"
@@ -27,10 +27,8 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} <a href="mailto:contact@vincipit.com">Vincipit</a>
           </p>
         </div>
-        <div className="">
-        </div>
         <div
-          className="cursor-pointer text-black dark:text-white"
+          className="cursor-pointer text-black dark:text-white justify-self-end mr-12"
           onClick={() => themeContext.changeTheme()}
         >
           {themeContext.theme === "dark" ? <Sun className="stroke-current fill-current" /> : <Moon className="stroke-current fill-current" />}
