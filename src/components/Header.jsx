@@ -1,13 +1,18 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useContext } from "react";
+import { useTranslation } from "react-i18next";
+import { Menu } from '@headlessui/react'
 import { noFooterHeader } from "../utils/constants";
 import UserContext from "../contexts/userContext";
-import Menu from "../images/Hamburger";
+import MenuIcon from "../images/Hamburger";
+import User from "../images/User"
+import Vivi from "../images/Vivi"
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const userContext = useContext(UserContext);
+  const { t } = useTranslation();
 
   const toggleOpen = () => {
     setIsOpen(!isOpen)
@@ -17,10 +22,10 @@ const Header = () => {
     return (
       <>
         <Link to="/">
-          <img src="/vivi_white.svg" className=" m-3 h-8 md:h-12 w-auto" alt="Vivi Logo" />
+          <Vivi className="m-3 h-6 w-auto" />
         </Link>
         <button onClick={toggleOpen} className="block md:hidden">
-          <Menu className="stroke-current fill-current w-auto h-8" isOpen={isOpen} />
+          <MenuIcon className="stroke-current fill-current w-auto h-8" isOpen={isOpen} />
         </button>
       </>
     )
@@ -32,17 +37,17 @@ const Header = () => {
         <div className="h-12 md:h-20 flex items-center">
           {renderLogo()}
         </div>
-        <div className="flex flex-col mt-4 ml-4">
+        <div className="flex flex-col mt-4 ml-4 gap-4">
           <Link to="/" onClick={toggleOpen}>
-            Home
+            {t("header.home")}
           </Link>
           <Link to="/box" onClick={toggleOpen}>
-            Box
+            {t("header.boxes")}
           </Link>
         </div>
-        {userContext.authed && <div className="flex flex-col mt-4 ml-4">
-          <Link to="/logout">Sign Out</Link>
-          <Link to="/profile">Profile</Link>
+        {!userContext.authed && <div className="flex flex-col mt-4 ml-4">
+          <Link to="/settings">{t("header.settings")}</Link>
+          <span className="cursor-pointer">{t("header.logout")}</span>
         </div>}
       </div>
     )
@@ -50,16 +55,32 @@ const Header = () => {
 
   const renderMenu = () => {
     return (
-      <div className="w-full md:flex flex-row items-center h-full hidden ml-12">
+      <div className="w-full md:flex flex-row items-center justify-between h-full hidden ml-12">
         <div className="flex justify-between">
           <Link to="/">
-            Home
+            {t("header.home")}
           </Link>
           <Link to="/box" className="ml-4">
-            Boxes
+            {t("header.boxes")}
           </Link>
         </div>
-
+        {!userContext.authed &&
+          <Menu as="div" className="relative mr-12">
+            <Menu.Button>
+              <User className="stroke-current fill-current h-12" title="settings" />
+            </Menu.Button>
+            <Menu.Items as="div" className="dark:bg-[#292E41] bg-white absolute right-0 p-4 mr-10 w-48">
+              <Menu.Item as="div" className="menu_item" >
+                <Link to="/settings">
+                  {t("header.settings")}
+                </Link>
+              </Menu.Item>
+              <Menu.Item as="div" className="menu_item" >
+                <span className="cursor-pointer">{t("header.logout")}</span>
+              </Menu.Item>
+            </Menu.Items>
+          </Menu>
+        }
       </div>
     )
   }
