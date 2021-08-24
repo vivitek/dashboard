@@ -46,15 +46,15 @@ function App() {
                   setTheme(theme === "dark" ? "light" : "dark"),
               }}
             >
-              <Header />
-              <main>
-                <Page>
-                  <Suspense fallback={LoadingPage}>
+              <Suspense fallback={LoadingPage}>
+                <Header />
+                <main>
+                  <Page>
                     <Routes />
-                  </Suspense>
-                </Page>
-              </main>
-              <Footer />
+                  </Page>
+                </main>
+                <Footer />
+              </Suspense>
             </ThemeContext.Provider>
           </ApolloProvider>
         </UserContext.Provider>
