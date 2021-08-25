@@ -6,7 +6,6 @@ import { noFooterHeader } from "../utils/constants";
 import UserContext from "../contexts/userContext";
 import MenuIcon from "../images/Hamburger";
 import User from "../images/User"
-import Vivi from "../images/Vivi"
 import ViviHourglass from "../images/ViviHourglass";
 
 const Header = () => {
