@@ -4,6 +4,7 @@ import ThemeContext from "../contexts/themeContext";
 import { noFooterHeader } from "../utils/constants";
 import Sun from "../images/Sun";
 import Moon from "../images/Moon";
+import ViviHourglass from "../images/ViviHourglass";
 
 const Footer = () => {
   const themeContext = useContext(ThemeContext);
@@ -14,13 +15,10 @@ const Footer = () => {
   }
   return (
     <footer className="w-full">
-
       <div className="w-full h-12 md:h-20 bg-gray-400 dark:bg-[#292E41] flex items-center dark:text-white">
         <div className="h-full flex items-center w-full">
-          <img
-            src="/vivi_no-text.png"
-            alt="ViVi header logo"
-            className="h-1/3 w-auto cursor-pointer m-3"
+          <ViviHourglass
+            className="h-1/3 w-auto cursor-pointer m-3 stroke-current fill-current"
             onClick={() => history.push("/")}
           />
           <p className="ml-4">
