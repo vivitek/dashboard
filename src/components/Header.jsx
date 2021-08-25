@@ -7,6 +7,7 @@ import UserContext from "../contexts/userContext";
 import MenuIcon from "../images/Hamburger";
 import User from "../images/User"
 import Vivi from "../images/Vivi"
+import ViviHourglass from "../images/ViviHourglass";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +23,7 @@ const Header = () => {
     return (
       <>
         <Link to="/">
-          <Vivi className="m-3 h-6 w-auto" />
+          <ViviHourglass className="m-3 h-6 w-auto stroke-current fill-current" />
         </Link>
         <button onClick={toggleOpen} className="block md:hidden">
           <MenuIcon className="stroke-current fill-current w-auto h-8" isOpen={isOpen} />
@@ -33,10 +34,7 @@ const Header = () => {
 
   const renderBurgerMenu = () => {
     return (
-      <div className="flex flex-col h-screen absolute bg-[#292E41] text-white z-10 top-0 left-0" style={{ minWidth: "40vw" }}>
-        <div className="h-12 md:h-20 flex items-center">
-          {renderLogo()}
-        </div>
+      <div className="flex flex-col h-screen absolute bg-[#292E41] text-white z-10 top-12 left-0" style={{ minWidth: "40vw" }}>
         <div className="flex flex-col mt-4 ml-4 gap-4">
           <Link to="/" onClick={toggleOpen}>
             {t("header.home")}
@@ -67,7 +65,7 @@ const Header = () => {
         {!userContext.authed &&
           <Menu as="div" className="relative mr-12">
             <Menu.Button>
-              <User className="stroke-current fill-current h-12" title="settings" />
+              <User className="stroke-current fill-current h-8" title="settings" />
             </Menu.Button>
             <Menu.Items as="div" className="dark:bg-[#292E41] bg-white absolute right-0 p-4 mr-10 w-48">
               <Menu.Item as="div" className="menu_item" >
@@ -93,7 +91,7 @@ const Header = () => {
       <div
         className="w-full bg-gray-400 dark:bg-[#292E41] h-12 md:h-20 dark:text-white flex items-center"
       >
-        {!isOpen && renderLogo()}
+        {renderLogo()}
         {!isOpen && renderMenu()}
       </div>
       {isOpen && renderBurgerMenu()}
