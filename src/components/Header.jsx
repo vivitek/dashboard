@@ -7,11 +7,13 @@ import UserContext from "../contexts/userContext";
 import MenuIcon from "../images/Hamburger";
 import User from "../images/User"
 import ViviHourglass from "../images/ViviHourglass";
+import ThemeContext from "../contexts/themeContext";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const userContext = useContext(UserContext);
+  const themeContext = useContext(ThemeContext);
   const { t } = useTranslation();
 
   const toggleOpen = () => {
@@ -22,7 +24,7 @@ const Header = () => {
     return (
       <>
         <Link to="/">
-          <ViviHourglass className="m-3 h-6 w-auto stroke-current fill-current" />
+          <ViviHourglass className="m-3 h-6 w-auto" dark={themeContext.theme === "dark"} />
         </Link>
         <button onClick={toggleOpen} className="block md:hidden">
           <MenuIcon className="stroke-current fill-current w-auto h-8" isOpen={isOpen} />
@@ -52,7 +54,7 @@ const Header = () => {
 
   const renderMenu = () => {
     return (
-      <div className="w-full md:flex flex-row items-center justify-between h-full hidden ml-12">
+      <div className="w-full md:flex flex-row items-center justify-between h-full hidden ml-12 font-itc">
         <div className="flex justify-between">
           <Link to="/">
             {t("header.home")}
