@@ -35,7 +35,7 @@ const Header = () => {
 
   const renderBurgerMenu = () => {
     return (
-      <div className="flex flex-col h-screen absolute bg-[#292E41] text-white z-10 top-12 left-0" style={{ minWidth: "40vw" }}>
+      <div className="flex flex-col h-screen absolute bg-[#292E40] text-white z-10 top-12 left-0" style={{ minWidth: "40vw" }}>
         <div className="flex flex-col mt-4 ml-4 gap-4">
           <Link to="/" onClick={toggleOpen}>
             {t("header.home")}
