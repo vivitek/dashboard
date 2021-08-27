@@ -26,7 +26,7 @@ const Boxes = () => {
   const history = useHistory();
 
   return (
-    <div className=" w-full grid grid-cols-1 md:grid-cols-4 gap-y-4 gap-x-8 container mx-auto pt-5 font-sans">
+    <div className=" w-full flex flex-wrap justify-evenly pt-4 font-sans">
       {data.map((e) => (
         <BoxCard data={e} />
       ))}
