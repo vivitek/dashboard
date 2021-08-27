@@ -59,7 +59,7 @@ const Header = () => {
             <Menu.Button className="focus:outline-none">
               <User className="stroke-current fill-current h-8 " title="settings" />
             </Menu.Button>
-            <Menu.Items as="div" className="dark:bg-[#292E41] bg-white absolute right-0 p-4 mr-10 w-48 z-10 focus:outline-none">
+            <Menu.Items as="div" className="dark:bg-[#292E41] bg-white absolute right-0 p-4 mr-10 w-48 focus:outline-none z-50">
               <Menu.Item as="div" className="menu_item" >
                 <Link to="/settings">
                   {t("header.settings")}
@@ -77,7 +77,7 @@ const Header = () => {
 
 
   return (
-    <header className="z-0">
+    <header>
       <div
         className="w-full bg-gray-400 dark:bg-darkBlue h-12 md:h-20 dark:text-white flex items-center"
       >

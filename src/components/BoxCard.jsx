@@ -11,7 +11,7 @@ const BoxCard = ({ data }) => {
 
 
     return (
-        <div className="flex flex-col justify-evenly p-4 mx-4 mb-8 md:mb-3 lg:mx-0 md:h-80 md:w-80 w-full h-auto rounded-lg shadow-lg" style={{ backgroundColor: color }}>
+        <div className="flex flex-col justify-evenly p-4 mx-4 mb-8 md:mb-3 lg:mx-0 md:h-80 md:w-80 w-full h-auto rounded-xl transform transition-all duration-150 hover:scale-105 cursor-pointer" style={{ backgroundColor: color }}>
             <div className="flex justify-between mb-2">
                 <ViviHourglass dark={true} className="h-8 md:h-16 w-auto" />
                 <Settings className="fill-current stroke-current z-0 h-6 w-auto" />
