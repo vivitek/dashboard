@@ -6,5 +6,11 @@
     },
     "common": {
         "submit": "Envoyer"
+    },
+    "header": {
+        "settings": "Paramètres",
+        "logout": "Déconnexion",
+        "boxes": "Boîtiers",
+        "home": "Accueil"
     }
 }

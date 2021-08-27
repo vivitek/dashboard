@@ -8,9 +8,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "./utils/apollo";
 import LoadingPage from "./pages/Loading";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import UserContext from "./contexts/userContext";
 
 function App() {
   const [theme, setTheme] = useState("dark");
+  const [user, setUser] = useState(null);
+  const [authed, setAuthed] = useState(false);
 
   return (
     <div
@@ -25,27 +30,34 @@ function App() {
         hideProgressBar={true}
       ></ToastContainer>
       <BrowserRouter>
-        <ApolloProvider client={client}>
-          <header>
-            
-          </header>
-          <main>
-            <Page>
+        <UserContext.Provider
+          value={{
+            user,
+            changeUser: (u) => setUser(u),
+            authed,
+            changeAuthed: (a) => setAuthed(a),
+          }}
+        >
+          <ApolloProvider client={client}>
+            <ThemeContext.Provider
+              value={{
+                theme,
+                changeTheme: () =>
+                  setTheme(theme === "dark" ? "light" : "dark"),
+              }}
+            >
               <Suspense fallback={LoadingPage}>
-                <Routes />
+                <Header />
+                <main>
+                  <Page>
+                    <Routes />
+                  </Page>
+                </main>
+                <Footer />
               </Suspense>
-            </Page>
-          </main>
-          <ThemeContext.Provider
-            value={{
-              theme,
-              changeTheme: () => setTheme(theme === "dark" ? "light" : "dark"),
-            }}
-          >
-            <footer>
-            </footer>
-          </ThemeContext.Provider>
-        </ApolloProvider>
+            </ThemeContext.Provider>
+          </ApolloProvider>
+        </UserContext.Provider>
       </BrowserRouter>
     </div>
   );

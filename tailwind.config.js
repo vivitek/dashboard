@@ -1,15 +1,28 @@
+const defaults = require("tailwindcss/defaultTheme");
+
 module.exports = {
   mode: "jit",
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   darkMode: "class", // or 'media' or 'class'
   theme: {
-    fontFamily: {
-      "sans": ["montserrat", "ui-sans-serif", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "Noto Sans", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"],
-      "serif": ["ui-serif", "Georgia", "Cambria", "Times New Roman", "Times", "serif"],
-      "monospace": ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", "monospace"],
-      "itc": ["itc-avant-garde-gothic-pro","sans-serif"]
+    extend: {
+      fontFamily: {
+        sans: ["montserrat", ...defaults.fontFamily.sans],
+        itc: ["itc-avant-garde-gothic-pro", "sans-serif"],
+      },
     },
-    extend: {},
+    colors: {
+      ...defaults.colors,
+      darkBlue: {
+        DEFAULT: "#1A1F32"
+      },
+      viviBlue: {
+        DEFAULT: "#3c65ac"
+      },
+      grayBlue: {
+        DEFAULT: "#292E41"
+      }
+    }
   },
   variants: {
     extend: {},

@@ -6,5 +6,11 @@
     },
     "common": {
         "submit":"Submit"
+    },
+    "header": {
+        "settings":"Settings",
+        "logout":"Sign Out",
+        "boxes":"Boxes",
+        "home":"Home"
     }
 }
