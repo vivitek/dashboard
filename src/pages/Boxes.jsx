@@ -1,4 +1,3 @@
-import { useHistory } from "react-router";
 import BoxCard from "../components/BoxCard";
 
 const Boxes = () => {
@@ -22,8 +21,6 @@ const Boxes = () => {
       },
     ],
   };
-
-  const history = useHistory();
 
   return (
     <div className=" w-full flex flex-wrap justify-evenly pt-4 font-sans">
