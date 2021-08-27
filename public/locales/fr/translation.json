@@ -12,5 +12,12 @@
         "logout": "Déconnexion",
         "boxes": "Boîtiers",
         "home": "Accueil"
+    },
+    "boxCard": {
+        "name":"nom",
+        "details":"détails",
+        "online":"en ligne",
+        "offline":"hors ligne",
+        "status":"status"
     }
 }

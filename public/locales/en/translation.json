@@ -12,5 +12,12 @@
         "logout":"Sign Out",
         "boxes":"Boxes",
         "home":"Home"
+    },
+    "boxCard": {
+        "name":"name",
+        "details":"details",
+        "online":"online",
+        "offline":"offline",
+        "status":"status"
     }
 }
