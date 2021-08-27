@@ -15,7 +15,7 @@ const Footer = () => {
   }
   return (
     <footer className="w-full">
-      <div className="w-full h-12 md:h-20 bg-gray-400 dark:bg-[#292E40] flex items-center dark:text-white">
+      <div className="w-full h-12 md:h-20 bg-gray-400 dark:bg-darkBlue flex items-center dark:text-white">
         <div className="h-full flex items-center w-full">
           <ViviHourglass
             className="h-1/3 w-auto cursor-pointer m-3"

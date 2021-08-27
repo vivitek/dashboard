@@ -11,6 +11,18 @@ module.exports = {
         itc: ["itc-avant-garde-gothic-pro", "sans-serif"],
       },
     },
+    colors: {
+      ...defaults.colors,
+      darkBlue: {
+        DEFAULT: "#1A1F32"
+      },
+      viviBlue: {
+        DEFAULT: "#3c65ac"
+      },
+      grayBlue: {
+        DEFAULT: "#292E41"
+      }
+    }
   },
   variants: {
     extend: {},

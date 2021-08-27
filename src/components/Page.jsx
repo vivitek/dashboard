@@ -1,6 +1,6 @@
 const Page = ({ children }) => {
   return (
-    <div className="w-screen h-full dark:bg-black dark:text-white">
+    <div className="w-screen h-full dark:bg-grayBlue dark:text-white">
       {children}
     </div>
   );
