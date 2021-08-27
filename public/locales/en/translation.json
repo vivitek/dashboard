@@ -6,5 +6,12 @@
     },
     "common": {
         "submit":"Submit"
+    },
+    "boxCard": {
+        "name":"name",
+        "details":"details",
+        "online":"online",
+        "offline":"offline",
+        "status":"status"
     }
 }
