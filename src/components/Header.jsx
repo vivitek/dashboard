@@ -20,17 +20,8 @@ const Header = () => {
     setIsOpen(!isOpen)
   }
 
-  const renderLogo = () => {
-    return (
-      <>
-        <Link to="/">
-          <ViviHourglass className="m-3 h-6 w-auto" dark={themeContext.theme === "dark"} />
-        </Link>
-        <button onClick={toggleOpen} className="block md:hidden">
-          <MenuIcon className="stroke-current fill-current w-auto h-8" isOpen={isOpen} />
-        </button>
-      </>
-    )
+  if (location.pathname.includes(noFooterHeader)) {
+    return (<div></div>)
   }
 
   const renderBurgerMenu = () => {
@@ -65,10 +56,10 @@ const Header = () => {
         </div>
         {!userContext.authed &&
           <Menu as="div" className="relative mr-12">
-            <Menu.Button>
-              <User className="stroke-current fill-current h-8" title="settings" />
+            <Menu.Button className="focus:outline-none">
+              <User className="stroke-current fill-current h-8 " title="settings" />
             </Menu.Button>
-            <Menu.Items as="div" className="dark:bg-[#292E41] bg-white absolute right-0 p-4 mr-10 w-48">
+            <Menu.Items as="div" className="dark:bg-[#292E41] bg-white absolute right-0 p-4 mr-10 w-48 z-10 focus:outline-none">
               <Menu.Item as="div" className="menu_item" >
                 <Link to="/settings">
                   {t("header.settings")}
@@ -83,16 +74,19 @@ const Header = () => {
       </div>
     )
   }
-  if (location.pathname.includes(noFooterHeader)) {
-    return (<div></div>)
-  }
+
 
   return (
     <header className="z-0">
       <div
         className="w-full bg-gray-400 dark:bg-darkBlue h-12 md:h-20 dark:text-white flex items-center"
       >
-        {renderLogo()}
+        <Link to="/">
+          <ViviHourglass className="m-3 h-6 w-auto" dark={themeContext.theme === "dark"} />
+        </Link>
+        <button onClick={toggleOpen} className="block md:hidden justify-self-end">
+          <MenuIcon className="stroke-current fill-current w-auto h-8" isOpen={isOpen} />
+        </button>
         {!isOpen && renderMenu()}
       </div>
       {isOpen && renderBurgerMenu()}
