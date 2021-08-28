@@ -9,9 +9,17 @@ const BoxCard = ({ data }) => {
     const [status, setStatus] = useState(false)
     const { t } = useTranslation();
 
+    useEffect(() => {
+        fetch(data.url).then(() => {
+            setStatus(true)
+        }).catch(() => {
+            setStatus(false)
+        })
+    }, [data])
 
     return (
-        <div className="flex flex-col justify-evenly p-4 mx-4 mb-8 md:mb-3 lg:mx-0 md:h-80 md:w-80 w-full h-auto rounded-xl transform transition-all duration-150 hover:scale-105 group" style={{ backgroundColor: color }}>
+        <div className="flex flex-col justify-between p-4 mx-4 mb-8 md:mb-3 lg:mx-0 md:h-80 md:w-80 w-full h-auto rounded-xl transform transition-all duration-150 hover:scale-105 group" style={{ backgroundColor: color }}>
+            
             <div className="flex justify-between mb-2">
                 <ViviHourglass dark={true} className="h-8 md:h-16 w-auto" />
                 <Settings className="fill-current stroke-current z-0 h-6 w-auto transition-opacity duration-125 lg:opacity-0 group-hover:opacity-100 cursor-pointer" />
@@ -20,9 +28,9 @@ const BoxCard = ({ data }) => {
                 <h4 className="capitalize">{t("boxCard.name")}:</h4>
                 <p>{data.name}</p>
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between mt-1">
                 <h4 className="capitalize">{t("boxCard.status")}:</h4>
-                <p>{status ? t("boxCard.online") : t("boxCard.offline")}</p>
+                <p>{status ? <div className="bg-green-500 h-4 w-4 rounded-full"></div> : <div className="bg-red-500 h-4 w-4 rounded-full"></div>}</p>
             </div>
             <div className="self-end mt-5">
                 <Link to={`/box/${data._id}`}
