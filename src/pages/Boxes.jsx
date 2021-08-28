@@ -27,7 +27,7 @@ const Boxes = () => {
   };
 
   return (
-    <div className=" w-full flex flex-wrap justify-evenly pt-4 font-sans">
+    <div className=" w-full flex flex-wrap justify-evenly pt-4">
       {data.map((e) => (
         <BoxCard data={e} key={e._id}/>
       ))}
