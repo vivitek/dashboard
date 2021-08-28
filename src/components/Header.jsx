@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { Menu } from '@headlessui/react'
+import { Menu, Transition } from '@headlessui/react'
 import { noFooterHeader } from "../utils/constants";
 import UserContext from "../contexts/userContext";
 import MenuIcon from "../images/Hamburger";
@@ -89,7 +89,17 @@ const Header = () => {
         </button>
         {!isOpen && renderMenu()}
       </div>
-      {isOpen && renderBurgerMenu()}
+      <Transition
+        show={isOpen}
+        enter="transition-all ease-in-out duration-300 transform"
+        enterFrom="-translate-x-full opacity-0"
+        enterTo="translate-x-0 opacity-100"
+        leave="transition-all ease-in-out duration-300 transform"
+        leaveFrom="translate-x-0 opacity-100"
+        leaveTo="-translate-x-full opacity-0"
+      >
+        {renderBurgerMenu()}
+      </Transition>
     </header>
   );
 };
