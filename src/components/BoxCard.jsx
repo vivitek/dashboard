@@ -60,13 +60,14 @@ const BoxCard = ({ data }) => {
                     <div className="mt-4">
                         <hr />
                         <div>
-                            <button onClick={() => setDisplayColorPicker(!displayColorPicker)} className="bg-red-200">Change Color</button>
+                            <button onClick={() => setDisplayColorPicker(!displayColorPicker)} className="">Change Color</button>
                             {
-                                displayColorPicker && <div className="absolute z-20">
+                                displayColorPicker && <div className="absolute z-50">
                                     <ChromePicker color={color} onChange={(c, e) => {
                                         setColor(c.hex)
                                         updateColor()
-                                    }} />
+                                    }}
+                                    />
                                 </div>
                             }
                         </div>
