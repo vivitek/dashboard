@@ -6,12 +6,23 @@ import { Link } from "react-router-dom";
 import Settings from "../images/Settings";
 import ViviHourglass from "../images/ViviHourglass"
 import {ChromePicker} from "react-color"
+import { Formik, useFormik } from "formik";
+import { toast } from "react-toastify";
 const BoxCard = ({ data }) => {
     const [color, setColor] = useState("#1A1F32");
     const [status, setStatus] = useState(false)
     const { t } = useTranslation();
     const [settings, setSettings] = useState(false)
     const [displayColorPicker, setDisplayColorPicker] = useState(false)
+    const nameFormik = useFormik({
+        initialValues: {
+            name: ""
+        },
+        onSubmit: (values) => {
+            toast.info("Updated name to " + values.name);
+            //TODO: mutate on server
+        }
+    })
 
     useEffect(() => {
         fetch(data.url).then(() => {
@@ -32,7 +43,7 @@ const BoxCard = ({ data }) => {
     }
     return (
         <>
-            <div className="flex flex-col justify-between p-4 mx-4 mb-8 md:mb-3 lg:mx-0 md:h-80 md:w-80 w-full h-auto rounded-xl transform transition-all duration-150 hover:scale-105 group" style={{ backgroundColor: color }}>
+            <div className="flex flex-col justify-between p-4 mx-4 mb-8 md:mb-3 lg:mx-0 md:min-h-80 md:h-80 md:w-80 md:max-h-96 w-full h-auto rounded-xl transform transition-all duration-150 hover:scale-105 group" style={{ backgroundColor: color }}>
 
                 <div className="flex justify-between mb-2">
                     <ViviHourglass dark={true} className="h-8 md:h-16 w-auto" />
@@ -46,7 +57,7 @@ const BoxCard = ({ data }) => {
                 </div>
                 <div className="flex justify-between mt-1">
                     <h4 className="capitalize">{t("boxCard.status")}:</h4>
-                    <p>{status ? <div className="bg-green-500 h-4 w-4 rounded-full"></div> : <div className="bg-red-500 h-4 w-4 rounded-full"></div>}</p>
+                    {status ? <div className="bg-green-500 h-4 w-4 rounded-full"></div> : <div className="bg-red-500 h-4 w-4 rounded-full"></div>}
                 </div>
                 <Transition
                     show={settings}
@@ -57,7 +68,7 @@ const BoxCard = ({ data }) => {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="mt-4">
+                    <div className="mt-4 space-y-2">
                         <hr />
                         <div>
                             <button onClick={() => setDisplayColorPicker(!displayColorPicker)} className="">Change Color</button>
@@ -66,11 +77,20 @@ const BoxCard = ({ data }) => {
                                     <ChromePicker color={color} onChange={(c, e) => {
                                         setColor(c.hex)
                                         updateColor()
+                                    }} onChangeComplete={(c,e) => {
+                                        setDisplayColorPicker(false)
                                     }}
                                     />
                                 </div>
                             }
                         </div>
+                        <form onSubmit={nameFormik.handleSubmit}>
+                        <div className="flex flex-col space-y-4">
+                            <label htmlFor="name">Name</label>
+                            <input type="text" className="bg-gray-200 dark:bg-[#313E68] border-none rounded-xl px-2 py-1 " name="name" id="name" placeholder="Custom Name" onChange={nameFormik.handleChange} value={nameFormik.values.name}/>
+                            <button type="submit">Submit</button>
+                        </div>
+                        </form>
                     </div>
                 </Transition>
                 <div className="self-end mt-5">
