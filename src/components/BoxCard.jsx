@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Settings from "../images/Settings";
 import ViviHourglass from "../images/ViviHourglass"
 import {ChromePicker} from "react-color"
-import { Formik, useFormik } from "formik";
+import { useFormik } from "formik";
 import { toast } from "react-toastify";
 const BoxCard = ({ data }) => {
     const [color, setColor] = useState("#1A1F32");
@@ -76,8 +76,8 @@ const BoxCard = ({ data }) => {
                                 displayColorPicker && <div className="absolute z-50">
                                     <ChromePicker color={color} onChange={(c, e) => {
                                         setColor(c.hex)
-                                        updateColor()
                                     }} onChangeComplete={(c,e) => {
+                                        updateColor()
                                         setDisplayColorPicker(false)
                                     }}
                                     />
