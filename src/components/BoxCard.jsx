@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import Settings from "../images/Settings";
 import ViviHourglass from "../images/ViviHourglass"
-import {ChromePicker} from "react-color"
+import { ChromePicker } from "react-color"
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 const BoxCard = ({ data }) => {
@@ -43,7 +43,7 @@ const BoxCard = ({ data }) => {
     }
     return (
         <>
-            <div className="flex flex-col justify-between p-4 mx-4 mb-8 md:mb-3 lg:mx-0 md:min-h-80 md:h-80 md:w-80 md:max-h-96 w-full h-auto rounded-xl transform transition-all duration-150 hover:scale-105 group" style={{ backgroundColor: color }}>
+            <div className="flex flex-col justify-between p-4 mx-4 mb-8 md:mb-3 lg:mx-0 md:min-h-80 md:w-80 md:max-h-96 w-full h-auto rounded-xl transform transition-all duration-150 hover:scale-105 group" style={{ backgroundColor: color }}>
 
                 <div className="flex justify-between mb-2">
                     <ViviHourglass dark={true} className="h-8 md:h-16 w-auto" />
@@ -76,7 +76,7 @@ const BoxCard = ({ data }) => {
                                 displayColorPicker && <div className="absolute z-50">
                                     <ChromePicker color={color} onChange={(c, e) => {
                                         setColor(c.hex)
-                                    }} onChangeComplete={(c,e) => {
+                                    }} onChangeComplete={(c, e) => {
                                         updateColor()
                                         setDisplayColorPicker(false)
                                     }}
@@ -85,11 +85,11 @@ const BoxCard = ({ data }) => {
                             }
                         </div>
                         <form onSubmit={nameFormik.handleSubmit}>
-                        <div className="flex flex-col space-y-4">
-                            <label htmlFor="name">Name</label>
-                            <input type="text" className="bg-gray-200 dark:bg-[#313E68] border-none rounded-xl px-2 py-1 " name="name" id="name" placeholder="Custom Name" onChange={nameFormik.handleChange} value={nameFormik.values.name}/>
-                            <button type="submit">Submit</button>
-                        </div>
+                            <div className="flex flex-col space-y-4">
+                                <label htmlFor="name">Name</label>
+                                <input type="text" className="bg-gray-200 dark:bg-[#313E68] border-none rounded-xl px-2 py-1 " name="name" id="name" placeholder="Custom Name" onChange={nameFormik.handleChange} value={nameFormik.values.name} />
+                                <button type="submit">Submit</button>
+                            </div>
                         </form>
                     </div>
                 </Transition>
