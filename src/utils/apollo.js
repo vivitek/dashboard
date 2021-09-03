@@ -98,9 +98,9 @@ const GET_ROUTER = gql`
   }
 `;
 
-const CREATE_ROUTER = gql`
-  mutation ($routerCreateData: RouterCreationInput!) {
-    createRouter(createRouterData: $routerCreateData) {
+const UPDATE_ROUTER = gql`
+  mutation ($routerUpdateData: RouterUpdateInput!) {
+    updateRouter(updateRouterData: $routerUpdateData) {
       _id
       url
       name
@@ -163,7 +163,7 @@ export {
   client,
   GET_ROUTERS,
   GET_ROUTER,
-  CREATE_ROUTER,
+  UPDATE_ROUTER,
   GET_BANS_FOR_ROUTER,
   UPDATE_BAN,
   ON_BAN_CREATED,
