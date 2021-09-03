@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 const BoxCard = ({ data }) => {
     const [color, setColor] = useState("#1A1F32");
     const [status, setStatus] = useState(false)
+    const [name, setName] = useState("");
     const { t } = useTranslation();
     const [settings, setSettings] = useState(false)
     const [displayColorPicker, setDisplayColorPicker] = useState(false)
@@ -20,7 +21,8 @@ const BoxCard = ({ data }) => {
         },
         onSubmit: (values) => {
             toast.info("Updated name to " + values.name);
-            //TODO: mutate on server
+            setName(values.name)
+            localStorage.setItem(`${data._id}_name`, values.name)
         }
     })
 
@@ -35,6 +37,9 @@ const BoxCard = ({ data }) => {
     useEffect(() => {
         if (localStorage.getItem(data._id)) {
             setColor(localStorage.getItem(data._id))
+        }
+        if (localStorage.getItem(data._id + "_name")) {
+            setName(localStorage.getItem(data._id + "_name"))
         }
     }, [data])
 
@@ -53,7 +58,7 @@ const BoxCard = ({ data }) => {
                 </div>
                 <div className="mt-5 flex justify-between">
                     <h4 className="capitalize">{t("boxCard.name")}:</h4>
-                    <p>{data.name}</p>
+                    <p>{name || data.name}</p>
                 </div>
                 <div className="flex justify-between mt-1">
                     <h4 className="capitalize">{t("boxCard.status")}:</h4>
