@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { Menu } from '@headlessui/react'
+import { Menu, Transition } from '@headlessui/react'
 import { noFooterHeader } from "../utils/constants";
 import UserContext from "../contexts/userContext";
 import MenuIcon from "../images/Hamburger";
@@ -20,17 +20,8 @@ const Header = () => {
     setIsOpen(!isOpen)
   }
 
-  const renderLogo = () => {
-    return (
-      <>
-        <Link to="/">
-          <ViviHourglass className="m-3 h-6 w-auto" dark={themeContext.theme === "dark"} />
-        </Link>
-        <button onClick={toggleOpen} className="block md:hidden">
-          <MenuIcon className="stroke-current fill-current w-auto h-8" isOpen={isOpen} />
-        </button>
-      </>
-    )
+  if (location.pathname.includes(noFooterHeader)) {
+    return (<div></div>)
   }
 
   const renderBurgerMenu = () => {
@@ -65,10 +56,10 @@ const Header = () => {
         </div>
         {!userContext.authed &&
           <Menu as="div" className="relative mr-12">
-            <Menu.Button>
-              <User className="stroke-current fill-current h-8" title="settings" />
+            <Menu.Button className="focus:outline-none">
+              <User className="stroke-current fill-current h-8 " title="settings" />
             </Menu.Button>
-            <Menu.Items as="div" className="dark:bg-[#292E41] bg-white absolute right-0 p-4 mr-10 w-48">
+            <Menu.Items as="div" className="dark:bg-[#292E41] bg-white absolute right-0 p-4 mr-10 w-48 focus:outline-none z-50">
               <Menu.Item as="div" className="menu_item" >
                 <Link to="/settings">
                   {t("header.settings")}
@@ -83,19 +74,32 @@ const Header = () => {
       </div>
     )
   }
-  if (location.pathname.includes(noFooterHeader)) {
-    return (<div></div>)
-  }
+
 
   return (
-    <header className="z-0">
+    <header>
       <div
         className="w-full bg-gray-400 dark:bg-darkBlue h-12 md:h-20 dark:text-white flex items-center"
       >
-        {renderLogo()}
+        <Link to="/">
+          <ViviHourglass className="m-3 h-6 w-auto" dark={themeContext.theme === "dark"} />
+        </Link>
+        <button onClick={toggleOpen} className="block md:hidden justify-self-end">
+          <MenuIcon className="stroke-current fill-current w-auto h-8" isOpen={isOpen} />
+        </button>
         {!isOpen && renderMenu()}
       </div>
-      {isOpen && renderBurgerMenu()}
+      <Transition
+        show={isOpen}
+        enter="transition-all ease-in-out duration-300 transform"
+        enterFrom="-translate-x-full opacity-0"
+        enterTo="translate-x-0 opacity-100"
+        leave="transition-all ease-in-out duration-300 transform"
+        leaveFrom="translate-x-0 opacity-100"
+        leaveTo="-translate-x-full opacity-0"
+      >
+        {renderBurgerMenu()}
+      </Transition>
     </header>
   );
 };
