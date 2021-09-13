@@ -19,5 +19,11 @@
         "online":"online",
         "offline":"offline",
         "status":"status"
+    },
+    "boxDetails": {
+        "information":"informations",
+        "chronology":"chronology",
+        "connections":"incoming connections",
+        "services":"detected services"
     }
 }
