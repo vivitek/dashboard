@@ -52,11 +52,11 @@ const BoxDetails = () => {
         setConnections((old) => [...old, { address, _id }]);
       }
     }
-  }, [subData])
+  }, [subData, connections])
 
 
   useEffect(() => {
-    if (historyData.getBans) {
+    if (historyData?.getBans) {
       setChronology([...historyData.getBans])
     }
   }, [historyData])
@@ -119,6 +119,12 @@ const BoxDetails = () => {
                 name: "Address",
                 key: "address",
                 export: true,
+                class: "text-left"
+              },
+              {
+                name: "Banned",
+                key: "banned",
+                export: true,
                 class: ""
               },
               {
@@ -135,6 +141,10 @@ const BoxDetails = () => {
                     address: {
                       value: e.address,
                       class: ""
+                    },
+                    banned: {
+                      value: e.banned ? "Yes" : "No",
+                      class: "text-center"
                     },
                     actions: {
                       value: <>
