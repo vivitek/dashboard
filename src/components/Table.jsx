@@ -14,12 +14,12 @@ const TablePagination = ({ headers, data, itemsPerPage = 20, tableName }) => {
             const tds = [];
             headers.forEach((h) => {
                 tds.push(
-                    <td key={`${e.id}-${h.name}`} className={e[h.key]["class"]}>
+                    <td key={`${e.id}-${h.name}`} className={`${e[h.key]["class"]}`}>
                         {e[h.key]["value"]}
                     </td>
                 );
             });
-            temp.push(<tr key={e.id}>{tds}</tr>);
+            temp.push(<tr className="" key={e.id}>{tds}</tr>);
         });
         setLastpage(Math.max(Math.floor(data.length / itemsPerPage + 1), 1));
         setDisplayData(temp);
@@ -38,17 +38,17 @@ const TablePagination = ({ headers, data, itemsPerPage = 20, tableName }) => {
     }, [lastPage]);
     return (
 
-        <table className="table-auto">
+        <table className="table-auto min-w-full">
             <thead>
                 <tr>
                     {headers.map((e) => (
-                        <th key={e.key} className={e.class}>
+                        <th key={e.key} className={`px-3 py-2 font-semibold ${e.class}`}>
                             {e.name}
                         </th>
                     ))}
                 </tr>
             </thead>
-            <tbody>
+            <tbody className="">
                 {displayData.length === 0 ? (
                     <tr>
                         <td colSpan={headers.length}>
@@ -74,26 +74,28 @@ const TablePagination = ({ headers, data, itemsPerPage = 20, tableName }) => {
                                 <td key={i}></td>
                             ))}
                         <td align="right">
-                            <CSVLink
-                                filename={`${tableName}.csv`}
-                                target="_blank"
-                                headers={headers
-                                    .filter((e) => e.export === true)
-                                    .map((e) => ({
-                                        label: e.name,
-                                        key: e.key,
-                                    }))}
-                                data={data.map((e) => {
-                                    const res = {};
-                                    headers
+                            <div>
+                                <CSVLink
+                                    filename={`${tableName}.csv`}
+                                    target="_blank"
+                                    headers={headers
                                         .filter((e) => e.export === true)
-                                        .forEach((h) => {
-                                            res[h.key] = e[h.key]["value"];
-                                        });
-                                    return res;
-                                })}>
-                                <CSV className="h-6 w-6" />
-                            </CSVLink>
+                                        .map((e) => ({
+                                            label: e.name,
+                                            key: e.key,
+                                        }))}
+                                    data={data.map((e) => {
+                                        const res = {};
+                                        headers
+                                            .filter((e) => e.export === true)
+                                            .forEach((h) => {
+                                                res[h.key] = e[h.key]["value"];
+                                            });
+                                        return res;
+                                    })}>
+                                    <CSV className="h-6 w-6" />
+                                </CSVLink>
+                            </div>
                         </td>
                     </tr>
                 )}
