@@ -1,16 +1,32 @@
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
-import { useQuery } from "@apollo/client";
-import { GET_ROUTER } from "../utils/apollo"
+import { useQuery, useSubscription } from "@apollo/client";
+import { GET_BANS_FOR_ROUTER, GET_ROUTER, ON_BAN_CREATED } from "../utils/apollo";
+import { FireworkSpinner, TraceSpinner } from "react-spinners-kit"
 import { useEffect, useState } from "react";
 import LoadingPage from "./Loading";
+import TablePagination from "../components/Table";
 
 const BoxDetails = () => {
   const { id } = useParams();
   const { loading, error, data: routerData } = useQuery(GET_ROUTER, {
     variables: { routerId: id },
   });
+  const { data: historyData } = useQuery(GET_BANS_FOR_ROUTER, {
+    variables: { routerId: id }
+  })
   const [isRouterOnline, setIsRouterOnline] = useState(false);
+  const [connections, setConnections] = useState([])
+  const [chronology, setChronology] = useState([])
+
+  const {
+    error: subError,
+    data: subData,
+  } = useSubscription(ON_BAN_CREATED, {
+    variables: {
+      routerId: id
+    },
+  });
 
   const { t } = useTranslation()
 
@@ -25,6 +41,26 @@ const BoxDetails = () => {
     }
   }, [routerData])
 
+  useEffect(() => {
+    if (subData?.banCreated) {
+      const { address, _id } = subData.banCreated;
+
+      const found = connections.find(
+        (e) => e.address === address || e._id === _id
+      );
+      if (!found) {
+        setConnections((old) => [...old, { address, _id }]);
+      }
+    }
+  }, [subData])
+
+
+  useEffect(() => {
+    if (historyData.getBans) {
+      setChronology([...historyData.getBans])
+    }
+  }, [historyData])
+
   if (loading) {
     return <LoadingPage />
   }
@@ -38,10 +74,20 @@ const BoxDetails = () => {
     )
   }
 
+  if (subError) {
+    return (
+      <div className="w-full h-full flex flex-col justify-center items-center">
+        <h1>subError</h1>
+        <p>{subError.message}</p>
+      </div>
+    )
+  }
+
+
   return (
     <div className="w-full h-full flex flex-col lg:flex-row py-4">
-      <div className="w-auto lg:w-1/5 bg-green-400 px-4 flex flex-col">
-        <div className="dark:bg-darkBlue rounded-lg p-2 flex flex-col">
+      <div className="w-auto lg:w-1/5 px-4 flex flex-col">
+        <div className="dark:bg-darkBlue rounded-lg p-4 flex flex-col">
           <h3 className="font-itc uppercase font-medium">{t("boxDetails.information")}</h3>
           <div className="flex justify-between mt-2">
             <h4 className="font-itc uppercase font-light">{t("boxDetails.name")}</h4>
@@ -60,18 +106,100 @@ const BoxDetails = () => {
             <button>Reboot</button>
           </div>
         </div>
-        <div className="dark:bg-darkBlue rounded-lg p-2 flex flex-col h-full mt-2">
+        <div className="dark:bg-darkBlue rounded-lg p-4 flex flex-col h-full mt-2">
           <h3 className="font-itc uppercase font-medium">{t("boxDetails.chronology")}</h3>
+          {chronology.length === 0 &&
+            <div className="h-full w-full flex flex-col justify-center items-center">
+              <TraceSpinner size="10" sizeUnit="rem" />
+              <h3>Loading chronology...</h3>
+            </div>}
+          {
+            chronology.length !== 0 && <TablePagination tableName={`box-${routerData.getRouter.name}-chronology`} headers={[
+              {
+                name: "Address",
+                key: "address",
+                export: true,
+                class: ""
+              },
+              {
+                name: "Actions",
+                key: "actions",
+                export: false,
+                class: "text-right"
+              }
+            ]} data={
+              chronology.map((e) => {
+                return (
+                  {
+                    id: e._id,
+                    address: {
+                      value: e.address,
+                      class: ""
+                    },
+                    actions: {
+                      value: <>
+                        <p>coming soon</p>
+                      </>,
+                      class: "text-right"
+                    }
+                  }
+                )
+              })
+            } />
+          }
         </div>
       </div>
-      <div className="w-auto lg:w-3/5 bg-red-400 px-4">
-        <div className="h-full dark:bg-darkBlue rounded-lg flex flex-col p-2">
+      <div className="w-auto lg:w-3/5 px-4">
+        <div className="h-full dark:bg-darkBlue rounded-lg flex flex-col p-4">
           <h3 className="font-itc uppercase font-medium">{t("boxDetails.connections")}</h3>
+          {connections.length === 0 &&
+            <div className="h-full w-full flex flex-col justify-center items-center">
+              <FireworkSpinner size="10" sizeUnit="rem" />
+              <h3>Listening for connections...</h3>
+            </div>}
+          {
+            connections.length !== 0 && <TablePagination tableName={`box-${routerData.getRouter.name}-connections`} headers={[
+              {
+                name: "Address",
+                key: "address",
+                export: true,
+                class: ""
+              },
+              {
+                name: "Actions",
+                key: "actions",
+                export: false,
+                class: "text-right"
+              }
+            ]} data={
+              connections.map((e) => {
+                return (
+                  {
+                    id: e._id,
+                    address: {
+                      value: e.address,
+                      class: ""
+                    },
+                    actions: {
+                      value: <>
+                        <p>coming soon</p>
+                      </>,
+                      class: "text-right"
+                    }
+                  }
+                )
+              })
+            } />
+          }
+
         </div>
       </div>
-      <div className="w-auto lg:w-1/5 bg-yellow-400 px-4">
-        <div className="h-full dark:bg-darkBlue rounded-lg flex flex-col p-2">
+      <div className="w-auto lg:w-1/5 px-4">
+        <div className="h-full dark:bg-darkBlue rounded-lg flex flex-col p-4">
           <h3 className="font-itc uppercase font-medium">{t("boxDetails.services")}</h3>
+          <div className="h-full w-full flex flex-col justify-center items-center">
+            <h3>Coming Soon...</h3>
+          </div>
         </div>
       </div>
     </div>
