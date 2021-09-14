@@ -73,7 +73,7 @@ const TablePagination = ({ headers, data, itemsPerPage = 20, tableName }) => {
                             .map((e, i) => (
                                 <td key={i}></td>
                             ))}
-                        <td className="text-center">
+                        <td align="right">
                             <CSVLink
                                 filename={`${tableName}.csv`}
                                 target="_blank"
@@ -91,11 +91,8 @@ const TablePagination = ({ headers, data, itemsPerPage = 20, tableName }) => {
                                             res[h.key] = e[h.key]["value"];
                                         });
                                     return res;
-                                })}
-                                id="csvDownload"
-                                className=""
-                            >
-                                <CSV />
+                                })}>
+                                <CSV className="h-6 w-6" />
                             </CSVLink>
                         </td>
                     </tr>
