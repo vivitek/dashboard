@@ -29,6 +29,15 @@ const BoxDetails = () => {
     return <LoadingPage />
   }
 
+  if (error) {
+    return (
+      <div className="w-full h-full flex flex-col justify-center items-center">
+        <h1>Error</h1>
+        <p>{error.message}</p>
+      </div>
+    )
+  }
+
   return (
     <div className="w-full h-full flex flex-col lg:flex-row py-4">
       <div className="w-auto lg:w-1/5 bg-green-400 px-4 flex flex-col">
