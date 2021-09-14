@@ -55,8 +55,7 @@ const BoxDetails = () => {
   const updateChronology = (ban) => {
     const index = connections.indexOf(ban)
     setChronology(old => [ban, ...old]);
-    const tmp = connections.filter((e, idx) => idx !== index);
-    setConnections(tmp);
+    setConnections(old => old.filter((e) => e._id !== ban._id));
   }
 
   useEffect(() => {
@@ -71,7 +70,7 @@ const BoxDetails = () => {
   }, [routerData])
 
   useEffect(() => {
-    if (subData?.banCreated) {
+    if (subData?.banCreated && !chronology.find((e) => e._id === subData?.banCreated._id)) {
       const { address, _id } = subData.banCreated;
 
       const found = connections.find(
