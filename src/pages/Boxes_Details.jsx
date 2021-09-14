@@ -1,11 +1,14 @@
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
-import { useQuery, useSubscription } from "@apollo/client";
-import { GET_BANS_FOR_ROUTER, GET_ROUTER, ON_BAN_CREATED } from "../utils/apollo";
+import { useMutation, useQuery, useSubscription } from "@apollo/client";
+import { GET_BANS_FOR_ROUTER, GET_ROUTER, ON_BAN_CREATED, UPDATE_BAN } from "../utils/apollo";
 import { FireworkSpinner, TraceSpinner } from "react-spinners-kit"
 import { useEffect, useState } from "react";
 import LoadingPage from "./Loading";
 import TablePagination from "../components/Table";
+import { toast } from "react-toastify";
+import Tick from "../images/Tick";
+import Cross from "../images/Cross";
 
 const BoxDetails = () => {
   const { id } = useParams();
@@ -14,7 +17,8 @@ const BoxDetails = () => {
   });
   const { data: historyData } = useQuery(GET_BANS_FOR_ROUTER, {
     variables: { routerId: id }
-  })
+  });
+  const [updateBan] = useMutation(UPDATE_BAN)
   const [isRouterOnline, setIsRouterOnline] = useState(false);
   const [connections, setConnections] = useState([])
   const [chronology, setChronology] = useState([])
@@ -29,6 +33,24 @@ const BoxDetails = () => {
   });
 
   const { t } = useTranslation()
+
+  const mutateBan = async (data) => {
+    try {
+      const res = await updateBan({
+        variables: {
+          banUpdate: { ...data },
+        },
+      });
+      if (res?.errors?.length > 0) {
+        toast.error("Oops!\n" + res.errors.join("\n"));
+      } else {
+        toast.success("Your modification has been processed")
+      }
+
+    } catch (error) {
+      toast.error(error.message)
+    }
+  };
 
   useEffect(() => {
     if (routerData) {
@@ -147,9 +169,18 @@ const BoxDetails = () => {
                       class: "text-center"
                     },
                     actions: {
-                      value: <>
-                        <p>coming soon</p>
-                      </>,
+                      value: <div className="flex justify-center">
+                        <div className="cursor-pointer h-6" onClick={() => {
+                          mutateBan({ _id: e._id, banned: false })
+                        }}>
+                          <Tick className="h-full" />
+                        </div>
+                        <div className="cursor-pointer h-6" onClick={() => {
+                          mutateBan({ _id: e._id, banned: true })
+                        }}>
+                          <Cross className="h-full" />
+                        </div>
+                      </div>,
                       class: "text-right"
                     }
                   }
