@@ -24,6 +24,8 @@
         "information":"informations",
         "chronology":"chronologie",
         "connections":"connexions en temps réel",
-        "services":"services détéctées"
+        "services":"services détéctées",
+        "name":"nom",
+        "status":"état"
     }
 }

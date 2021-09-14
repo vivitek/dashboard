@@ -24,6 +24,8 @@
         "information":"informations",
         "chronology":"chronology",
         "connections":"incoming connections",
-        "services":"detected services"
+        "services":"detected services",
+        "name":"name",
+        "status":"status"
     }
 }
