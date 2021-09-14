@@ -52,6 +52,13 @@ const BoxDetails = () => {
     }
   };
 
+  const updateChronology = (ban) => {
+    const index = connections.indexOf(ban)
+    setChronology(old => [ban, ...old]);
+    const tmp = connections.filter((e, idx) => idx !== index);
+    setConnections(tmp);
+  }
+
   useEffect(() => {
     if (routerData) {
       console.log(routerData)
@@ -169,7 +176,7 @@ const BoxDetails = () => {
                       class: "text-center"
                     },
                     actions: {
-                      value: <div className="flex justify-center">
+                      value: <div className="flex">
                         <div className="cursor-pointer h-6" onClick={() => {
                           mutateBan({ _id: e._id, banned: false })
                         }}>
@@ -181,7 +188,7 @@ const BoxDetails = () => {
                           <Cross className="h-full" />
                         </div>
                       </div>,
-                      class: "text-right"
+                      class: ""
                     }
                   }
                 )
@@ -222,9 +229,19 @@ const BoxDetails = () => {
                       class: ""
                     },
                     actions: {
-                      value: <>
-                        <p>coming soon</p>
-                      </>,
+                      value: <div className="flex justify-end">
+                        <div className="cursor-pointer h-8" onClick={async () => {
+                          mutateBan({ _id: e._id, banned: false })
+                          updateChronology(e)
+                        }}>
+                          <Tick className="h-full" />
+                        </div>
+                        <div className="cursor-pointer h-8" onClick={async () => {
+                          mutateBan({ _id: e._id, banned: true })
+                        }}>
+                          <Cross className="h-full" />
+                        </div>
+                      </div>,
                       class: "text-right"
                     }
                   }

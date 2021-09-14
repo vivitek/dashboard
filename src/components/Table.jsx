@@ -38,7 +38,7 @@ const TablePagination = ({ headers, data, itemsPerPage = 20, tableName }) => {
     }, [lastPage]);
     return (
 
-        <table className="table-auto min-w-full">
+        <table className="table-auto">
             <thead>
                 <tr>
                     {headers.map((e) => (
@@ -73,29 +73,27 @@ const TablePagination = ({ headers, data, itemsPerPage = 20, tableName }) => {
                             .map((e, i) => (
                                 <td key={i}></td>
                             ))}
-                        <td align="right">
-                            <div>
-                                <CSVLink
-                                    filename={`${tableName}.csv`}
-                                    target="_blank"
-                                    headers={headers
+                        <td>
+                            <CSVLink
+                                filename={`${tableName}.csv`}
+                                target="_blank"
+                                headers={headers
+                                    .filter((e) => e.export === true)
+                                    .map((e) => ({
+                                        label: e.name,
+                                        key: e.key,
+                                    }))}
+                                data={data.map((e) => {
+                                    const res = {};
+                                    headers
                                         .filter((e) => e.export === true)
-                                        .map((e) => ({
-                                            label: e.name,
-                                            key: e.key,
-                                        }))}
-                                    data={data.map((e) => {
-                                        const res = {};
-                                        headers
-                                            .filter((e) => e.export === true)
-                                            .forEach((h) => {
-                                                res[h.key] = e[h.key]["value"];
-                                            });
-                                        return res;
-                                    })}>
-                                    <CSV className="h-6 w-6" />
-                                </CSVLink>
-                            </div>
+                                        .forEach((h) => {
+                                            res[h.key] = e[h.key]["value"];
+                                        });
+                                    return res;
+                                })}>
+                                <CSV className="h-6 w-6" />
+                            </CSVLink>
                         </td>
                     </tr>
                 )}
