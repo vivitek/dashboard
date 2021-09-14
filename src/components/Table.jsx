@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
-import { useHistory } from "react-router-dom";
+import CSV from "../images/CSV";
 import PaginationLink from "./PaginationLink";
 
 const TablePagination = ({ headers, data, itemsPerPage = 20, tableName }) => {
@@ -8,7 +8,6 @@ const TablePagination = ({ headers, data, itemsPerPage = 20, tableName }) => {
     const [lastPage, setLastpage] = useState(1);
     const [paginations, setPaginations] = useState([]);
     const [displayData, setDisplayData] = useState([]);
-    const history = useHistory();
     useEffect(() => {
         const temp = [];
         data.forEach((e) => {
@@ -94,9 +93,9 @@ const TablePagination = ({ headers, data, itemsPerPage = 20, tableName }) => {
                                     return res;
                                 })}
                                 id="csvDownload"
-                                className="btn btn-icon btn-simple btn-success"
+                                className=""
                             >
-                                <i className="fa fa-file-csv"></i>
+                                <CSV />
                             </CSVLink>
                         </td>
                     </tr>
