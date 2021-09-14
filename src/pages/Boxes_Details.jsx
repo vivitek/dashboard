@@ -53,7 +53,6 @@ const BoxDetails = () => {
   };
 
   const updateChronology = (ban) => {
-    const index = connections.indexOf(ban)
     setChronology(old => [ban, ...old]);
     setConnections(old => old.filter((e) => e._id !== ban._id));
   }
@@ -80,7 +79,7 @@ const BoxDetails = () => {
         setConnections((old) => [...old, { address, _id }]);
       }
     }
-  }, [subData, connections])
+  }, [subData, connections, chronology])
 
 
   useEffect(() => {
