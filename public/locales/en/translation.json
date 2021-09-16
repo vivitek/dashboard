@@ -1,0 +1,31 @@
+{
+    "login": {
+        "prompt":"Sign In",
+        "details":"Enter your email and password",
+        "forgotten":"Forgotten your password?"
+    },
+    "common": {
+        "submit":"Submit"
+    },
+    "header": {
+        "settings":"Settings",
+        "logout":"Sign Out",
+        "boxes":"Boxes",
+        "home":"Home"
+    },
+    "boxCard": {
+        "name":"name",
+        "details":"details",
+        "online":"online",
+        "offline":"offline",
+        "status":"status"
+    },
+    "boxDetails": {
+        "information":"informations",
+        "chronology":"chronology",
+        "connections":"incoming connections",
+        "services":"detected services",
+        "name":"name",
+        "status":"status"
+    }
+}

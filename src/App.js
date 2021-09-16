@@ -1,37 +1,66 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
+import React, { useState, Suspense } from "react";
 import { BrowserRouter } from "react-router-dom";
-import { Container } from "reactstrap";
-import Header from "./components/Header";
 import Routes from "./Routes";
-import UserContext from "./contexts/UserContext";
-import BeamsProvider from "./contexts/BeamsContext";
-import { client } from "./utils/apollo";
+import ThemeContext from "./contexts/themeContext";
+import Page from "./components/Page";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { ApolloProvider } from "@apollo/client";
-function App() {
-    const [user, setUser] = useState({});
+import { client } from "./utils/apollo";
+import LoadingPage from "./pages/Loading";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import UserContext from "./contexts/userContext";
 
-    useEffect(() => {
-        if (localStorage.getItem("vivi-user")) {
-            setUser(JSON.parse(localStorage.getItem("vivi-user")));
-        }
-    }, []);
-    return (
-        <BrowserRouter>
-            <main>
-                <UserContext value={{ user, updateUser: setUser }}>
-                    <Container fluid style={{ height: "100%" }}>
-                        <BeamsProvider>
-                            <Header />
-                            <ApolloProvider client={client}>
-                                <Routes />
-                            </ApolloProvider>
-                        </BeamsProvider>
-                    </Container>
-                </UserContext>
-            </main>
-        </BrowserRouter>
-    );
+function App() {
+  const [theme, setTheme] = useState("dark");
+  const [user, setUser] = useState(null);
+  const [authed, setAuthed] = useState(false);
+
+  return (
+    <div
+      className={
+        theme === "dark"
+          ? "dark w-screen h-screen flex flex-col"
+          : "w-screen h-screen flex flex-col"
+      }
+    >
+      <ToastContainer
+        position="bottom-center"
+        hideProgressBar={true}
+      ></ToastContainer>
+      <BrowserRouter>
+        <UserContext.Provider
+          value={{
+            user,
+            changeUser: (u) => setUser(u),
+            authed,
+            changeAuthed: (a) => setAuthed(a),
+          }}
+        >
+          <ApolloProvider client={client}>
+            <ThemeContext.Provider
+              value={{
+                theme,
+                changeTheme: () =>
+                  setTheme(theme === "dark" ? "light" : "dark"),
+              }}
+            >
+              <Suspense fallback={LoadingPage}>
+                <Header />
+                <main>
+                  <Page>
+                    <Routes />
+                  </Page>
+                </main>
+                <Footer />
+              </Suspense>
+            </ThemeContext.Provider>
+          </ApolloProvider>
+        </UserContext.Provider>
+      </BrowserRouter>
+    </div>
+  );
 }
 
 export default App;

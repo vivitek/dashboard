@@ -1,40 +1,38 @@
-.form-error-message {
-  color: var(--red);
+.App {
+  text-align: center;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
 }
 
-#root {
-  height: 100%;
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
 }
 
-main {
-  height: 100%;
-  overflow: auto !important;
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
-.modal-dialog {
-  color:white;
+.App-link {
+  color: #61dafb;
 }
 
-.modal-header {
-  border: none;
-}
-
-.modal-header .close span {
-  color: white !important;
-}
-
-.modal-title {
-  color:white !important;
-  margin-bottom: none;
-}
-
-.router-image {
-  width: 25%;
-  
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

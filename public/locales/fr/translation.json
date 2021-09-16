@@ -1,0 +1,31 @@
+{
+    "login": {
+        "prompt": "Se Connecter",
+        "details": "Entrez votre mail et mot de passe",
+        "forgotten": "Mot de passe oublié ?"
+    },
+    "common": {
+        "submit": "Envoyer"
+    },
+    "header": {
+        "settings": "Paramètres",
+        "logout": "Déconnexion",
+        "boxes": "Boîtiers",
+        "home": "Accueil"
+    },
+    "boxCard": {
+        "name":"nom",
+        "details":"détails",
+        "online":"en ligne",
+        "offline":"hors ligne",
+        "status":"status"
+    },
+    "boxDetails": {
+        "information":"informations",
+        "chronology":"chronologie",
+        "connections":"connexions en temps réel",
+        "services":"services détéctées",
+        "name":"nom",
+        "status":"état"
+    }
+}
