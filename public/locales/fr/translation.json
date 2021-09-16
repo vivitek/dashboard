@@ -19,5 +19,13 @@
         "online":"en ligne",
         "offline":"hors ligne",
         "status":"status"
+    },
+    "boxDetails": {
+        "information":"informations",
+        "chronology":"chronologie",
+        "connections":"connexions en temps réel",
+        "services":"services détéctées",
+        "name":"nom",
+        "status":"état"
     }
 }
