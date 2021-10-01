@@ -7,17 +7,17 @@ const Profile = () => {
 
     return (
         <div className="w-full h-full flex flex-col items-center justify-evenly">
-            <div className="w-auto md:w-1/3 flex flex-col md:flex-row justify-evenly bg-darkBlue p-4 rounded-lg">
+            <div className="w-full md:w-1/3 flex flex-col md:flex-row justify-evenly bg-darkBlue p-6 rounded-lg">
                 <div>
                     <img className="rounded-full"
                         src={
                             avatarholder.generateAvatar(userContext.user?.username ?? "anon")
                         }
-
+                        alt={userContext?.user?.username}
                     />
                 </div>
                 <div className="flex flex-col justify-between">
-                    <div className="flex flex-col font-sans font-semibold uppercase">
+                    <div className="flex flex-col font-itc font-semibold uppercase">
                         <span>
                             {userContext.user?.username ?? "anon"}
                         </span>
