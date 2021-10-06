@@ -1,15 +1,20 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import QrCode from "qrcode.react";
-import { /* useMutation, */ useQuery } from "@apollo/client";
+import { useTranslation } from 'react-i18next';
+import { useMutation, useQuery } from "@apollo/client";
 import avatarholder from 'avatarholder';
 import UserContext from "../contexts/userContext"
-import { /* TOGGLE_2FA, CHECK_2FA, */ GET_OTP_URL } from "../utils/apollo"
+import { TOGGLE_2FA, CHECK_2FA, GET_OTP_URL, ME } from "../utils/apollo"
+import { toast } from "react-toastify";
 
 const Profile = () => {
     const userContext = useContext(UserContext)
-    // const [checkToken] = useMutation(CHECK_2FA);
-    //const [toggleOtp] = useMutation(TOGGLE_2FA);
+    const { i18n } = useTranslation();
+    const [checkToken] = useMutation(CHECK_2FA);
+    const [toggleOtp] = useMutation(TOGGLE_2FA);
     const { data: url_data } = useQuery(GET_OTP_URL);
+    const { data: me, refetch: refetchMe } = useQuery(ME)
+    const [otpTest, setOtpTest] = useState("")
 
     return (
         <div className="w-full h-full flex flex-col items-center justify-evenly">
@@ -44,7 +49,7 @@ const Profile = () => {
                         <div className="flex">
                             <span>Language:</span>
                             <select>
-
+                                {i18n.languages.map((e) => <option selected={i18n.language === e} key={e}>{e}</option>)}
                             </select>
                         </div>
                     </div>
@@ -56,10 +61,41 @@ const Profile = () => {
                 <div>
                     <h3 className="font-semibold font-itc uppercase">2f authentication</h3>
                     {url_data?.getOtpUrl && <div className="flex">
-                        <div>
-                            <QrCode href={url_data?.getOtpUrl} />
+                        {console.log(me)}
+                        <div className="mt-4 flex">
+                            <QrCode value={url_data.getOtpUrl} />
+                            <div className="flex flex-col justify-evenly">
+                                <button onClick={() => {
+                                    toggleOtp().then((refetchMe()))
+                                }} disabled={me?.me.otp_enabled}>Enable 2FA</button>
+                                <button onClick={() => {
+                                    toggleOtp().then((refetchMe()))
+                                }} disabled={!(me?.me.otp_enabled)}>Disable 2FA</button>
+                                <form onSubmit={(e) => {
+                                    e.preventDefault()
+                                    checkToken({
+                                        variables: { code: otpTest }
+                                    }).then((valid) => {
+                                        setOtpTest("")
+                                        if (valid.data.checkOtpCode) {
+                                            toast.success("code is valid")
+                                        } else {
+                                            toast.error("wrong code")
+                                        }
+                                    })
+                                }}>
+                                    <div className="flex flex-col px-2">
+                                        <label htmlFor="code">Code</label>
+                                        <input name="code" required placeholder="Enter code here" value={otpTest} onChange={(e) => {
+                                            setOtpTest(e.target.value)
+                                        }} />
+                                        <button type="submit">test</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>}
+
 
                 </div>
             </div>
