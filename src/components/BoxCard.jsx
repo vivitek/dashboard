@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import Settings from "../images/Settings";
 import ViviHourglass from "../images/ViviHourglass"
-import { ChromePicker } from "react-color"
+import { CirclePicker } from "react-color"
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 const BoxCard = ({ data }) => {
@@ -57,11 +57,11 @@ const BoxCard = ({ data }) => {
                     </div>
                 </div>
                 <div className="mt-5 flex justify-between">
-                    <h4 className="capitalize">{t("boxCard.name")}:</h4>
+                    <h4 className="font-itc font-bold capitalize">{t("boxCard.name")}:</h4>
                     <p>{name || data.name}</p>
                 </div>
                 <div className="flex justify-between mt-1">
-                    <h4 className="capitalize">{t("boxCard.status")}:</h4>
+                    <h4 className="capitalize font-itc font-bold ">{t("boxCard.status")}:</h4>
                     {status ? <div className="bg-green-500 h-4 w-4 rounded-full"></div> : <div className="bg-red-500 h-4 w-4 rounded-full"></div>}
                 </div>
                 <Transition
@@ -79,7 +79,7 @@ const BoxCard = ({ data }) => {
                             <button onClick={() => setDisplayColorPicker(!displayColorPicker)} className="">Change Color</button>
                             {
                                 displayColorPicker && <div className="absolute z-50">
-                                    <ChromePicker color={color} onChange={(c, e) => {
+                                    <CirclePicker color={color} onChange={(c, e) => {
                                         setColor(c.hex)
                                     }} onChangeComplete={(c, e) => {
                                         updateColor()
@@ -100,7 +100,7 @@ const BoxCard = ({ data }) => {
                 </Transition>
                 <div className="self-end mt-5">
                     <Link to={`/box/${data._id}`}
-                        className="dark:bg-[#313E68] bg-[#1473E6] capitalize  text-white px-6 py-2 rounded-3xl font-medium  hover:bg-blue-600 transition duration-200 each-in-out font-sans"
+                        className="dark:bg-[#313E68] bg-[#1473E6] capitalize  text-white px-8 py-2 rounded-3xl font-medium  hover:bg-blue-600 transition duration-200 each-in-out font-sans"
                     >
                         {t("boxCard.details")}
                     </Link>

@@ -31,3 +31,7 @@ main {
     @apply hover:bg-blue-200 transition-all w-full dark:hover:bg-[#4f587e];
   }
 }
+
+.card-bg {
+  background-color: #1A1F32;
+}

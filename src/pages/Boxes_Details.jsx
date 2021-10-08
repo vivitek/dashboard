@@ -113,27 +113,28 @@ const BoxDetails = () => {
 
   return (
     <div className="w-full h-full flex flex-col lg:flex-row py-4">
-      <div className="w-auto lg:w-1/5 px-4 flex flex-col">
-        <div className="dark:bg-darkBlue rounded-lg p-4 flex flex-col">
-          <h3 className="font-itc uppercase font-medium">{t("boxDetails.information")}</h3>
-          <div className="flex justify-between mt-2">
-            <h4 className="font-itc uppercase font-light">{t("boxDetails.name")}</h4>
+      <div className="w-auto lg:w-1/5 px-4 flex flex-col dark:bg-darkBlue">
+        <div className=" card-bg rounded-lg p-4 flex flex-col">
+          <h3 className="font-itc uppercase font-medium text-xl text-gray-500">{t("boxDetails.information")}</h3>
+          <div className="flex justify-between mt-2 font-sans font-semibold">
             <span>{routerData.getRouter.name}</span>
           </div>
-          <div className="flex justify-between mt-1">
-            <h4 className="font-itc uppercase font-light">id</h4>
-            <span>{routerData.getRouter._id.substr(0, 5)}...</span>
+          <div className="flex mt-1">
+            <h4 className="font-itc uppercase font-light mr-2">id</h4>
+            <span className="overflow-ellipsis">{routerData.getRouter._id}</span>
           </div>
           <div className="flex justify-between mt-4">
             <h4 className="font-itc uppercase font-light">{t("boxDetails.status")}</h4>
             {isRouterOnline ? <div className="bg-green-500 h-4 w-4 rounded-full"></div> : <div className="bg-red-500 h-4 w-4 rounded-full"></div>}
           </div>
           <div className="flex justify-evenly mt-4">
-            <button>Off</button>
-            <button>Reboot</button>
+            <button className="px-8 py-2 rounded-lg bg-[#ff9420] text-white ">Reboot</button>
+            <button className="px-4 py-2 rounded-lg border-2 border-red-400 text-red-300" onClick={() => {
+              alert("Do you want to continue");
+            }}>Off</button>
           </div>
         </div>
-        <div className="dark:bg-darkBlue rounded-lg p-4 flex flex-col h-full mt-2">
+        <div className="card-bg rounded-lg p-4 flex flex-col h-full mt-2">
           <h3 className="font-itc uppercase font-medium">{t("boxDetails.chronology")}</h3>
           {chronology.length === 0 &&
             <div className="h-full w-full flex flex-col justify-center items-center">
@@ -175,16 +176,16 @@ const BoxDetails = () => {
                     },
                     actions: {
                       value: <div className="flex">
-                        <div className="cursor-pointer h-6" onClick={() => {
+                        <button disabled={!e.banned} className={!e.banned ? " cursor-not-allowed h-6" : "cursor-pointer h-6"}  onClick={() => {
                           mutateBan({ _id: e._id, banned: false })
                         }}>
-                          <Tick className="h-full" />
-                        </div>
-                        <div className="cursor-pointer h-6" onClick={() => {
+                          <Tick className="h-full" outline={!e.banned} />
+                        </button>
+                        <button disabled={e.banned} className={e.banned ? " cursor-not-allowed h-6" : "cursor-pointer h-6"} onClick={() => {
                           mutateBan({ _id: e._id, banned: true })
                         }}>
-                          <Cross className="h-full" />
-                        </div>
+                          <Cross className="h-full" outline={e.banned} />
+                        </button>
                       </div>,
                       class: ""
                     }
@@ -196,7 +197,7 @@ const BoxDetails = () => {
         </div>
       </div>
       <div className="w-auto lg:w-3/5 px-4">
-        <div className="h-full dark:bg-darkBlue rounded-lg flex flex-col p-4">
+        <div className="h-full card-bg rounded-lg flex flex-col p-4">
           <h3 className="font-itc uppercase font-medium">{t("boxDetails.connections")}</h3>
           {connections.length === 0 &&
             <div className="h-full w-full flex flex-col justify-center items-center">
@@ -251,7 +252,7 @@ const BoxDetails = () => {
         </div>
       </div>
       <div className="w-auto lg:w-1/5 px-4">
-        <div className="h-full dark:bg-darkBlue rounded-lg flex flex-col p-4">
+        <div className="h-full card-bg rounded-lg flex flex-col p-4">
           <h3 className="font-itc uppercase font-medium">{t("boxDetails.services")}</h3>
           <div className="h-full w-full flex flex-col justify-center items-center">
             <h3>Coming Soon...</h3>
