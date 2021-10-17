@@ -48,7 +48,10 @@ const Profile = () => {
                         <h3 className="font-semibold font-itc uppercase">preferences</h3>
                         <div className="flex">
                             <span>Language:</span>
-                            <select onChange={(e) => {
+                            <select
+                            defaultValue={i18n.language}
+                            className="bg-darkBlue"
+                             onChange={(e) => {
                                 i18n.changeLanguage(i18n.languages[e.target.selectedIndex], (error) => {
                                     if (!error) {
                                         toast.success("Changed language");
@@ -56,7 +59,7 @@ const Profile = () => {
                                     }
                                 })
                             }}>
-                                {i18n.languages.map((e) => <option selected={i18n.language === e} key={e}>{e}</option>)}
+                                {i18n.languages.map((e) => <option key={e}>{e}</option>)}
                             </select>
                         </div>
                     </div>
@@ -72,12 +75,16 @@ const Profile = () => {
                         <div className="mt-4 flex">
                             <QrCode value={url_data.getOtpUrl} />
                             <div className="flex flex-col justify-evenly">
-                                <button onClick={() => {
+                                <button
+                                className="bg-gray-400 rounded-lg px-4 py-2 mb-2"
+                                 onClick={() => {
                                     toggleOtp().then((refetchMe()))
                                 }} disabled={me?.me.otp_enabled}>Enable 2FA</button>
-                                <button onClick={() => {
+                                <button 
+                                className="bg-red-400 rounded-lg px-4 py-2 mb-2"
+                                onClick={() => {
                                     toggleOtp().then((refetchMe()))
-                                }} disabled={!(me?.me.otp_enabled)}>Disable 2FA</button>
+                                }} disabled={!me?.me.otp_enabled}>Disable 2FA</button>
                                 <form onSubmit={(e) => {
                                     e.preventDefault()
                                     checkToken({
