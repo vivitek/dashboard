@@ -48,7 +48,14 @@ const Profile = () => {
                         <h3 className="font-semibold font-itc uppercase">preferences</h3>
                         <div className="flex">
                             <span>Language:</span>
-                            <select>
+                            <select onChange={(e) => {
+                                i18n.changeLanguage(i18n.languages[e.target.selectedIndex], (error) => {
+                                    if (!error) {
+                                        toast.success("Changed language");
+
+                                    }
+                                })
+                            }}>
                                 {i18n.languages.map((e) => <option selected={i18n.language === e} key={e}>{e}</option>)}
                             </select>
                         </div>
