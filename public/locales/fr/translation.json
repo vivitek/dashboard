@@ -27,5 +27,10 @@
         "services":"services détéctées",
         "name":"nom",
         "status":"état"
+    },
+    "profile": {
+        "changeLang":"la langue du site a été changé",
+        "accActivity":"dernières activitées",
+        "language":"langues"
     }
 }

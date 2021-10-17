@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 const Profile = () => {
     const userContext = useContext(UserContext)
-    const { i18n } = useTranslation();
+    const { i18n, t } = useTranslation();
     const [checkToken] = useMutation(CHECK_2FA);
     const [toggleOtp] = useMutation(TOGGLE_2FA);
     const { data: url_data } = useQuery(GET_OTP_URL);
@@ -37,7 +37,7 @@ const Profile = () => {
                         </span>
                     </div>
                     <div className="flex flex-col">
-                        <h3>Account Activity</h3>
+                        <h3>{t("profile.accActivity")}</h3>
                         <p>coming soon...</p>
                     </div>
                 </div>
@@ -47,14 +47,14 @@ const Profile = () => {
                     <div className="flex flex-col">
                         <h3 className="font-semibold font-itc uppercase">preferences</h3>
                         <div className="flex">
-                            <span>Language:</span>
+                            <span>{t("profile.language")}</span>
                             <select
                             defaultValue={i18n.language}
                             className="bg-darkBlue"
                              onChange={(e) => {
                                 i18n.changeLanguage(i18n.languages[e.target.selectedIndex], (error) => {
                                     if (!error) {
-                                        toast.success("Changed language");
+                                        toast.success(t("profile.changeLang"));
 
                                     }
                                 })
