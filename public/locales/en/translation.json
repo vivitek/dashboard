@@ -27,5 +27,10 @@
         "services":"detected services",
         "name":"name",
         "status":"status"
+    },
+    "profile": {
+        "changeLang":"language has been changed",
+        "accActivity":"account activity",
+        "language":"language"
     }
 }
