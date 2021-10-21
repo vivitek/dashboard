@@ -47,17 +47,17 @@ const Header = () => {
     return (
       <div className="w-full md:flex flex-row items-center justify-between h-full hidden ml-12 font-itc">
         <div className="flex justify-between">
-          <Link to="/">
+          <Link to="/" className="mt-2 text-lg">
             {t("header.home")}
           </Link>
-          <Link to="/box" className="ml-4">
+          <Link to="/box" className="mt-2 ml-4 text-lg">
             {t("header.boxes")}
           </Link>
         </div>
         {!userContext.authed &&
           <Menu as="div" className="relative mr-12">
             <Menu.Button className="focus:outline-none">
-              <User className="stroke-current fill-current h-8 " title="settings" />
+              <User className="stroke-current fill-current h-6 mt-2" title="settings" />
             </Menu.Button>
             <Menu.Items as="div" className="dark:bg-[#292E41] bg-white absolute right-0 p-4 mr-10 w-48 focus:outline-none z-50">
               <Menu.Item as="div" className="menu_item" >
@@ -78,11 +78,9 @@ const Header = () => {
 
   return (
     <header>
-      <div
-        className="w-full bg-gray-400 dark:bg-darkBlue h-12 md:h-20 dark:text-white flex items-center"
-      >
+      <div className="w-full bg-gray-400 dark:bg-darkBlue h-12 md:h-20 dark:text-white flex items-center ">
         <Link to="/">
-          <ViviHourglass className="m-3 h-6 w-auto" dark={themeContext.theme === "dark"} />
+          <ViviHourglass className="m-6 h-6 w-auto" dark={themeContext.theme === "dark"} />
         </Link>
         <button onClick={toggleOpen} className="block md:hidden justify-self-end">
           <MenuIcon className="stroke-current fill-current w-auto h-8" isOpen={isOpen} />

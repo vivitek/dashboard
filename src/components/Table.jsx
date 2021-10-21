@@ -65,7 +65,7 @@ const TablePagination = ({ headers, data, itemsPerPage = 20, tableName }) => {
                 )}
             </tbody>
 
-            <tfoot>
+            {/*<tfoot>
                 {headers.filter((e) => e?.export === true).length > 0 && (
                     <tr>
                         {headers
@@ -138,7 +138,7 @@ const TablePagination = ({ headers, data, itemsPerPage = 20, tableName }) => {
                         </div>
                     </td>
                 </tr>
-            </tfoot>
+                            </tfoot>*/}
         </table>
 
     );

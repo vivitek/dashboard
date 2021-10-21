@@ -36,7 +36,7 @@ const Login = () => {
           );
         }
         toast.success("Welcome back", { position: "top-center" });
-        history.push("/");
+        history.push("/box");
       } catch (error) {
         toast.error("Something went wrong...", { position: "top-center" });
         setLoading(false);
@@ -49,75 +49,46 @@ const Login = () => {
   }
 
   return (
-    <div className="h-full w-full bg-cover bg-center relative" style={{
-      backgroundImage: "url(https://source.unsplash.com/random/1920x1080)",
-    }}>
-      <div className="w-full h-full flex flex-col md:flex-row" style={{ background: "rgba(0,0,0,0.85)" }}>
-        <div className="w-full md:w-1/3 h-1/3 md:h-full flex flex-col justify-center items-center">
-          <img
-            src="/vivi_white.svg"
-            alt="ViVi logo"
-            className="w-1/3 md:w-1/2 h-auto"
-          />
-          <div align="right" className="w-1/3 hidden md:block">
-            <p className="mt-2 text-xl font-sans text-white">Login</p>
-          </div>
+    <div className="h-full w-full bg-cover bg-center" style={{backgroundImage: "url(https://images.unsplash.com/photo-1620121692029-d088224ddc74?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80)"}}>
+      <div style={{ background: "rgba(0,0,0,0.85)" }} className="w-full h-full flex justify-around items-center">
+        <div className="xl:w-1/5 hidden xl:block">
+          <img src="/vivi_white.svg" alt="VIVI logo"/>
+          <p align="right" className="text-white font-bold text-lg">Login</p>
         </div>
-        <div className="w-full md:w-2/3 h-2/3 md:h-full md:flex flex-col justify-center items-center">
-          <div className="dark:bg-[#292E40] bg-white rounded-3xl w-full md:w-2/3 lg:w-1/3 px-4 py-4">
-            <form onSubmit={formik.handleSubmit}>
-              <div className="w-full flex flex-col">
-                <div className="">
-                  <h1 className="font-bold text-3xl font-itc">
-                    {t("login.prompt")}
-                  </h1>
-                  <p className="text-xl font-semibold font-sans">
-                    {t("login.details")}
-                  </p>
-                </div>
-                <div className="w-full flex flex-col mb-10 mt-10">
-                  <label className="font-sans mb-2">Email</label>
-                  <input
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    name="email"
-                    type="email"
-                    className="bg-gray-200 dark:bg-[#313E68] border-none rounded-xl"
-                  />
-                </div>
-                <div className="w-full flex flex-col mb-2">
-                  <label className="font-sans mb-2">Password</label>
-                  <input
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    name="password"
-                    type="password"
-                    className="bg-gray-200 dark:bg-[#313E68] border-none rounded-xl"
-                  />
-                </div>
-                <div align="right" className="">
-                  <a
-                    href="mailto:contact@vincipit.com"
-                    className="font-sans "
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    Forgotten your password?
-                  </a>
-                </div>
-                <div className="w-full flex justify-end mt-8">
-                  <div className="flex flex-col justify-center w-full">
-                    <button
-                      type="submit"
-                      className="dark:bg-[#313E68] bg-[#1473E6]  text-white px-6 py-2 rounded-lg font-medium  hover:bg-blue-600 transition duration-200 each-in-out font-sans"
-                    >
-                      {t("common.submit")}
-                    </button>
-                  </div>
-                </div>
+        <div className="bg-darkBlue xl:h-1/2 xl:w-1/5 w-full h-full xl:rounded-xl flex-col">
+          <form onSubmit={formik.handleSubmit} className="flex-col p-12 h-full pb-0">
+          <h1 className="text-white text-4xl font-itc">{t("login.prompt")}</h1>
+          <h2 className="text-white mb-5 text-lg">{t("login.details")}</h2>
+            <div className="flex flex-wrap h-1/4 xl:h-1/2">
+              <div className="flex flex-col w-full">
+                <label className="text-white text-base font-medium mt-2 mb-1">Email</label>
+                <input
+                  className="bg-gray-200 dark:bg-[#313E68] border-none rounded-xl"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  name="email"
+                  type="email"
+                />
               </div>
-            </form>
-          </div>
+              <div className="flex flex-col w-full">
+                <label className="text-white text-base font-medium mb-1">{t("login.password")}</label>
+                <input
+                  className="bg-gray-200 dark:bg-[#313E68] border-none rounded-xl"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  name="password"
+                  type="password"
+                />
+              </div>
+            </div>
+            <div className="w-full flex justify-end xl:mt-4">
+              <div className="flex flex-col justify-center">
+                <button type="submit" className="bg-viviYellOrange uppercase text-white mt-1 px-6 py-2 rounded-full hover:bg-blue-600 transition duration-200 each-in-out font-sans font-bold">
+                    {t("common.submit")}
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>

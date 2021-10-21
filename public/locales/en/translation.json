@@ -2,7 +2,8 @@
     "login": {
         "prompt":"Sign In",
         "details":"Enter your email and password",
-        "forgotten":"Forgotten your password?"
+        "forgotten":"Forgotten your password?",
+        "password":"Password"
     },
     "common": {
         "submit":"Submit"
@@ -13,19 +14,36 @@
         "boxes":"Boxes",
         "home":"Home"
     },
+    "footer":{
+        "terms": "Terms and conditions"
+    },
     "boxCard": {
-        "name":"name",
-        "details":"details",
+        "name":"Name",
+        "details":"Details",
         "online":"online",
         "offline":"offline",
-        "status":"status"
+        "status":"status",
+        "color":"Change color",
+        "submit": "submit",
+        "changeNameInput": "New name",
+        "changeName": "Type new device name:"
     },
     "boxDetails": {
         "information":"informations",
         "chronology":"chronology",
         "connections":"incoming connections",
         "services":"detected services",
-        "name":"name",
-        "status":"status"
+        "name":"Name:",
+        "status":"Status:",
+        "id":"ID:",
+        "listening":"Listening for connections...",
+        "chronologyLoading":"Listening for connections...",
+        "off": "Shutdown",
+        "reboot": "Reboot"
+    },
+    "profile": {
+        "changeLang":"language has been changed",
+        "accActivity":"account activity",
+        "language":"language"
     }
 }

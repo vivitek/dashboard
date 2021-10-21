@@ -1,8 +1,9 @@
 {
     "login": {
-        "prompt": "Se Connecter",
-        "details": "Entrez votre mail et mot de passe",
-        "forgotten": "Mot de passe oublié ?"
+        "prompt": "Se connecter",
+        "details": "Entrez vos informations",
+        "forgotten": "Mot de passe oublié ?",
+        "password": "Mot de passe"
     },
     "common": {
         "submit": "Envoyer"
@@ -13,19 +14,36 @@
         "boxes": "Boîtiers",
         "home": "Accueil"
     },
+    "footer":{
+        "terms": "Terms and conditions"
+    },
     "boxCard": {
-        "name":"nom",
-        "details":"détails",
+        "name":"nom ",
+        "details":"Détails",
         "online":"en ligne",
         "offline":"hors ligne",
-        "status":"status"
+        "status":"statut ",
+        "color":"Changer la couleur",
+        "submit": "valider",
+        "changeNameInput": "Nouveau nom",
+        "changeName": "Entrez un nouveau nom :"
     },
     "boxDetails": {
         "information":"informations",
         "chronology":"chronologie",
         "connections":"connexions en temps réel",
         "services":"services détéctées",
-        "name":"nom",
-        "status":"état"
+        "name":"Nom :",
+        "status":"État :",
+        "id":"ID :",
+        "listening":"En attente de connexions...",
+        "chronologyLoading":"Chargement de la chronologie...",
+        "off": "Éteindre",
+        "reboot": "Redémarrer"
+    },
+    "profile": {
+        "changeLang":"la langue du site a été changé",
+        "accActivity":"dernières activitées",
+        "language":"langues"
     }
 }

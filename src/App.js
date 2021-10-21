@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from "react";
+import React, { useState, Suspense, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import Routes from "./Routes";
 import ThemeContext from "./contexts/themeContext";
@@ -16,6 +16,13 @@ function App() {
   const [theme, setTheme] = useState("dark");
   const [user, setUser] = useState(null);
   const [authed, setAuthed] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("vivi-user")) {
+      const u = JSON.parse(localStorage.getItem("vivi-user"));
+      setUser(u);
+    }
+  }, []);
 
   return (
     <div

@@ -2,13 +2,13 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 import { useMutation, useQuery, useSubscription } from "@apollo/client";
 import { GET_BANS_FOR_ROUTER, GET_ROUTER, ON_BAN_CREATED, UPDATE_BAN } from "../utils/apollo";
-import { FireworkSpinner, TraceSpinner } from "react-spinners-kit"
 import { useEffect, useState } from "react";
 import LoadingPage from "./Loading";
 import TablePagination from "../components/Table";
 import { toast } from "react-toastify";
-import Tick from "../images/Tick";
+// import Tick from "../images/Tick";
 import Cross from "../images/Cross";
+import { Spinner, Table, Tick, Close } from "@vivitek/toolbox";
 
 const BoxDetails = () => {
   const { id } = useParams();
@@ -19,6 +19,7 @@ const BoxDetails = () => {
     variables: { routerId: id }
   });
   const [updateBan] = useMutation(UPDATE_BAN)
+  const [name, setName] = useState("");
   const [isRouterOnline, setIsRouterOnline] = useState(false);
   const [connections, setConnections] = useState([])
   const [chronology, setChronology] = useState([])
@@ -62,6 +63,7 @@ const BoxDetails = () => {
       console.log(routerData)
       fetch(routerData.getRouter.url).then(() => {
         setIsRouterOnline(true)
+        setName(localStorage.getItem(routerData.getRouter._id + "_name"))
       }).catch(() => {
         setIsRouterOnline(false)
       })
@@ -114,33 +116,33 @@ const BoxDetails = () => {
   return (
     <div className="w-full h-full flex flex-col lg:flex-row py-4">
       <div className="w-auto lg:w-1/5 px-4 flex flex-col">
-        <div className="dark:bg-darkBlue rounded-lg p-4 flex flex-col">
+        <div className="dark:bg-darkBlue rounded-lg p-4 flex flex-col mb-2">
           <h3 className="font-itc uppercase font-medium">{t("boxDetails.information")}</h3>
           <div className="flex justify-between mt-2">
-            <h4 className="font-itc uppercase font-light">{t("boxDetails.name")}</h4>
-            <span>{routerData.getRouter.name}</span>
+            <h4 className="font-itc font-light">{t("boxDetails.name")}</h4>
+            <span>{name || routerData.getRouter.name}</span>
           </div>
           <div className="flex justify-between mt-1">
-            <h4 className="font-itc uppercase font-light">id</h4>
-            <span>{routerData.getRouter._id.substr(0, 5)}...</span>
+            <h4 className="font-itc font-light">{t("boxDetails.id")}</h4>
+            <span>{routerData.getRouter._id.match(/.{1,6}/g).join('-')}</span>
           </div>
-          <div className="flex justify-between mt-4">
-            <h4 className="font-itc uppercase font-light">{t("boxDetails.status")}</h4>
-            {isRouterOnline ? <div className="bg-green-500 h-4 w-4 rounded-full"></div> : <div className="bg-red-500 h-4 w-4 rounded-full"></div>}
+          <div className="flex justify-between mt-4 items-center">
+            <h4 className="font-itc font-light">{t("boxDetails.status")}</h4>
+            {isRouterOnline ? <div className="bg-green-500 h-3 w-3 mt-2 rounded-full"></div> : <div className="bg-red-500 h-4 w-4 mt-2 rounded-full"></div>}
           </div>
           <div className="flex justify-evenly mt-4">
-            <button>Off</button>
-            <button>Reboot</button>
+            <button className="bg-viviRed text-white px-6 py-2 rounded-full hover:bg-viviRed-500 transition duration-200 each-in-out font-sans font-bold text-sm">{t("boxDetails.off")}</button>
+            <button className="bg-viviBlue text-white px-6 py-2 rounded-full hover:bg-viviBlue-500 transition duration-200 each-in-out font-sans font-bold text-sm">{t("boxDetails.reboot")}</button>
           </div>
         </div>
         <div className="dark:bg-darkBlue rounded-lg p-4 flex flex-col h-full mt-2">
           <h3 className="font-itc uppercase font-medium">{t("boxDetails.chronology")}</h3>
-          {chronology.length === 0 &&
+          {chronology.length === 0 ?
             <div className="h-full w-full flex flex-col justify-center items-center">
-              <TraceSpinner size="10" sizeUnit="rem" />
-              <h3>Loading chronology...</h3>
-            </div>}
-          {
+              <Spinner size="150px"></Spinner>
+              <h3 className="mt-4">{t("boxDetails.chronologyLoading")}</h3>
+            </div>
+          :
             chronology.length !== 0 && <TablePagination tableName={`box-${routerData.getRouter.name}-chronology`} headers={[
               {
                 name: "Address",
@@ -174,16 +176,16 @@ const BoxDetails = () => {
                       class: "text-center"
                     },
                     actions: {
-                      value: <div className="flex">
+                      value: <div className="flex justify-evenly">
                         <div className="cursor-pointer h-6" onClick={() => {
                           mutateBan({ _id: e._id, banned: false })
                         }}>
-                          <Tick className="h-full" />
+                          <Tick color="white" size={20} />
                         </div>
                         <div className="cursor-pointer h-6" onClick={() => {
                           mutateBan({ _id: e._id, banned: true })
                         }}>
-                          <Cross className="h-full" />
+                          <Close className="" color="white" />
                         </div>
                       </div>,
                       class: ""
@@ -195,15 +197,47 @@ const BoxDetails = () => {
           }
         </div>
       </div>
-      <div className="w-auto lg:w-3/5 px-4">
+      <div className="w-auto lg:w-4/5 pr-4">
         <div className="h-full dark:bg-darkBlue rounded-lg flex flex-col p-4">
           <h3 className="font-itc uppercase font-medium">{t("boxDetails.connections")}</h3>
-          {connections.length === 0 &&
+          {connections.length === 0 ?
             <div className="h-full w-full flex flex-col justify-center items-center">
-              <FireworkSpinner size="10" sizeUnit="rem" />
-              <h3>Listening for connections...</h3>
-            </div>}
-          {
+              <Spinner size="350px"></Spinner>
+              <h3 className="mt-4">{t("boxDetails.listening")}</h3>
+            </div>
+            :
+              <Table
+                className=""
+                itemsPerPage={15}
+                headers={[
+                  { name: "address", cellClassName: "h-12 ", headerClassName: ""},
+                  { name: "actions", cellClassName: "h-12 flex justify-evenly", headerClassName: "text-center w-1/4"},
+                ]}
+                data={connections.map(c => {return {
+                  address: c.address,
+                  actions: (
+                    <div className='flex justify-between' style={{width: "5rem"}}>
+                      <button onClick={async () => {
+                          console.log('not banned')
+                          mutateBan({ _id: c._id, banned: false })
+                          updateChronology(c)
+                      }}>
+                        <Tick color="white" size={20}/>
+                      </button>
+                      <button onClick={async () => {
+                        console.log("banned")
+                        mutateBan({ _id: c._id, banned: true })
+                        updateChronology(c)
+                      }}>
+                        <Close color="white"/>
+                      </button>
+                    </div>
+                  )
+                }})}
+              />
+            }
+
+          {/* {
             connections.length !== 0 && <TablePagination tableName={`box-${routerData.getRouter.name}-connections`} headers={[
               {
                 name: "Address",
@@ -246,16 +280,8 @@ const BoxDetails = () => {
                 )
               })
             } />
-          }
+          } */}
 
-        </div>
-      </div>
-      <div className="w-auto lg:w-1/5 px-4">
-        <div className="h-full dark:bg-darkBlue rounded-lg flex flex-col p-4">
-          <h3 className="font-itc uppercase font-medium">{t("boxDetails.services")}</h3>
-          <div className="h-full w-full flex flex-col justify-center items-center">
-            <h3>Coming Soon...</h3>
-          </div>
         </div>
       </div>
     </div>
