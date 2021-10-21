@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { CSVLink } from "react-csv";
-import CSV from "../images/CSV";
-import PaginationLink from "./PaginationLink";
 
 const TablePagination = ({ headers, data, itemsPerPage = 20, tableName }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [lastPage, setLastpage] = useState(1);
-    const [paginations, setPaginations] = useState([]);
+    // const [paginations, setPaginations] = useState([]);
     const [displayData, setDisplayData] = useState([]);
     useEffect(() => {
         const temp = [];
@@ -34,7 +31,7 @@ const TablePagination = ({ headers, data, itemsPerPage = 20, tableName }) => {
                 </div>
             );
         }
-        setPaginations([...temp]);
+        // setPaginations([...temp]);
     }, [lastPage]);
     return (
 

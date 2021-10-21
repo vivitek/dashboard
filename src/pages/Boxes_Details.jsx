@@ -7,7 +7,7 @@ import LoadingPage from "./Loading";
 import TablePagination from "../components/Table";
 import { toast } from "react-toastify";
 // import Tick from "../images/Tick";
-import Cross from "../images/Cross";
+// import Cross from "../images/Cross";
 import { Spinner, Table, Tick, Close } from "@vivitek/toolbox";
 
 const BoxDetails = () => {
