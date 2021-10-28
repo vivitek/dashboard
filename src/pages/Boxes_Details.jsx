@@ -115,7 +115,7 @@ const BoxDetails = () => {
 
   return (
     <div className="w-full h-full flex flex-col lg:flex-row py-4">
-      <div className="w-auto lg:w-1/5 px-4 flex flex-col">
+      <div className="w-auto 2xl:w-1/5 lg:w-2/5 md:w-full sm:w-2/5 px-4 flex flex-col">
         <div className="dark:bg-darkBlue rounded-lg p-4 flex flex-col mb-2">
           <h3 className="font-itc uppercase font-medium">{t("boxDetails.information")}</h3>
           <div className="flex justify-between mt-2">
@@ -136,7 +136,7 @@ const BoxDetails = () => {
           </div>
         </div>
         <div className="dark:bg-darkBlue rounded-lg p-4 flex flex-col h-full mt-2">
-          <h3 className="font-itc uppercase font-medium">{t("boxDetails.chronology")}</h3>
+          <h3 className="font-itc uppercase font-medium md:mb-0 mb-4">{t("boxDetails.chronology")}</h3>
           {chronology.length === 0 ?
             <div className="h-full w-full flex flex-col justify-center items-center">
               <Spinner size="150px"></Spinner>
@@ -160,7 +160,7 @@ const BoxDetails = () => {
                 name: "Actions",
                 key: "actions",
                 export: false,
-                class: "text-right"
+                class: ""
               }
             ]} data={
               chronology.map((e) => {
@@ -169,15 +169,15 @@ const BoxDetails = () => {
                     id: e._id,
                     address: {
                       value: e.address,
-                      class: ""
+                      class: "px-3"
                     },
                     banned: {
                       value: e.banned ? "Yes" : "No",
                       class: "text-center"
                     },
                     actions: {
-                      value: <div className="flex justify-evenly">
-                        <div className="cursor-pointer h-6" onClick={() => {
+                      value: <div className="flex justify-evenly sm:px-4 md:px-2">
+                        <div className="cursor-pointer h-4" onClick={() => {
                           mutateBan({ _id: e._id, banned: false })
                         }}>
                           <Tick color="white" size={20} />
@@ -197,12 +197,12 @@ const BoxDetails = () => {
           }
         </div>
       </div>
-      <div className="w-auto lg:w-4/5 pr-4">
+      <div className="w-auto 2xl:w-4/5 sm:w-3/5 lg:w-3/5 md:w-full mt-4 px-4 2xl:px-0 2xl:pr-4 xl:mt-0 lg:px-0 lg:pr-4 lg:mt-0 md:px-4 md:mt-4">
         <div className="h-full dark:bg-darkBlue rounded-lg flex flex-col p-4">
-          <h3 className="font-itc uppercase font-medium">{t("boxDetails.connections")}</h3>
+          <h3 className="font-itc uppercase font-medium md:mb-0 mb-4">{t("boxDetails.connections")}</h3>
           {connections.length === 0 ?
             <div className="h-full w-full flex flex-col justify-center items-center">
-              <Spinner size="350px"></Spinner>
+              <Spinner size="250px"></Spinner>
               <h3 className="mt-4">{t("boxDetails.listening")}</h3>
             </div>
             :

@@ -8,6 +8,8 @@ import ViviHourglass from "../images/ViviHourglass"
 import { ChromePicker } from "react-color"
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
+import { Modal } from "@vivitek/toolbox";
+
 const BoxCard = ({ data }) => {
     const [color, setColor] = useState("#1A1F32");
     const [status, setStatus] = useState(false)
@@ -48,7 +50,7 @@ const BoxCard = ({ data }) => {
     }
     return (
         <>
-            <div className="flex flex-col justify-between p-6 mx-4 mb-10 md:mb-8 lg:mx-0 md:min-h-80 md:w-80 md:max-h-96 h-auto rounded-xl transform transition-all duration-150 hover:scale-105 group" style={{ backgroundColor: color }}>
+            <div className="w-full flex flex-col justify-between p-6 mx-4 mb-4 md:mb-8 lg:mx-0 md:min-h-80 md:w-80 md:max-h-96 h-auto rounded-xl transform transition-all duration-150 hover:scale-105 group" style={{ backgroundColor: color }}>
 
                 <div className="flex justify-between mb-2">
                     <ViviHourglass dark={true} className="h-10 md:h-10 w-auto" />
