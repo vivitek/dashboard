@@ -212,6 +212,19 @@ const GET_OTP_URL = gql`
   }
 `;
 
+const GET_CONFIGS = gql`
+  query {
+    getConfigs {
+      _id
+      public
+      creator
+      name
+      services
+      configs
+    }
+  }
+`;
+
 export {
   client,
   GET_ROUTERS,
@@ -229,4 +242,5 @@ export {
   GET_OTP_URL,
   ON_SERVICE_CREATED,
   UPDATE_SERVICE,
+  GET_CONFIGS
 };
