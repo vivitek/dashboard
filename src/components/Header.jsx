@@ -34,6 +34,9 @@ const Header = () => {
           <Link to="/box" onClick={toggleOpen}>
             {t("header.boxes")}
           </Link>
+          <Link to="/config" onClick={toggleOpen}>
+            {t("header.config")}
+          </Link>
         </div>
         {!userContext.authed && <div className="flex flex-col mt-4 ml-4">
           <Link to="/settings">{t("header.settings")}</Link>
@@ -52,6 +55,9 @@ const Header = () => {
           </Link>
           <Link to="/box" className="mt-2 ml-4 text-lg">
             {t("header.boxes")}
+          </Link>
+          <Link to="/config" className="mt-2 ml-4 text-lg">
+            {t("Config")}
           </Link>
         </div>
         {!userContext.authed &&
