@@ -217,10 +217,17 @@ const GET_CONFIGS = gql`
     getConfigs {
       _id
       public
-      creator
       name
-      services
-      configs
+    }
+  }
+`;
+
+const GET_CONFIG = gql`
+  query ($configId: String!) {
+    getConfig(id: $configId) {
+      _id
+      public
+      name
     }
   }
 `;
@@ -242,5 +249,6 @@ export {
   GET_OTP_URL,
   ON_SERVICE_CREATED,
   UPDATE_SERVICE,
-  GET_CONFIGS
+  GET_CONFIGS,
+  GET_CONFIG
 };

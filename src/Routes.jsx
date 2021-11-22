@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Home from "./pages/Home";
 import Config from "./pages/Config";
+import ConfigDetails from "./pages/Config_Details";
 
 const Routes = () => {
   return (
@@ -15,6 +16,7 @@ const Routes = () => {
       <Route path="/box/:id" exact component={BoxDetails} />
       <Route path="/settings" exact component={Profile} />
       <Route path="/config" exact component={Config}/>
+      <Route path="/config/:id" exact component={ConfigDetails}/>
     </Switch>
   );
 };
