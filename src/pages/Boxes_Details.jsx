@@ -1,10 +1,14 @@
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 import { useMutation, useQuery, useSubscription } from "@apollo/client";
-import { GET_BANS_FOR_ROUTER, GET_ROUTER, ON_BAN_CREATED, UPDATE_BAN } from "../utils/apollo";
+import {
+  GET_BANS_FOR_ROUTER,
+  GET_ROUTER,
+  ON_BAN_CREATED,
+  UPDATE_BAN,
+} from "../utils/apollo";
 import { useEffect, useState } from "react";
 import LoadingPage from "./Loading";
-import TablePagination from "../components/Table";
 import { toast } from "react-toastify";
 // import Tick from "../images/Tick";
 // import Cross from "../images/Cross";
@@ -12,28 +16,29 @@ import { Spinner, Table, Tick, Close } from "@vivitek/toolbox";
 
 const BoxDetails = () => {
   const { id } = useParams();
-  const { loading, error, data: routerData } = useQuery(GET_ROUTER, {
+  const {
+    loading,
+    error,
+    data: routerData,
+  } = useQuery(GET_ROUTER, {
     variables: { routerId: id },
   });
   const { data: historyData } = useQuery(GET_BANS_FOR_ROUTER, {
-    variables: { routerId: id }
+    variables: { routerId: id },
   });
-  const [updateBan] = useMutation(UPDATE_BAN)
+  const [updateBan] = useMutation(UPDATE_BAN);
   const [name, setName] = useState("");
   const [isRouterOnline, setIsRouterOnline] = useState(false);
-  const [connections, setConnections] = useState([])
-  const [chronology, setChronology] = useState([])
+  const [connections, setConnections] = useState([]);
+  const [chronology, setChronology] = useState([]);
 
-  const {
-    error: subError,
-    data: subData,
-  } = useSubscription(ON_BAN_CREATED, {
+  const { error: subError, data: subData } = useSubscription(ON_BAN_CREATED, {
     variables: {
-      routerId: id
+      routerId: id,
     },
   });
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const mutateBan = async (data) => {
     try {
@@ -45,53 +50,56 @@ const BoxDetails = () => {
       if (res?.errors?.length > 0) {
         toast.error("Oops!\n" + res.errors.join("\n"));
       } else {
-        toast.success("Your modification has been processed")
+        toast.success("Your modification has been processed");
       }
-
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.message);
     }
   };
 
   const updateChronology = (ban) => {
-    setChronology(old => [ban, ...old]);
-    setConnections(old => old.filter((e) => e._id !== ban._id));
-  }
+    setChronology((old) => [ban, ...old]);
+    setConnections((old) => old.filter((e) => e._id !== ban._id));
+  };
 
   useEffect(() => {
     if (routerData) {
-      console.log(routerData)
-      fetch(routerData.getRouter.url).then(() => {
-        setIsRouterOnline(true)
-        setName(localStorage.getItem(routerData.getRouter._id + "_name"))
-      }).catch(() => {
-        setIsRouterOnline(false)
-      })
+      console.log(routerData);
+      fetch(routerData.getRouter.url)
+        .then(() => {
+          setIsRouterOnline(true);
+          setName(localStorage.getItem(routerData.getRouter._id + "_name"));
+        })
+        .catch(() => {
+          setIsRouterOnline(false);
+        });
     }
-  }, [routerData])
+  }, [routerData]);
 
   useEffect(() => {
-    if (subData?.banCreated && !chronology.find((e) => e._id === subData?.banCreated._id)) {
-      const { address, _id } = subData.banCreated;
+    if (
+      subData?.banCreated &&
+      !chronology.find((e) => e._id === subData?.banCreated._id)
+    ) {
+      const { address, _id, displayName } = subData.banCreated;
 
       const found = connections.find(
         (e) => e.address === address || e._id === _id
       );
       if (!found) {
-        setConnections((old) => [...old, { address, _id }]);
+        setConnections((old) => [...old, { address, _id, displayName }]);
       }
     }
-  }, [subData, connections, chronology])
-
+  }, [subData, connections, chronology]);
 
   useEffect(() => {
     if (historyData?.getBans) {
-      setChronology([...historyData.getBans])
+      setChronology([...historyData.getBans]);
     }
-  }, [historyData])
+  }, [historyData]);
 
   if (loading) {
-    return <LoadingPage />
+    return <LoadingPage />;
   }
 
   if (error) {
@@ -100,7 +108,7 @@ const BoxDetails = () => {
         <h1>Error</h1>
         <p>{error.message}</p>
       </div>
-    )
+    );
   }
 
   if (subError) {
@@ -109,133 +117,164 @@ const BoxDetails = () => {
         <h1>subError</h1>
         <p>{subError.message}</p>
       </div>
-    )
+    );
   }
-
 
   return (
     <div className="w-full h-full flex flex-col lg:flex-row py-4">
       <div className="w-auto lg:w-1/5 px-4 flex flex-col">
         <div className="dark:bg-darkBlue rounded-lg p-4 flex flex-col mb-2">
-          <h3 className="font-itc uppercase font-medium">{t("boxDetails.information")}</h3>
+          <h3 className="font-itc uppercase font-medium">
+            {t("boxDetails.information")}
+          </h3>
           <div className="flex justify-between mt-2">
             <h4 className="font-itc font-light">{t("boxDetails.name")}</h4>
             <span>{name || routerData.getRouter.name}</span>
           </div>
           <div className="flex justify-between mt-1">
             <h4 className="font-itc font-light">{t("boxDetails.id")}</h4>
-            <span>{routerData.getRouter._id.match(/.{1,6}/g).join('-')}</span>
+            <span>{routerData.getRouter._id.match(/.{1,6}/g).join("-")}</span>
           </div>
           <div className="flex justify-between mt-4 items-center">
             <h4 className="font-itc font-light">{t("boxDetails.status")}</h4>
-            {isRouterOnline ? <div className="bg-green-500 h-3 w-3 mt-2 rounded-full"></div> : <div className="bg-red-500 h-4 w-4 mt-2 rounded-full"></div>}
+            {isRouterOnline ? (
+              <div className="bg-green-500 h-3 w-3 mt-2 rounded-full"></div>
+            ) : (
+              <div className="bg-red-500 h-4 w-4 mt-2 rounded-full"></div>
+            )}
           </div>
           <div className="flex justify-evenly mt-4">
-            <button className="bg-viviRed text-white px-6 py-2 rounded-full hover:bg-viviRed-500 transition duration-200 each-in-out font-sans font-bold text-sm">{t("boxDetails.off")}</button>
-            <button className="bg-viviBlue text-white px-6 py-2 rounded-full hover:bg-viviBlue-500 transition duration-200 each-in-out font-sans font-bold text-sm">{t("boxDetails.reboot")}</button>
+            <button className="bg-viviRed text-white px-6 py-2 rounded-full hover:bg-viviRed-500 transition duration-200 each-in-out font-sans font-bold text-sm">
+              {t("boxDetails.off")}
+            </button>
+            <button className="bg-viviBlue text-white px-6 py-2 rounded-full hover:bg-viviBlue-500 transition duration-200 each-in-out font-sans font-bold text-sm">
+              {t("boxDetails.reboot")}
+            </button>
           </div>
         </div>
         <div className="dark:bg-darkBlue rounded-lg p-4 flex flex-col h-full mt-2">
-          <h3 className="font-itc uppercase font-medium">{t("boxDetails.chronology")}</h3>
-          {chronology.length === 0 ?
+          <h3 className="font-itc uppercase font-medium">
+            {t("boxDetails.chronology")}
+          </h3>
+          {chronology.length === 0 ? (
             <div className="h-full w-full flex flex-col justify-center items-center">
               <Spinner size="150px"></Spinner>
               <h3 className="mt-4">{t("boxDetails.chronologyLoading")}</h3>
             </div>
-          :
-            chronology.length !== 0 && <TablePagination tableName={`box-${routerData.getRouter.name}-chronology`} headers={[
-              {
-                name: "Address",
-                key: "address",
-                export: true,
-                class: "text-left"
-              },
-              {
-                name: "Banned",
-                key: "banned",
-                export: true,
-                class: ""
-              },
-              {
-                name: "Actions",
-                key: "actions",
-                export: false,
-                class: "text-right"
-              }
-            ]} data={
-              chronology.map((e) => {
-                return (
-                  {
-                    id: e._id,
-                    address: {
-                      value: e.address,
-                      class: ""
-                    },
-                    banned: {
-                      value: e.banned ? "Yes" : "No",
-                      class: "text-center"
-                    },
-                    actions: {
-                      value: <div className="flex justify-evenly">
-                        <div className="cursor-pointer h-6" onClick={() => {
-                          mutateBan({ _id: e._id, banned: false })
-                        }}>
-                          <Tick color="white" size={20} />
-                        </div>
-                        <div className="cursor-pointer h-6" onClick={() => {
-                          mutateBan({ _id: e._id, banned: true })
-                        }}>
-                          <Close className="" color="white" />
-                        </div>
-                      </div>,
-                      class: ""
-                    }
-                  }
-                )
-              })
-            } />
-          }
-        </div>
-      </div>
-      <div className="w-auto lg:w-4/5 pr-4">
-        <div className="h-full dark:bg-darkBlue rounded-lg flex flex-col p-4">
-          <h3 className="font-itc uppercase font-medium">{t("boxDetails.connections")}</h3>
-          {connections.length === 0 ?
-            <div className="h-full w-full flex flex-col justify-center items-center">
-              <Spinner size="350px"></Spinner>
-              <h3 className="mt-4">{t("boxDetails.listening")}</h3>
-            </div>
-            :
+          ) : (
+            chronology.length !== 0 && (
               <Table
                 className=""
                 itemsPerPage={15}
                 headers={[
-                  { name: "address", cellClassName: "h-12 ", headerClassName: ""},
-                  { name: "actions", cellClassName: "h-12 flex justify-evenly", headerClassName: "text-center w-1/4"},
+                  {
+                    name: "name",
+                    cellClassName: "h-12 ",
+                    headerClassName: "",
+                  },
+                  {
+                    name: "banned",
+                    cellClassName: "h-12",
+                    headerClassName: "",
+                  },
+                  {
+                    name: "actions",
+                    cellClassName: "h-12 flex justify-evenly",
+                    headerClassName: "text-center w-1/4",
+                  },
                 ]}
-                data={connections.map(c => {return {
-                  address: c.address,
+                data={chronology.map((c) => {
+                  return {
+                    name: c.displayName,
+                    banned: c.banned ? "Y" : "N",
+                    actions: (
+                      <div
+                        className="flex justify-between"
+                        style={{ width: "5rem" }}
+                      >
+                        <button
+                          onClick={async () => {
+                            console.log("not banned");
+                            mutateBan({ _id: c._id, banned: false });
+                          }}
+                        >
+                          <Tick color="white" size={20} />
+                        </button>
+                        <button
+                          onClick={async () => {
+                            console.log("banned");
+                            mutateBan({ _id: c._id, banned: true });
+                          }}
+                        >
+                          <Close color="white" />
+                        </button>
+                      </div>
+                    ),
+                  };
+                })}
+              />
+            )
+          )}
+        </div>
+      </div>
+      <div className="w-auto lg:w-4/5 pr-4">
+        <div className="h-full dark:bg-darkBlue rounded-lg flex flex-col p-4">
+          <h3 className="font-itc uppercase font-medium">
+            {t("boxDetails.connections")}
+          </h3>
+          {connections.length === 0 ? (
+            <div className="h-full w-full flex flex-col justify-center items-center">
+              <Spinner size="350px"></Spinner>
+              <h3 className="mt-4">{t("boxDetails.listening")}</h3>
+            </div>
+          ) : (
+            <Table
+              className=""
+              itemsPerPage={15}
+              headers={[
+                {
+                  name: "name",
+                  cellClassName: "h-12 ",
+                  headerClassName: "",
+                },
+                {
+                  name: "actions",
+                  cellClassName: "h-12 flex justify-evenly",
+                  headerClassName: "text-center w-1/4",
+                },
+              ]}
+              data={connections.map((c) => {
+                return {
+                  name: c.displayName,
                   actions: (
-                    <div className='flex justify-between' style={{width: "5rem"}}>
-                      <button onClick={async () => {
-                          console.log('not banned')
-                          mutateBan({ _id: c._id, banned: false })
-                          updateChronology(c)
-                      }}>
-                        <Tick color="white" size={20}/>
+                    <div
+                      className="flex justify-between"
+                      style={{ width: "5rem" }}
+                    >
+                      <button
+                        onClick={async () => {
+                          console.log("not banned");
+                          mutateBan({ _id: c._id, banned: false });
+                          updateChronology(c);
+                        }}
+                      >
+                        <Tick color="white" size={20} />
                       </button>
-                      <button onClick={async () => {
-                        console.log("banned")
-                        mutateBan({ _id: c._id, banned: true })
-                        updateChronology(c)
-                      }}>
-                        <Close color="white"/>
+                      <button
+                        onClick={async () => {
+                          console.log("banned");
+                          mutateBan({ _id: c._id, banned: true });
+                          updateChronology(c);
+                        }}
+                      >
+                        <Close color="white" />
                       </button>
                     </div>
-                  )
-                }})}
-              />
-            }
+                  ),
+                };
+              })}
+            />
+          )}
 
           {/* {
             connections.length !== 0 && <TablePagination tableName={`box-${routerData.getRouter.name}-connections`} headers={[
@@ -281,7 +320,6 @@ const BoxDetails = () => {
               })
             } />
           } */}
-
         </div>
       </div>
     </div>
