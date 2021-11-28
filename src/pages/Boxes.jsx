@@ -15,11 +15,13 @@ const Boxes = () => {
     )
   }
   return (
-    <div className=" w-full flex flex-wrap justify-evenly pt-4">
+    <center>
+    <div className="w-full flex flex-wrap xl:w-4/5 justify-evenly pt-4">
       {data.getRouters.map((e) => (
         <BoxCard data={e} key={e._id} />
       ))}
     </div>
+    </center>
   );
 };
 

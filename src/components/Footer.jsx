@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { useLocation, useHistory } from "react-router";
+import { useTranslation } from "react-i18next";
 import ThemeContext from "../contexts/themeContext";
 import { noFooterHeader } from "../utils/constants";
 import Sun from "../images/Sun";
@@ -10,6 +11,8 @@ const Footer = () => {
   const themeContext = useContext(ThemeContext);
   const location = useLocation();
   const history = useHistory();
+  const { t } = useTranslation();
+
   if (noFooterHeader.includes(location.pathname)) {
     return <div></div>;
   }
@@ -18,12 +21,15 @@ const Footer = () => {
       <div className="w-full h-12 md:h-20 bg-gray-400 dark:bg-darkBlue flex items-center dark:text-white">
         <div className="h-full flex items-center w-full">
           <ViviHourglass
-            className="h-1/3 w-auto cursor-pointer m-3"
+            className="h-1/3 w-auto cursor-pointer m-5"
             dark={themeContext.theme === "dark"}
             onClick={() => history.push("/")}
           />
-          <p className="ml-4">
+          <p className="ml-4 mt-4 text-base">
             &copy; {new Date().getFullYear()} <a href="mailto:contact@vincipit.com">Vincipit</a>
+          </p>
+          <p className="ml-4 mt-4 text-base">
+            <a href="mailto:contact@vincipit.com">{t("footer.terms")}</a>
           </p>
         </div>
         <div

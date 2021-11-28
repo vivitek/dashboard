@@ -114,6 +114,7 @@ const GET_BANS_FOR_ROUTER = gql`
       address
       banned
       _id
+      displayName
     }
   }
 `;
@@ -124,6 +125,7 @@ const UPDATE_BAN = gql`
       _id
       banned
       address
+      displayName
     }
   }
 `;
@@ -133,6 +135,7 @@ const ON_BAN_CREATED = gql`
     banCreated(routerSet: $routerId) {
       address
       _id
+      displayName
     }
   }
 `;

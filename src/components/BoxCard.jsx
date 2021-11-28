@@ -48,21 +48,21 @@ const BoxCard = ({ data }) => {
     }
     return (
         <>
-            <div className="flex flex-col justify-between p-4 mx-4 mb-8 md:mb-3 lg:mx-0 md:min-h-80 md:w-80 md:max-h-96 w-full h-auto rounded-xl transform transition-all duration-150 hover:scale-105 group" style={{ backgroundColor: color }}>
+            <div className="flex flex-col justify-between p-6 mx-4 mb-10 md:mb-8 lg:mx-0 md:min-h-80 md:w-80 md:max-h-96 h-auto rounded-xl transform transition-all duration-150 hover:scale-105 group" style={{ backgroundColor: color }}>
 
                 <div className="flex justify-between mb-2">
-                    <ViviHourglass dark={true} className="h-8 md:h-16 w-auto" />
+                    <ViviHourglass dark={true} className="h-10 md:h-10 w-auto" />
                     <div onClick={() => { setSettings(!settings); setDisplayColorPicker(false) }} >
                         <Settings className="fill-current stroke-current z-0 h-6 w-auto transition-opacity duration-125 lg:opacity-0 group-hover:opacity-100 cursor-pointer" />
                     </div>
                 </div>
                 <div className="mt-5 flex justify-between">
-                    <h4 className="capitalize">{t("boxCard.name")}:</h4>
-                    <p>{name || data.name}</p>
+                    <h4 className="capitalize text-lg">{t("boxCard.name")}:</h4>
+                    <p className="text-lg">{name || data.name}</p>
                 </div>
-                <div className="flex justify-between mt-1">
-                    <h4 className="capitalize">{t("boxCard.status")}:</h4>
-                    {status ? <div className="bg-green-500 h-4 w-4 rounded-full"></div> : <div className="bg-red-500 h-4 w-4 rounded-full"></div>}
+                <div className="flex justify-between mt-1 items-center">
+                    <h4 className="capitalize text-lg">{t("boxCard.status")}:</h4>
+                    {status ? <div className="bg-green-500 h-3.5 w-3.5 rounded-full"></div> : <div className="bg-red-500 h-3 w-3 rounded-full"></div>}
                 </div>
                 <Transition
                     show={settings}
@@ -75,8 +75,8 @@ const BoxCard = ({ data }) => {
                 >
                     <div className="mt-4 space-y-2">
                         <hr />
-                        <div>
-                            <button onClick={() => setDisplayColorPicker(!displayColorPicker)} className="">Change Color</button>
+                        <div className="text-left">
+                            <button onClick={() => setDisplayColorPicker(!displayColorPicker)} className="uppercase text-white rounded-full transition duration-200 each-in-out font-sans font-bold hover:underline text-base">{t("boxCard.color")}</button>
                             {
                                 displayColorPicker && <div className="absolute z-50">
                                     <ChromePicker color={color} onChange={(c, e) => {
@@ -90,17 +90,19 @@ const BoxCard = ({ data }) => {
                             }
                         </div>
                         <form onSubmit={nameFormik.handleSubmit}>
-                            <div className="flex flex-col space-y-4">
-                                <label htmlFor="name">Name</label>
-                                <input type="text" className="bg-gray-200 dark:bg-[#313E68] border-none rounded-xl px-2 py-1 " name="name" id="name" placeholder="Custom Name" onChange={nameFormik.handleChange} value={nameFormik.values.name} />
-                                <button type="submit">Submit</button>
+                            <div className="flex flex-col">
+                                <label htmlFor="name" className="text-white text-sm text-left font-medium mb-1">{t("boxCard.changeName")}</label>
+                                <input type="text" className="bg-gray-200 dark:bg-[#313E68] border-none rounded-xl" name="name" id="name" onChange={nameFormik.handleChange} value={nameFormik.values.name} />
+                                <button type="submit" className="uppercase text-white hover:underline px-6 py-2 rounded-full transition duration-200 each-in-out font-sans font-bold text-lg" onClick= {() => {setSettings(!settings); setDisplayColorPicker(false)}}>
+                                    {t("boxCard.submit")}
+                                </button>
                             </div>
                         </form>
                     </div>
                 </Transition>
                 <div className="self-end mt-5">
                     <Link to={`/box/${data._id}`}
-                        className="dark:bg-[#313E68] bg-[#1473E6] capitalize  text-white px-6 py-2 rounded-3xl font-medium  hover:bg-blue-600 transition duration-200 each-in-out font-sans"
+                        className="bg-viviYellOrange text-white px-6 py-2 rounded-full hover:bg-blue-600 transition duration-200 each-in-out font-sans font-bold text-base"
                     >
                         {t("boxCard.details")}
                     </Link>
