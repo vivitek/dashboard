@@ -1,6 +1,7 @@
 import * as Yup from "yup";
 
-const BASE_URL = "https://api.server.vincipit.com";
+const BASE_URL =
+  /*process.env.NODE_ENV === "development" ? "http://localhost:3000" :*/ "https://api.server.vincipit.com";
 
 const BASE_WS = BASE_URL.replace(/^http/, "ws");
 
