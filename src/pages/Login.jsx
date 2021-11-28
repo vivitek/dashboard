@@ -57,8 +57,8 @@ const Login = () => {
         </div>
         <div className="bg-darkBlue xl:h-1/2 xl:w-1/5 w-full h-full xl:rounded-xl flex-col">
           <form onSubmit={formik.handleSubmit} className="flex-col p-12 h-full pb-0">
-          <h1 className="text-white text-4xl font-itc">{t("login.prompt")}</h1>
-          <h2 className="text-white mb-5 text-lg">{t("login.details")}</h2>
+          <h1 className="text-white text-3xl font-itc">{t("login.prompt")}</h1>
+          <h2 className="text-white mb-5 text-md">{t("login.details")}</h2>
             <div className="flex flex-wrap h-1/4 xl:h-1/2">
               <div className="flex flex-col w-full">
                 <label className="text-white text-base font-medium mt-2 mb-1">Email</label>

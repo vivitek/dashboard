@@ -60,7 +60,7 @@ const BoxCard = ({ data }) => {
                 </div>
                 <div className="mt-5 flex justify-between">
                     <h4 className="capitalize text-lg">{t("boxCard.name")}:</h4>
-                    <p className="text-lg">{name || data.name}</p>
+                    <p className="text-lg">{name.slice(0, 19) || data.name.slice(0,19)}</p>
                 </div>
                 <div className="flex justify-between mt-1 items-center">
                     <h4 className="capitalize text-lg">{t("boxCard.status")}:</h4>

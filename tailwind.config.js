@@ -106,7 +106,8 @@ module.exports = {
       },
     },
     screen: {
-      'xl': '1000px'
+      'xl': '1000px',
+      '3xl': '1600x'
     }
   },
   variants: {

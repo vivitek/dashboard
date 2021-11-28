@@ -24,10 +24,10 @@ const Footer = () => {
             className="m-6 h-6 w-auto" dark={themeContext.theme === "dark"}
             onClick={() => history.push("/")}
           />
-          <p className="ml-4 mt-4 text-base">
+          <p className="ml-4 mt-4 invisible sm:visible text-base ">
             &copy; {new Date().getFullYear()} <a href="mailto:contact@vincipit.com">Vincipit</a>
           </p>
-          <p className="ml-4 mt-4 text-base">
+          <p className="ml-4 mt-4 invisible sm:visible text-base">
             <a href="mailto:contact@vincipit.com">{t("footer.terms")}</a>
           </p>
         </div>
