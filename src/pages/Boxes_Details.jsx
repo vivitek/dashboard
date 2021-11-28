@@ -122,7 +122,7 @@ const BoxDetails = () => {
 
   return (
     <div className="w-full h-full flex flex-col lg:flex-row py-4">
-      <div className="w-auto lg:w-1/5 px-4 flex flex-col">
+      <div className="w-auto 2xl:w-1/5 lg:w-2/5 md:w-full sm:w-2/5 px-4 flex flex-col">
         <div className="dark:bg-darkBlue rounded-lg p-4 flex flex-col mb-2">
           <h3 className="font-itc uppercase font-medium">
             {t("boxDetails.information")}
@@ -153,78 +153,78 @@ const BoxDetails = () => {
           </div>
         </div>
         <div className="dark:bg-darkBlue rounded-lg p-4 flex flex-col h-full mt-2">
-          <h3 className="font-itc uppercase font-medium">
+          <h3 className="font-itc uppercase font-medium md:mb-0 mb-4">
             {t("boxDetails.chronology")}
           </h3>
-          {chronology.length === 0 ? (
+          {chronology.length === 0 && (
             <div className="h-full w-full flex flex-col justify-center items-center">
               <Spinner size="150px"></Spinner>
               <h3 className="mt-4">{t("boxDetails.chronologyLoading")}</h3>
             </div>
-          ) : (
-            chronology.length !== 0 && (
-              <Table
-                className=""
-                itemsPerPage={15}
-                headers={[
-                  {
-                    name: "name",
-                    cellClassName: "h-12 ",
-                    headerClassName: "",
-                  },
-                  {
-                    name: "banned",
-                    cellClassName: "h-12",
-                    headerClassName: "",
-                  },
-                  {
-                    name: "actions",
-                    cellClassName: "h-12 flex justify-evenly",
-                    headerClassName: "text-center w-1/4",
-                  },
-                ]}
-                data={chronology.map((c) => {
-                  return {
-                    name: c.displayName,
-                    banned: c.banned ? "Y" : "N",
-                    actions: (
-                      <div
-                        className="flex justify-between"
-                        style={{ width: "5rem" }}
+          )}{" "}
+          {chronology.length !== 0 && (
+            <Table
+              className=""
+              itemsPerPage={15}
+              headers={[
+                {
+                  name: "name",
+                  cellClassName: "h-12 ",
+                  headerClassName: "text-left",
+                },
+                {
+                  name: "banned",
+                  cellClassName: "h-12",
+                  headerClassName: "",
+                },
+                {
+                  name: "actions",
+                  cellClassName: "h-12 flex justify-evenly",
+                  headerClassName: "text-center w-1/4",
+                },
+              ]}
+              data={chronology.map((c) => {
+                return {
+                  name: c.displayName,
+                  banned: c.banned ? "Y" : "N",
+                  actions: (
+                    <div
+                      className="flex justify-evenly sm:px-4 md:px-2"
+                      style={{ width: "5rem" }}
+                    >
+                      <button
+                        className="h-4"
+                        onClick={async () => {
+                          console.log("not banned");
+                          mutateBan({ _id: c._id, banned: false });
+                        }}
                       >
-                        <button
-                          onClick={async () => {
-                            console.log("not banned");
-                            mutateBan({ _id: c._id, banned: false });
-                          }}
-                        >
-                          <Tick color="white" size={20} />
-                        </button>
-                        <button
-                          onClick={async () => {
-                            console.log("banned");
-                            mutateBan({ _id: c._id, banned: true });
-                          }}
-                        >
-                          <Close color="white" />
-                        </button>
-                      </div>
-                    ),
-                  };
-                })}
-              />
-            )
+                        <Tick color="white" size={20} />
+                      </button>
+                      <button
+                        onClick={async () => {
+                          console.log("banned");
+                          mutateBan({ _id: c._id, banned: true });
+                        }}
+                      >
+                        <Close color="white" />
+                      </button>
+                    </div>
+                  ),
+                };
+              })}
+            />
           )}
         </div>
       </div>
-      <div className="w-auto lg:w-4/5 pr-4">
+      <div className="w-auto 2xl:w-4/5 sm:w-3/5 lg:w-3/5 md:w-full mt-4 px-4 2xl:px-0 2xl:pr-4 xl:mt-0 lg:px-0 lg:pr-4 lg:mt-0 md:px-4 md:mt-4">
         <div className="h-full dark:bg-darkBlue rounded-lg flex flex-col p-4">
-          <h3 className="font-itc uppercase font-medium">
+          <h3 className="font-itc uppercase font-medium md:mb-0 mb-4">
             {t("boxDetails.connections")}
           </h3>
           {connections.length === 0 ? (
             <div className="h-full w-full flex flex-col justify-center items-center">
-              <Spinner size="350px"></Spinner>
+              <Spinner size="250px"></Spinner>
               <h3 className="mt-4">{t("boxDetails.listening")}</h3>
             </div>
           ) : (

@@ -21,8 +21,7 @@ const Footer = () => {
       <div className="w-full h-12 md:h-20 bg-gray-400 dark:bg-darkBlue flex items-center dark:text-white">
         <div className="h-full flex items-center w-full">
           <ViviHourglass
-            className="h-1/3 w-auto cursor-pointer m-5"
-            dark={themeContext.theme === "dark"}
+            className="m-6 h-6 w-auto" dark={themeContext.theme === "dark"}
             onClick={() => history.push("/")}
           />
           <p className="ml-4 mt-4 text-base">
