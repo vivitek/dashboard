@@ -13,7 +13,7 @@ const ConfigCard = ({ data }) => {
             <Link to={`/config/${data._id}`}
                 className="bg-viviYellOrange text-white px-6 py-2 rounded-full hover:bg-blue-600 transition duration-200 each-in-out font-sans font-bold text-base"
             >
-            Details                    
+                Details                    
             </Link>
         </div>
     )

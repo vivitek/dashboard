@@ -232,6 +232,18 @@ const GET_CONFIG = gql`
   }
 `;
 
+const GET_SERVICES = gql`
+  query {
+    getServices {
+      _id
+      name
+      bandwidth
+      ips
+      banned
+    }
+  }
+`;
+
 export {
   client,
   GET_ROUTERS,
@@ -250,5 +262,6 @@ export {
   ON_SERVICE_CREATED,
   UPDATE_SERVICE,
   GET_CONFIGS,
-  GET_CONFIG
+  GET_CONFIG,
+  GET_SERVICES
 };
