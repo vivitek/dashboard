@@ -140,6 +140,26 @@ const ON_BAN_CREATED = gql`
   }
 `;
 
+const ON_SERVICE_CREATED = gql`
+  subscription ($routerId: String!) {
+    serviceCreated(routerId: $routerId) {
+      _id
+      name
+      banned
+    }
+  }
+`;
+
+const UPDATE_SERVICE = gql`
+  mutation ($serviceUpdate: ServiceUpdateInput!) {
+    updateService(serviceUpdateData: $serviceUpdate) {
+      name
+      _id
+      banned
+    }
+  }
+`;
+
 const LOGIN = gql`
   mutation ($loginData: LoginInput!) {
     login(loginData: $loginData) {
@@ -207,4 +227,6 @@ export {
   CHECK_2FA,
   ME,
   GET_OTP_URL,
+  ON_SERVICE_CREATED,
+  UPDATE_SERVICE,
 };

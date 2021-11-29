@@ -6,13 +6,15 @@ import {
   GET_ROUTER,
   ON_BAN_CREATED,
   UPDATE_BAN,
+  GET_SERVICES_FOR_ROUTER,
+  ON_SERVICE_CREATED,
+  UPDATE_SERVICE,
 } from "../utils/apollo";
 import { useEffect, useState } from "react";
 import LoadingPage from "./Loading";
 import { toast } from "react-toastify";
-// import Tick from "../images/Tick";
-// import Cross from "../images/Cross";
 import { Spinner, Table, Tick, Close } from "@vivitek/toolbox";
+import { Tab } from "@headlessui/react";
 
 const BoxDetails = () => {
   const { id } = useParams();
@@ -26,11 +28,25 @@ const BoxDetails = () => {
   const { data: historyData } = useQuery(GET_BANS_FOR_ROUTER, {
     variables: { routerId: id },
   });
+  const { data: oldServices } = useQuery(GET_SERVICES_FOR_ROUTER, {
+    variables: { routerId: id },
+  });
   const [updateBan] = useMutation(UPDATE_BAN);
+  const [updateService] = useMutation(UPDATE_SERVICE);
   const [name, setName] = useState("");
   const [isRouterOnline, setIsRouterOnline] = useState(false);
   const [connections, setConnections] = useState([]);
   const [chronology, setChronology] = useState([]);
+  const [services, setServices] = useState([]);
+
+  const { error: serviceSubError, data: serviceSubData } = useSubscription(
+    ON_SERVICE_CREATED,
+    {
+      variables: {
+        routerId: id,
+      },
+    }
+  );
 
   const { error: subError, data: subData } = useSubscription(ON_BAN_CREATED, {
     variables: {
@@ -45,6 +61,23 @@ const BoxDetails = () => {
       const res = await updateBan({
         variables: {
           banUpdate: { ...data },
+        },
+      });
+      if (res?.errors?.length > 0) {
+        toast.error("Oops!\n" + res.errors.join("\n"));
+      } else {
+        toast.success("Your modification has been processed");
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  const mutateService = async (data) => {
+    try {
+      const res = await updateService({
+        variables: {
+          serviceUpdate: { ...data },
         },
       });
       if (res?.errors?.length > 0) {
@@ -93,6 +126,22 @@ const BoxDetails = () => {
   }, [subData, connections, chronology]);
 
   useEffect(() => {
+    console.log(serviceSubData);
+    if (
+      serviceSubData?.serviceCreated &&
+      !services.find((e) => e._id === serviceSubData?.serviceCreated._id)
+    ) {
+      setServices((old) => [...old, { ...serviceSubData?.serviceCreated }]);
+    }
+  }, [serviceSubData, services]);
+
+  useEffect(() => {
+    if (oldServices?.getServicesForRouter) {
+      setServices((old) => [...old, ...oldServices?.getServicesForRouter]);
+    }
+  }, [oldServices]);
+
+  useEffect(() => {
     if (historyData?.getBans) {
       setChronology([...historyData.getBans]);
     }
@@ -116,6 +165,14 @@ const BoxDetails = () => {
       <div className="w-full h-full flex flex-col justify-center items-center">
         <h1>subError</h1>
         <p>{subError.message}</p>
+      </div>
+    );
+  }
+  if (serviceSubError) {
+    return (
+      <div className="w-full h-full flex flex-col justify-center items-center">
+        <h1>serviceSubError</h1>
+        <p>{serviceSubError.message}</p>
       </div>
     );
   }
@@ -193,7 +250,6 @@ const BoxDetails = () => {
                       style={{ width: "5rem" }}
                     >
                       <button
-                        className="h-4"
                         onClick={async () => {
                           console.log("not banned");
                           mutateBan({ _id: c._id, banned: false });
@@ -219,62 +275,159 @@ const BoxDetails = () => {
       </div>
       <div className="w-auto 2xl:w-4/5 sm:w-3/5 lg:w-3/5 md:w-full mt-4 px-4 2xl:px-0 2xl:pr-4 xl:mt-0 lg:px-0 lg:pr-4 lg:mt-0 md:px-4 md:mt-4">
         <div className="h-full dark:bg-darkBlue rounded-lg flex flex-col p-4">
-          <h3 className="font-itc uppercase font-medium md:mb-0 mb-4">
-            {t("boxDetails.connections")}
-          </h3>
-          {connections.length === 0 ? (
-            <div className="h-full w-full flex flex-col justify-center items-center">
-              <Spinner size="250px"></Spinner>
-              <h3 className="mt-4">{t("boxDetails.listening")}</h3>
-            </div>
-          ) : (
-            <Table
-              className=""
-              itemsPerPage={15}
-              headers={[
-                {
-                  name: "name",
-                  cellClassName: "h-12 ",
-                  headerClassName: "",
-                },
-                {
-                  name: "actions",
-                  cellClassName: "h-12 flex justify-evenly",
-                  headerClassName: "text-center w-1/4",
-                },
-              ]}
-              data={connections.map((c) => {
-                return {
-                  name: c.displayName,
-                  actions: (
-                    <div
-                      className="flex justify-between"
-                      style={{ width: "5rem" }}
-                    >
-                      <button
-                        onClick={async () => {
-                          console.log("not banned");
-                          mutateBan({ _id: c._id, banned: false });
-                          updateChronology(c);
-                        }}
-                      >
-                        <Tick color="white" size={20} />
-                      </button>
-                      <button
-                        onClick={async () => {
-                          console.log("banned");
-                          mutateBan({ _id: c._id, banned: true });
-                          updateChronology(c);
-                        }}
-                      >
-                        <Close color="white" />
-                      </button>
-                    </div>
-                  ),
-                };
-              })}
-            />
-          )}
+          <Tab.Group>
+            <Tab.List>
+              <Tab
+                className={({ selected }) =>
+                  selected
+                    ? "bg-viviBlue-200 text-white px-6 py-2 rounded-full hover:bg-viviBlue-500 transition duration-200 each-in-out font-sans font-bold text-sm"
+                    : "bg-viviBlue text-white px-6 py-2 rounded-full hover:bg-viviBlue-500 transition duration-200 each-in-out font-sans font-bold text-sm"
+                }
+              >
+                {t("boxDetails.connections")}
+              </Tab>
+              <Tab
+                className={({ selected }) =>
+                  selected
+                    ? " bg-viviBlue-200 text-white px-6 py-2 rounded-full hover:bg-viviBlue-500 transition duration-200 each-in-out font-sans font-bold text-sm"
+                    : "bg-viviBlue text-white px-6 py-2 rounded-full hover:bg-viviBlue-500 transition duration-200 each-in-out font-sans font-bold text-sm"
+                }
+              >
+                {" "}
+                {t("boxDetails.services")}{" "}
+              </Tab>
+            </Tab.List>
+            <Tab.Panels className="h-full w-full">
+              <Tab.Panel className="w-full h-full dark:bg-darkBlue rounded-lg flex flex-col mt-4">
+                <h3 className="font-itc uppercase font-medium md:mb-0 mb-4">
+                  {t("boxDetails.connections")}
+                </h3>
+                {connections.length === 0 ? (
+                  <div className="h-full w-full flex flex-col justify-center items-center">
+                    <Spinner size="250px"></Spinner>
+                    <h3 className="mt-4">{t("boxDetails.listening")}</h3>
+                  </div>
+                ) : (
+                  <Table
+                    className=""
+                    itemsPerPage={15}
+                    headers={[
+                      {
+                        name: "name",
+                        cellClassName: "h-12 ",
+                        headerClassName: "",
+                      },
+                      {
+                        name: "actions",
+                        cellClassName: "h-12 flex justify-evenly",
+                        headerClassName: "text-center w-1/4",
+                      },
+                    ]}
+                    data={connections.map((c) => {
+                      return {
+                        name: c.displayName,
+                        actions: (
+                          <div
+                            className="flex justify-between"
+                            style={{ width: "5rem" }}
+                          >
+                            <button
+                              onClick={async () => {
+                                console.log("not banned");
+                                mutateBan({ _id: c._id, banned: false });
+                                updateChronology(c);
+                              }}
+                            >
+                              <Tick color="white" size={20} />
+                            </button>
+                            <button
+                              onClick={async () => {
+                                console.log("banned");
+                                mutateBan({ _id: c._id, banned: true });
+                                updateChronology(c);
+                              }}
+                            >
+                              <Close color="white" />
+                            </button>
+                          </div>
+                        ),
+                      };
+                    })}
+                  />
+                )}
+              </Tab.Panel>
+              <Tab.Panel className="w-full h-full dark:bg-darkBlue rounded-lg flex flex-col mt-4">
+                <h3 className="font-itc uppercase font-medium md:mb-0 mb-4">
+                  {t("boxDetails.services")}
+                </h3>
+                {services.length === 0 ? (
+                  <div className="h-full w-full flex flex-col justify-center items-center">
+                    <Spinner size="250px"></Spinner>
+                    <h3 className="mt-4">{t("boxDetails.listening")}</h3>
+                  </div>
+                ) : (
+                  <Table
+                    className=""
+                    itemsPerPage={15}
+                    headers={[
+                      {
+                        name: "name",
+                        cellClassName: "h-12 ",
+                        headerClassName: "",
+                      },
+                      {
+                        name: "banned",
+                        cellClassName: "h-12",
+                        headerClassName: "",
+                      },
+                      {
+                        name: "actions",
+                        cellClassName: "h-12 flex justify-evenly",
+                        headerClassName: "text-center w-1/4",
+                      },
+                    ]}
+                    data={services.map((c) => {
+                      return {
+                        name: c.name,
+                        banned: c.banned ? "Y" : "N",
+                        actions: (
+                          <div
+                            className="flex justify-between"
+                            style={{ width: "5rem" }}
+                          >
+                            <button
+                              onClick={async () => {
+                                console.log("not banned");
+                                mutateService({
+                                  _id: c._id,
+                                  banned: false,
+                                  bandwidth: "10000",
+                                });
+                              }}
+                            >
+                              <Tick color="white" size={20} />
+                            </button>
+                            <button
+                              onClick={async () => {
+                                console.log("banned");
+                                mutateService({
+                                  _id: c._id,
+                                  banned: true,
+                                  bandwidth: "10000",
+                                });
+                              }}
+                            >
+                              <Close color="white" />
+                            </button>
+                          </div>
+                        ),
+                      };
+                    })}
+                  />
+                )}
+              </Tab.Panel>
+            </Tab.Panels>
+          </Tab.Group>
 
           {/* {
             connections.length !== 0 && <TablePagination tableName={`box-${routerData.getRouter.name}-connections`} headers={[
