@@ -264,10 +264,6 @@ const UPDATE_CONFIG = gql`
   mutation ($configUpdateData: ConfigUpdateInput!) {
     updateConfig(configUpdateData: $configUpdateData) {
       _id
-      name
-      services
-      configs
-      public
     }
   }
 `;

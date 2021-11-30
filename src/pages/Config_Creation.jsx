@@ -2,14 +2,16 @@ import { useMutation, useQuery } from "@apollo/client";
 import { useContext, useState } from "react";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
-import { GET_SERVICES, GET_CONFIGS, CREATE_CONFIG} from "../utils/apollo";
+import { useHistory } from "react-router";
+import { GET_SERVICES, GET_CONFIGS, CREATE_CONFIG } from "../utils/apollo";
 import UserContext from "../contexts/userContext";
 import LoadingPage from "./Loading";
 
 const ConfigCreation = () => {
+  const history = useHistory();
   const userContext = useContext(UserContext);
-  const [ loading, setLoading] = useState(false);
-  const [ createConfig ] = useMutation(CREATE_CONFIG);
+  const [loading, setLoading] = useState(false);
+  const [createConfig] = useMutation(CREATE_CONFIG);
   const { loading: getServicesLoad, error: getServicesError, data: getServiceData } = useQuery(GET_SERVICES);
   const { loading: getConfigsLoad, error: getConfigsError, data: getConfigsData } = useQuery(GET_CONFIGS);
 
@@ -19,18 +21,19 @@ const ConfigCreation = () => {
       services: [],
       configs: [],
       public: false
-    }, 
+    },
     onSubmit: async (values) => {
       console.log(values);
       try {
         setLoading(true);
         await createConfig({
           variables: {
-            configCreateData: {...values, creator: userContext.user?._id},
+            configCreateData: { ...values, creator: userContext.user?._id },
           },
         });
         setLoading(false);
         toast.success("Config Create", { position: "top-center" });
+        history.push("/config");
       } catch (error) {
         toast.error("Something went wrong...", { position: "top-center" });
         setLoading(false);
@@ -51,51 +54,58 @@ const ConfigCreation = () => {
   return (
     <div className="w-full h-full flex flex-col lg:flex-row py-4">
       <div className="w-auto lg:w-1/5 px-4 flex flex-col">
-      </div>
-      <div className="w-auto lg:w-4/5 pr-4">
-        <div className="h-full dark:bg-darkBlue rounded-lg flex flex-col p-4">
-          <div className="mb-4">
-            <form onSubmit={formik.handleSubmit} className="flex-col p-12 h-full pb-0" >
-              <label className="text-white text-base font-medium mt-2 mb-1"> Nom de la config </label>
+        <div className="dark:bg-darkBlue rounded-lg p-4 flex flex-col h-full mt-2">
+          <h3 className="font-itc uppercase font-medium">Nouvelle Config</h3>
+          <form onSubmit={formik.handleSubmit} className="dark:bg-darkBlue shadow-md rounded px-8 pt-6 pb-8 mb-8" >
+            <div className="mb-8">
+              <label className="block text-gray-700 text-sm font-bold mb-2"> Nom de la config </label>
               <input
-                  className="bg-gray-200 dark:bg-[#313E68] border-none rounded-xl"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  name="name"
-                  type="text"
-                  required
-                />
-              <div class="inline-block">
-                <select 
-                  required
-                  name="services"
-                  multiple={true} 
-                  onChange={formik.handleChange} 
-                  class="bg-gray-200 dark:bg-[#313E68] border-none rounded-xl">
-                    {getServiceData.getServices.map((item) => {
-                      return <option value={item._id}>{item.name}</option>
-                    })}
-                </select>
-              </div>
-              <div class="inline-block">
-                <select
-                  name="configs"
-                  multiple={true} 
-                  onChange={formik.handleChange} 
-                  class="bg-gray-200 dark:bg-[#313E68] border-none rounded-xl">
-                    {getConfigsData.getConfigs.map((item) => {
-                      return <option value={item._id}>{item.name}</option>
-                    })}
-                </select>
-              </div>
-              <label>Public</label>
-              <input name="public" type="checkbox"/>
-              <button 
-                class="bg-viviYellOrange uppercase text-white mt-1 px-6 py-2 rounded-full hover:bg-blue-600 transition duration-200 each-in-out font-sans font-bold" type="submit">
-                  Submit
+                className="bg-gray-200 dark:bg-[#313E68] border-none rounded-xl w-full"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                name="name"
+                type="text"
+                required
+              />
+            </div>
+            <div class="mb-8">
+              <label className="block text-gray-700 text-sm font-bold mb-2"> Ajoue Services </label>
+              <select
+                required
+                name="services"
+                multiple={true}
+                onChange={formik.handleChange}
+                class="bg-gray-200 dark:bg-[#313E68] w-full border-none rounded-xl">
+                {getServiceData.getServices.map((item) => {
+                  return <option value={item._id}>{item.name}</option>
+                })}
+              </select>
+            </div>
+            <div class="mb-8">
+              <label className="block text-gray-700 text-sm font-bold mb-2"> Ajoue Configs </label>
+              <select
+                name="configs"
+                multiple={true}
+                onChange={formik.handleChange}
+                class="bg-gray-200 dark:bg-[#313E68] w-full border-none rounded-xl">
+                {getConfigsData.getConfigs.map((item) => {
+                  return <option value={item._id}>{item.name}</option>
+                })}
+              </select>
+            </div>
+            <div className="md:flex md:items-center mb-8">
+              <label class="md:w-2/3 block text-gray-500 font-bold">
+                <input name="public" type="checkbox" className="mr-2 leading-tight" />
+                <span className="text-sm">Public </span>
+              </label>
+            </div>
+            <div className="mb-8">
+              <button
+                class="bg-viviYellOrange w-full uppercase text-white mt-1 px-6 py-2 rounded-full hover:bg-blue-600 transition duration-200 each-in-out font-sans font-bold" type="submit">
+                Submit
               </button>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
