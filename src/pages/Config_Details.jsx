@@ -78,9 +78,9 @@ const ConfigDetails = () => {
         </div>
         <div className="dark:bg-darkBlue rounded-lg p-4 flex flex-col h-full mt-2">
           <h3 className="font-itc uppercase font-medium">Modifier Config</h3>
-          <form onSubmit={formik.handleSubmit} className="dark:bg-darkBlue shadow-md rounded px-8 pt-6 pb-8 mb-8" >
+          <form onSubmit={formik.handleSubmit} className="border-none rounded pt-6 mb-8" >
             <div className="mb-8">
-              <label className="block text-gray-700 text-sm font-bold mb-2"> Modifier nom de config </label>
+              <label className="block text-sm font-bold mb-2"> Modifier nom de config </label>
               <input
                 className="bg-gray-200 dark:bg-[#313E68] border-none rounded-xl w-full"
                 onChange={formik.handleChange}
@@ -90,7 +90,7 @@ const ConfigDetails = () => {
               />
             </div>
             <div class="mb-8">
-              <label className="block text-gray-700 text-sm font-bold mb-2"> Modifier Services </label>
+              <label className="block text-sm font-bold mb-2"> Modifier Services </label>
               <select
                 name="services"
                 multiple={true}
@@ -102,26 +102,28 @@ const ConfigDetails = () => {
               </select>
             </div>
             <div className="mb-8">
-              <label className="block text-gray-700 text-sm font-bold mb-2"> Modifier Configs </label>
+              <label className="block text-sm font-bold mb-2"> Modifier Configs </label>
               <select
                 name="configs"
                 multiple={true}
                 onChange={formik.handleChange}
                 class="bg-gray-200 dark:bg-[#313E68] w-full border-none rounded-xl">
-                {getConfigsData.getConfigs.map((item) => {
+                {getConfigsData.getConfigs.filter((item) => 
+                  item._id !== getConfigData.getConfig._id
+                ).map((item) => {
                   return <option value={item._id}>{item.name}</option>
                 })}
               </select>
             </div>
             <div className="md:flex md:items-center mb-8">
-              <label class="md:w-2/3 block text-gray-500 font-bold">
-                <input name="public" type="checkbox" className="mr-2 leading-tight"/>
+              <label class="md:w-2/3 block font-bold">
+                <input name="public" type="checkbox" className="mr-2 leading-tight" />
                 <span className="text-sm">Public </span>
               </label>
             </div>
             <div className="mb-8">
               <button
-                class="bg-viviYellOrange w-full uppercase text-white mt-1 px-6 py-2 rounded-full hover:bg-blue-600 transition duration-200 each-in-out font-sans font-bold" type="submit">
+                className="bg-viviYellOrange w-full uppercase text-white mt-1 px-6 py-2 rounded-full hover:bg-blue-600 transition duration-200 each-in-out font-sans font-bold" type="submit">
                 Submit
               </button>
             </div>
@@ -129,10 +131,20 @@ const ConfigDetails = () => {
           <div>
             <button
               onClick={() => setDeleteConfig()}
-              class="bg-viviRed w-full text-white px-6 py-2 rounded-full hover:bg-viviRed-500 transition duration-200 each-in-out font-sans font-bold text-sm">
+              className="bg-viviRed w-full text-white px-6 py-2 rounded-full hover:bg-viviRed-500 transition duration-200 each-in-out font-sans font-bold text-sm">
               Delete
             </button>
           </div>
+        </div>
+      </div>
+      <div className="w-auto lg:w-2/5 pr-4">
+        <div className="h-full dark:bg-darkBlue rounded-lg flex flex-col p-4">
+
+        </div>
+      </div>
+      <div className="w-auto lg:w-2/5 pr-4">
+        <div className="h-full dark:bg-darkBlue rounded-lg flex flex-col p-4">
+
         </div>
       </div>
     </div>

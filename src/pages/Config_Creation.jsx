@@ -56,9 +56,9 @@ const ConfigCreation = () => {
       <div className="w-auto lg:w-1/5 px-4 flex flex-col">
         <div className="dark:bg-darkBlue rounded-lg p-4 flex flex-col h-full mt-2">
           <h3 className="font-itc uppercase font-medium">Nouvelle Config</h3>
-          <form onSubmit={formik.handleSubmit} className="dark:bg-darkBlue shadow-md rounded px-8 pt-6 pb-8 mb-8" >
+          <form onSubmit={formik.handleSubmit} className=" rounded pt-6 mb-8" >
             <div className="mb-8">
-              <label className="block text-gray-700 text-sm font-bold mb-2"> Nom de la config </label>
+              <label className="block text-sm font-bold mb-2"> Nom de la config </label>
               <input
                 className="bg-gray-200 dark:bg-[#313E68] border-none rounded-xl w-full"
                 onChange={formik.handleChange}
@@ -69,7 +69,7 @@ const ConfigCreation = () => {
               />
             </div>
             <div class="mb-8">
-              <label className="block text-gray-700 text-sm font-bold mb-2"> Ajoue Services </label>
+              <label className="block text-sm font-bold mb-2"> Ajout Services </label>
               <select
                 required
                 name="services"
@@ -82,7 +82,7 @@ const ConfigCreation = () => {
               </select>
             </div>
             <div class="mb-8">
-              <label className="block text-gray-700 text-sm font-bold mb-2"> Ajoue Configs </label>
+              <label className="block text-sm font-bold mb-2"> Ajout Configs </label>
               <select
                 name="configs"
                 multiple={true}
@@ -94,7 +94,7 @@ const ConfigCreation = () => {
               </select>
             </div>
             <div className="md:flex md:items-center mb-8">
-              <label class="md:w-2/3 block text-gray-500 font-bold">
+              <label class="md:w-2/3 block font-bold">
                 <input name="public" type="checkbox" className="mr-2 leading-tight" />
                 <span className="text-sm">Public </span>
               </label>
