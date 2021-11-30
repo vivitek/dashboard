@@ -244,6 +244,34 @@ const GET_SERVICES = gql`
   }
 `;
 
+const CREATE_CONFIG = gql`
+  mutation ($configCreateData: ConfigCreationInput!) {
+    createConfig(configCreateData: $configCreateData) {
+      _id
+    }
+  }
+`;
+
+const DELETE_CONFIG = gql`
+  mutation ($id: String!) {
+    deleteConfig(id: $id) {
+      _id
+    }
+  }
+`;
+
+const UPDATE_CONFIG = gql`
+  mutation ($configUpdateData: ConfigUpdateInput!) {
+    updateConfig(configUpdateData: $configUpdateData) {
+      _id
+      name
+      services
+      configs
+      public
+    }
+  }
+`;
+
 export {
   client,
   GET_ROUTERS,
@@ -263,5 +291,8 @@ export {
   UPDATE_SERVICE,
   GET_CONFIGS,
   GET_CONFIG,
-  GET_SERVICES
+  GET_SERVICES,
+  CREATE_CONFIG,
+  DELETE_CONFIG,
+  UPDATE_CONFIG
 };
