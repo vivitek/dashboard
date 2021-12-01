@@ -129,11 +129,9 @@ const Profile = () => {
             </label>
             {url_data?.getOtpUrl && (
               <div className="flex  justify-center">
-                {console.log(me)}
                 <div className="mt-2 flex items-center">
                   <QrCode
-                    value="https://bit.ly/3DQAC75"
-                    /*{url_data.getOtpUrl}*/ renderAs="svg"
+                    value={url_data.getOtpUrl} renderAs="svg"
                     bgColor="none"
                     fgColor="white"
                   />
