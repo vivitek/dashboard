@@ -16,7 +16,7 @@ const ConfigDetails = () => {
   const { loading: getConfigLoad, error: getConfigError, data: getConfigData } = useQuery(GET_CONFIG, { variables: { configId: id } });
   const { loading: getServicesLoad, error: getServicesError, data: getServiceData } = useQuery(GET_SERVICES);
   const { loading: getConfigsLoad, error: getConfigsError, data: getConfigsData } = useQuery(GET_CONFIGS);
-
+    
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -121,16 +121,17 @@ const ConfigDetails = () => {
             </div>
           </form>
           <div className="flex justify-evenly">
-          <button
+            <button
               onClick={() => setDeleteConfig()}
               className="bg-viviRed w-full text-white px-4 py-2 mr-2 rounded-full hover:bg-viviRed-500 transition duration-200 each-in-out font-sans font-bold text-sm">
               DELETE
             </button>
-              <button
-                className="bg-viviYellOrange w-full uppercase text-white ml-2 px-4 py-2 rounded-full hover:bg-blue-600 transition duration-200 each-in-out font-sans text-sm font-bold" type="submit">
-                Submit
-              </button>
-            </div>
+            <button
+              onClick={() => formik.handleSubmit()}
+              className="bg-viviYellOrange w-full uppercase text-white ml-2 px-4 py-2 rounded-full hover:bg-blue-600 transition duration-200 each-in-out font-sans text-sm font-bold" type="submit">
+              Submit
+            </button>
+          </div>
         </div>
       </div>
       <div className="w-auto lg:w-2/5 pr-4">
