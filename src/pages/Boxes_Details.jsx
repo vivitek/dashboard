@@ -231,8 +231,8 @@ const BoxDetails = () => {
                 },
                 {
                   name: "banned",
-                  cellClassName: "h-12",
-                  headerClassName: "",
+                  cellClassName: "h-12 text-center",
+                  headerClassName: "text-center",
                 },
                 {
                   name: "actions",
@@ -243,7 +243,7 @@ const BoxDetails = () => {
               data={chronology.map((c) => {
                 return {
                   name: c.displayName,
-                  banned: c.banned ? "Y" : "N",
+                  banned: c.banned ? "Yes" : "No",
                   actions: (
                     <div
                       className="flex justify-evenly sm:px-4 md:px-2"
@@ -307,7 +307,7 @@ const BoxDetails = () => {
                 ) : (
                   <Table
                     className=""
-                    itemsPerPage={15}
+                    itemsPerPage={10}
                     headers={[
                       {
                         name: "name",
@@ -362,7 +362,7 @@ const BoxDetails = () => {
                 ) : (
                   <Table
                     className=""
-                    itemsPerPage={15}
+                    itemsPerPage={10}
                     headers={[
                       {
                         name: "name",
@@ -371,8 +371,8 @@ const BoxDetails = () => {
                       },
                       {
                         name: "banned",
-                        cellClassName: "h-12",
-                        headerClassName: "",
+                        cellClassName: "h-12 text-center",
+                        headerClassName: "text-center",
                       },
                       {
                         name: "actions",
@@ -383,7 +383,7 @@ const BoxDetails = () => {
                     data={services.map((c) => {
                       return {
                         name: c.name,
-                        banned: c.banned ? "Y" : "N",
+                        banned: c.banned ? "Yes" : "No",
                         actions: (
                           <div
                             className="flex justify-between"
