@@ -212,6 +212,68 @@ const GET_OTP_URL = gql`
   }
 `;
 
+const GET_CONFIGS = gql`
+  query {
+    getConfigs {
+      _id
+      public
+      name
+      services {
+        _id
+      }
+      configs {
+        _id
+      }
+    }
+  }
+`;
+
+const GET_CONFIG = gql`
+  query ($configId: String!) {
+    getConfig(id: $configId) {
+      _id
+      public
+      name
+    }
+  }
+`;
+
+const GET_SERVICES = gql`
+  query {
+    getServices {
+      _id
+      name
+      bandwidth
+      ips
+      banned
+    }
+  }
+`;
+
+const CREATE_CONFIG = gql`
+  mutation ($configCreateData: ConfigCreationInput!) {
+    createConfig(configCreateData: $configCreateData) {
+      _id
+    }
+  }
+`;
+
+const DELETE_CONFIG = gql`
+  mutation ($id: String!) {
+    deleteConfig(id: $id) {
+      _id
+    }
+  }
+`;
+
+const UPDATE_CONFIG = gql`
+  mutation ($configUpdateData: ConfigUpdateInput!) {
+    updateConfig(configUpdateData: $configUpdateData) {
+      _id
+    }
+  }
+`;
+
 export {
   client,
   GET_ROUTERS,
@@ -229,4 +291,10 @@ export {
   GET_OTP_URL,
   ON_SERVICE_CREATED,
   UPDATE_SERVICE,
+  GET_CONFIGS,
+  GET_CONFIG,
+  GET_SERVICES,
+  CREATE_CONFIG,
+  DELETE_CONFIG,
+  UPDATE_CONFIG
 };
