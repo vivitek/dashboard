@@ -71,16 +71,16 @@ const ConfigDetails = () => {
             <h4 className="font-itc font-light">Name:</h4>
             <span>{getConfigData.getConfig.name}</span>
           </div>
-          <div className="flex justify-between mt-1">
-            <h4 className="font-itc font-light">ID:</h4>
-            <span>{getConfigData.getConfig._id.match(/.{1,6}/g).join('-')}</span>
+          <div className="flex justify-between mt-2">
+            <h4 className="font-itc font-light">Public:</h4>
+            <span>{getConfigData.getConfig.public ? "Yes":"No"}</span>
           </div>
         </div>
         <div className="dark:bg-darkBlue rounded-lg p-4 flex flex-col h-full mt-2">
-          <h3 className="font-itc uppercase font-medium">Modifier Config</h3>
+          <h3 className="font-itc uppercase font-medium">Edit configuration</h3>
           <form onSubmit={formik.handleSubmit} className="border-none rounded pt-6 mb-4" >
             <div className="mb-4">
-              <label className="block text-sm font-bold mb-2"> Modifier nom de config </label>
+              <label className="block text-sm mb-2">Edit configuration name</label>
               <input
                 className="bg-gray-200 dark:bg-[#313E68] border-none rounded-xl w-full"
                 onChange={formik.handleChange}
@@ -90,7 +90,7 @@ const ConfigDetails = () => {
               />
             </div>
             <div class="mb-4">
-              <label className="block text-sm font-bold mb-2"> Modifier Services </label>
+              <label className="block text-sm mb-2">Change services</label>
               <select
                 name="services"
                 multiple={true}
@@ -102,7 +102,7 @@ const ConfigDetails = () => {
               </select>
             </div>
             <div className="mb-4">
-              <label className="block text-sm font-bold mb-2"> Modifier Configs </label>
+              <label className="block text-sm mb-2">Change configuration</label>
               <select
                 name="configs"
                 multiple={true}
@@ -115,26 +115,22 @@ const ConfigDetails = () => {
                 })}
               </select>
             </div>
-            <div className="md:flex md:items-center mb-8">
-              <label class="md:w-2/3 block font-bold">
-                <input name="public" type="checkbox" className="mr-2 leading-tight" />
-                <span className="text-sm">Public </span>
-              </label>
+            <div className="md:flex md:items-center mb-4">
+              <input name="public" type="checkbox" className="mr-2 leading-tight rounded-xl bg-gray-200 dark:bg-[#313E68] border-transparent" />
+              <span className="text-sm">Make it public</span>
             </div>
-            <div className="mb-4">
+          </form>
+          <div className="flex justify-evenly">
+          <button
+              onClick={() => setDeleteConfig()}
+              className="bg-viviRed w-full text-white px-4 py-2 mr-2 rounded-full hover:bg-viviRed-500 transition duration-200 each-in-out font-sans font-bold text-sm">
+              DELETE
+            </button>
               <button
-                className="bg-viviYellOrange w-full uppercase text-white mt-1 px-6 py-2 rounded-full hover:bg-blue-600 transition duration-200 each-in-out font-sans font-bold" type="submit">
+                className="bg-viviYellOrange w-full uppercase text-white ml-2 px-4 py-2 rounded-full hover:bg-blue-600 transition duration-200 each-in-out font-sans text-sm font-bold" type="submit">
                 Submit
               </button>
             </div>
-          </form>
-          <div>
-            <button
-              onClick={() => setDeleteConfig()}
-              className="bg-viviRed w-full text-white px-6 py-2 rounded-full hover:bg-viviRed-500 transition duration-200 each-in-out font-sans font-bold text-sm">
-              Delete
-            </button>
-          </div>
         </div>
       </div>
       <div className="w-auto lg:w-2/5 pr-4">

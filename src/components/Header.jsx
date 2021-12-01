@@ -57,7 +57,7 @@ const Header = () => {
             {t("header.boxes")}
           </Link>
           <Link to="/config" className="mt-2 ml-4 text-lg">
-            {t("Config")}
+            {t("header.config")}
           </Link>
         </div>
         {!userContext.authed &&

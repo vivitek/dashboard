@@ -22,7 +22,7 @@ const Config = () => {
           </div>
         </center>
         <div className="absolute bottom-0 right-0 m-4">
-          <Link to="/config/new" className="bg-viviRed text-white px-6 py-2 rounded-full hover:bg-viviRed-500 transition duration-200 each-in-out font-sans font-bold text-sm">
+          <Link to="/config/new" className="bg-viviRed uppercase text-white px-6 py-2 rounded-full hover:bg-viviRed-500 transition duration-200 each-in-out font-sans font-bold text-sm">
             Create New Config
           </Link>
         </div>
