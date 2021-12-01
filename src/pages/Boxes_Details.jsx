@@ -32,7 +32,6 @@ const BoxDetails = () => {
     variables: { routerId: id },
   });
   const [updateBan] = useMutation(UPDATE_BAN);
-  // const [selectedTab, setSelectedTab] = useState("")
   const [updateService] = useMutation(UPDATE_SERVICE);
   const [name, setName] = useState("");
   const [isRouterOnline, setIsRouterOnline] = useState(false);
@@ -56,15 +55,6 @@ const BoxDetails = () => {
   });
 
   const { t } = useTranslation();
-
-  // const Tab = ({name}) => {
-  //   return (
-  //     <button
-  //       className={"px-8 py-2 rounded-bl-xl rounded-br-xl mr-2 mb-4 focus:outline-none ".concat(name.toLocaleLowerCase() === selectedTab ? "bg-viviBlue-500 font-bold" : "bg-darkBlue")}
-  //       onClick={() => setSelectedTab(name.toLocaleLowerCase())}
-  //     > {name} </button>
-  //   )
-  // }
 
   const mutateBan = async (data) => {
     try {
@@ -285,11 +275,6 @@ const BoxDetails = () => {
       </div>
       <div className="w-auto 2xl:w-4/5 sm:w-3/5 lg:w-3/5 md:w-full mt-4 px-4 2xl:px-0 2xl:pr-4 xl:mt-0 lg:px-0 lg:pr-4 lg:mt-0 md:px-4 md:mt-4">
         <div className="h-full dark:bg-darkBlue rounded-lg flex flex-col pb-4 pl-4 pr-4">
-          {/* <div className="flex flex-row">
-            <Tab name="Users" />
-            <Tab name="Boxes" />
-            <Tab name="Create ressource" />
-          </div> */}
           <Tab.Group>
             <Tab.List>
               <Tab
