@@ -32,6 +32,7 @@ const BoxDetails = () => {
     variables: { routerId: id },
   });
   const [updateBan] = useMutation(UPDATE_BAN);
+  // const [selectedTab, setSelectedTab] = useState("")
   const [updateService] = useMutation(UPDATE_SERVICE);
   const [name, setName] = useState("");
   const [isRouterOnline, setIsRouterOnline] = useState(false);
@@ -55,6 +56,15 @@ const BoxDetails = () => {
   });
 
   const { t } = useTranslation();
+
+  // const Tab = ({name}) => {
+  //   return (
+  //     <button
+  //       className={"px-8 py-2 rounded-bl-xl rounded-br-xl mr-2 mb-4 focus:outline-none ".concat(name.toLocaleLowerCase() === selectedTab ? "bg-viviBlue-500 font-bold" : "bg-darkBlue")}
+  //       onClick={() => setSelectedTab(name.toLocaleLowerCase())}
+  //     > {name} </button>
+  //   )
+  // }
 
   const mutateBan = async (data) => {
     try {
@@ -274,14 +284,19 @@ const BoxDetails = () => {
         </div>
       </div>
       <div className="w-auto 2xl:w-4/5 sm:w-3/5 lg:w-3/5 md:w-full mt-4 px-4 2xl:px-0 2xl:pr-4 xl:mt-0 lg:px-0 lg:pr-4 lg:mt-0 md:px-4 md:mt-4">
-        <div className="h-full dark:bg-darkBlue rounded-lg flex flex-col p-4">
+        <div className="h-full dark:bg-darkBlue rounded-lg flex flex-col pb-4 pl-4 pr-4">
+          {/* <div className="flex flex-row">
+            <Tab name="Users" />
+            <Tab name="Boxes" />
+            <Tab name="Create ressource" />
+          </div> */}
           <Tab.Group>
             <Tab.List>
               <Tab
                 className={({ selected }) =>
                   selected
-                    ? "bg-viviBlue-200 text-white px-6 py-2 rounded-full hover:bg-viviBlue-500 transition duration-200 each-in-out font-sans font-bold text-sm"
-                    : "bg-viviBlue text-white px-6 py-2 rounded-full hover:bg-viviBlue-500 transition duration-200 each-in-out font-sans font-bold text-sm"
+                    ? "px-8 py-2 pt-4 rounded-bl-xl rounded-br-xl mr-2 mb-4 focus:outline-none bg-viviBlue-500 font-itc uppercase font-medium"
+                    : "px-8 py-2 pt-4 rounded-bl-xl rounded-br-xl mr-2 mb-4 focus:outline-none font-itc uppercase font-medium hover:underline"
                 }
               >
                 {t("boxDetails.connections")}
@@ -289,8 +304,8 @@ const BoxDetails = () => {
               <Tab
                 className={({ selected }) =>
                   selected
-                    ? " bg-viviBlue-200 text-white px-6 py-2 rounded-full hover:bg-viviBlue-500 transition duration-200 each-in-out font-sans font-bold text-sm"
-                    : "bg-viviBlue text-white px-6 py-2 rounded-full hover:bg-viviBlue-500 transition duration-200 each-in-out font-sans font-bold text-sm"
+                    ? "px-8 py-2 pt-4 rounded-bl-xl rounded-br-xl mr-2 mb-4 focus:outline-none bg-viviBlue-500 font-itc uppercase font-medium"
+                    : "px-8 py-2 pt-4 rounded-bl-xl rounded-br-xl mr-2 mb-4 focus:outline-none font-itc uppercase font-medium hover:underline"
                 }
               >
                 {" "}
@@ -299,9 +314,6 @@ const BoxDetails = () => {
             </Tab.List>
             <Tab.Panels className="h-full w-full">
               <Tab.Panel className="w-full h-full dark:bg-darkBlue rounded-lg flex flex-col mt-4">
-                <h3 className="font-itc uppercase font-medium md:mb-0 mb-4">
-                  {t("boxDetails.connections")}
-                </h3>
                 {connections.length === 0 ? (
                   <div className="h-full w-full flex flex-col justify-center items-center">
                     <Spinner size="250px"></Spinner>
@@ -357,9 +369,6 @@ const BoxDetails = () => {
                 )}
               </Tab.Panel>
               <Tab.Panel className="w-full h-full dark:bg-darkBlue rounded-lg flex flex-col mt-4">
-                <h3 className="font-itc uppercase font-medium md:mb-0 mb-4">
-                  {t("boxDetails.services")}
-                </h3>
                 {services.length === 0 ? (
                   <div className="h-full w-full flex flex-col justify-center items-center">
                     <Spinner size="250px"></Spinner>
@@ -428,51 +437,6 @@ const BoxDetails = () => {
               </Tab.Panel>
             </Tab.Panels>
           </Tab.Group>
-
-          {/* {
-            connections.length !== 0 && <TablePagination tableName={`box-${routerData.getRouter.name}-connections`} headers={[
-              {
-                name: "Address",
-                key: "address",
-                export: true,
-                class: ""
-              },
-              {
-                name: "Actions",
-                key: "actions",
-                export: false,
-                class: "text-right"
-              }
-            ]} data={
-              connections.map((e) => {
-                return (
-                  {
-                    id: e._id,
-                    address: {
-                      value: e.address,
-                      class: ""
-                    },
-                    actions: {
-                      value: <div className="flex justify-end">
-                        <div className="cursor-pointer h-8" onClick={async () => {
-                          mutateBan({ _id: e._id, banned: false })
-                          updateChronology(e)
-                        }}>
-                          <Tick className="h-full" />
-                        </div>
-                        <div className="cursor-pointer h-8" onClick={async () => {
-                          mutateBan({ _id: e._id, banned: true })
-                        }}>
-                          <Cross className="h-full" />
-                        </div>
-                      </div>,
-                      class: "text-right"
-                    }
-                  }
-                )
-              })
-            } />
-          } */}
         </div>
       </div>
     </div>
