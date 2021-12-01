@@ -12,7 +12,8 @@
         "settings": "Paramètres",
         "logout": "Déconnexion",
         "boxes": "Boîtiers",
-        "home": "Accueil"
+        "home": "Accueil",
+        "config": "Configurations"
     },
     "footer":{
         "terms": "Terms and conditions"

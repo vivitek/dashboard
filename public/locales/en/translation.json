@@ -12,7 +12,8 @@
         "settings":"Settings",
         "logout":"Sign Out",
         "boxes":"Boxes",
-        "home":"Home"
+        "home":"Home",
+        "config": "Configurations"
     },
     "footer":{
         "terms": "Terms and conditions"
