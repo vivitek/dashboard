@@ -218,6 +218,12 @@ const GET_CONFIGS = gql`
       _id
       public
       name
+      services {
+        _id
+      }
+      configs {
+        _id
+      }
     }
   }
 `;
