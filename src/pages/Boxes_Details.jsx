@@ -298,7 +298,7 @@ const BoxDetails = () => {
               </Tab>
             </Tab.List>
             <Tab.Panels className="h-full w-full">
-              <Tab.Panel className="w-full h-full dark:bg-darkBlue rounded-lg flex flex-col mt-4">
+              <Tab.Panel className="w-full h-full focus:outline-none dark:bg-darkBlue rounded-lg flex flex-col mt-4">
                 {connections.length === 0 ? (
                   <div className="h-full w-full flex flex-col justify-center items-center">
                     <Spinner size="250px"></Spinner>
@@ -353,7 +353,7 @@ const BoxDetails = () => {
                   />
                 )}
               </Tab.Panel>
-              <Tab.Panel className="w-full h-full dark:bg-darkBlue rounded-lg flex flex-col mt-4">
+              <Tab.Panel className="w-full h-full dark:bg-darkBlue focus:outline-none rounded-lg flex flex-col mt-4">
                 {services.length === 0 ? (
                   <div className="h-full w-full flex flex-col justify-center items-center">
                     <Spinner size="250px"></Spinner>
