@@ -78,8 +78,8 @@ const ConfigDetails = () => {
         </div>
         <div className="dark:bg-darkBlue rounded-lg p-4 flex flex-col h-full mt-2">
           <h3 className="font-itc uppercase font-medium">Modifier Config</h3>
-          <form onSubmit={formik.handleSubmit} className="border-none rounded pt-6 mb-8" >
-            <div className="mb-8">
+          <form onSubmit={formik.handleSubmit} className="border-none rounded pt-6 mb-4" >
+            <div className="mb-4">
               <label className="block text-sm font-bold mb-2"> Modifier nom de config </label>
               <input
                 className="bg-gray-200 dark:bg-[#313E68] border-none rounded-xl w-full"
@@ -89,7 +89,7 @@ const ConfigDetails = () => {
                 type="text"
               />
             </div>
-            <div class="mb-8">
+            <div class="mb-4">
               <label className="block text-sm font-bold mb-2"> Modifier Services </label>
               <select
                 name="services"
@@ -101,7 +101,7 @@ const ConfigDetails = () => {
                 })}
               </select>
             </div>
-            <div className="mb-8">
+            <div className="mb-4">
               <label className="block text-sm font-bold mb-2"> Modifier Configs </label>
               <select
                 name="configs"
@@ -121,7 +121,7 @@ const ConfigDetails = () => {
                 <span className="text-sm">Public </span>
               </label>
             </div>
-            <div className="mb-8">
+            <div className="mb-4">
               <button
                 className="bg-viviYellOrange w-full uppercase text-white mt-1 px-6 py-2 rounded-full hover:bg-blue-600 transition duration-200 each-in-out font-sans font-bold" type="submit">
                 Submit

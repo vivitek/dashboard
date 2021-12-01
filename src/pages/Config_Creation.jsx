@@ -57,7 +57,7 @@ const ConfigCreation = () => {
         <div className="dark:bg-darkBlue rounded-lg p-4 flex flex-col h-full mt-2">
           <h3 className="font-itc uppercase font-medium">Nouvelle Config</h3>
           <form onSubmit={formik.handleSubmit} className=" rounded pt-6 mb-8" >
-            <div className="mb-8">
+            <div className="mb-4">
               <label className="block text-sm font-bold mb-2"> Nom de la config </label>
               <input
                 className="bg-gray-200 dark:bg-[#313E68] border-none rounded-xl w-full"
@@ -68,7 +68,7 @@ const ConfigCreation = () => {
                 required
               />
             </div>
-            <div class="mb-8">
+            <div class="mb-4">
               <label className="block text-sm font-bold mb-2"> Ajout Services </label>
               <select
                 required
@@ -81,7 +81,7 @@ const ConfigCreation = () => {
                 })}
               </select>
             </div>
-            <div class="mb-8">
+            <div class="mb-4">
               <label className="block text-sm font-bold mb-2"> Ajout Configs </label>
               <select
                 name="configs"
@@ -99,13 +99,23 @@ const ConfigCreation = () => {
                 <span className="text-sm">Public </span>
               </label>
             </div>
-            <div className="mb-8">
+            <div className="mb-4">
               <button
                 class="bg-viviYellOrange w-full uppercase text-white mt-1 px-6 py-2 rounded-full hover:bg-blue-600 transition duration-200 each-in-out font-sans font-bold" type="submit">
                 Submit
               </button>
             </div>
           </form>
+        </div>
+      </div>
+      <div className="w-auto lg:w-2/5 pr-4">
+        <div className="h-full dark:bg-darkBlue rounded-lg flex flex-col p-4">
+
+        </div>
+      </div>
+      <div className="w-auto lg:w-2/5 pr-4">
+        <div className="h-full dark:bg-darkBlue rounded-lg flex flex-col p-4">
+
         </div>
       </div>
     </div>
