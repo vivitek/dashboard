@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import { useMutation, useQuery } from "@apollo/client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router";
@@ -42,19 +42,7 @@ const ConfigDetails = () => {
       }
     }
   });
-
-  useEffect(() => {
-    if (getConfigData?.getConfig && formik?.values?.services?.length === 0) {
-      console.log(getConfigData)
-      formik.setFieldValue("name", getConfigData.getConfig.name)
-      formik.setValues({...formik.values, 
-        name:getConfigData.getConfig.name,
-        services:getConfigData.getConfig.services.map((e) => e._id),
-        configs: getConfigData.getConfig.configs.map((e) => e._id)
-      })
-    }
-  }, [getConfigData, formik]);
-
+  
   const setDeleteConfig = async () => {
     try {
       await deleteConfig({ variables: { id: getConfigData.getConfig._id } });
