@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useLocation, useHistory } from "react-router";
+import { useLocation, useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import ThemeContext from "../contexts/themeContext";
 import { noFooterHeader } from "../utils/constants";

@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { useMutation, useQuery, useSubscription } from "@apollo/client";
 import {
   GET_BANS_FOR_ROUTER,

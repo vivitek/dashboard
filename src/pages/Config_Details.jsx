@@ -1,9 +1,9 @@
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import { GET_CONFIG, GET_SERVICES, GET_CONFIGS, DELETE_CONFIG, UPDATE_CONFIG } from "../utils/apollo";
 import LoadingPage from "./Loading";
 
@@ -16,7 +16,7 @@ const ConfigDetails = () => {
   const { loading: getConfigLoad, error: getConfigError, data: getConfigData, refetch } = useQuery(GET_CONFIG, { variables: { configId: id } });
   const { loading: getServicesLoad, error: getServicesError, data: getServiceData } = useQuery(GET_SERVICES);
   const { loading: getConfigsLoad, error: getConfigsError, data: getConfigsData } = useQuery(GET_CONFIGS);
-    
+
   const formik = useFormik({
     initialValues: {
       name: "",

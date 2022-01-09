@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { LOGIN } from "../utils/apollo";
 import { LoginSchema } from "../utils/constants";
 import { useState } from "react";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import LoadingPage from "./Loading";
 
 const Login = () => {

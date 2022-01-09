@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { useContext, useState } from "react";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import { GET_SERVICES, GET_CONFIGS, CREATE_CONFIG } from "../utils/apollo";
 import UserContext from "../contexts/userContext";
 import LoadingPage from "./Loading";

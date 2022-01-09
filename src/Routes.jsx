@@ -1,4 +1,4 @@
-import { Switch, Route } from "react-router";
+import { Switch, Route } from "react-router-dom";
 import Boxes from "./pages/Boxes";
 import BoxDetails from "./pages/Boxes_Details";
 import Login from "./pages/Login";
