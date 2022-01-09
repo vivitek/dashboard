@@ -7,9 +7,45 @@
   "background_color": "#ffffff",
   "icons": [
     {
+      "src": "maskable.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
       "src": "favicon32.png",
       "type": "image/png",
       "sizes": "32x32"
+    },
+    {
+      "src": "./icons/icon48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "./icons/icon72.png",
+      "type": "image/png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "./icons/icon96.png",
+      "type": "image/png",
+      "sizes": "96X96"
+    },
+    {
+      "src": "./icons/icon128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "./icons/icon384.png",
+      "type": "image/png",
+      "sizes": "384x384"
+    },
+    {
+      "src": "./icons/icon512.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ],
   "shortcuts": [
